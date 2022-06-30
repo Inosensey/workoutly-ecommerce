@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "framer-motion": "^6.3.16",
+    "graphql": "^16.5.0",
+    "graphql-request": "^4.3.0",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"

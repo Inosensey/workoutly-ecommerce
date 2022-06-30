@@ -1,0 +1,68 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+.arrowNavContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.2rem;
+  font-size: 2rem;
+}
+
+.arrowNavContainer i {
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.arrowNavContainer i:hover {
+  opacity: 1;
+}
+
+.bannersContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.bannerInfoContainer {
+  /* background: url("../../public/img/pexels-leon-ardho-1552103.jpg"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  font-family: "League Spartan";
+  color: #f2f2f2;
+  width: 100%;
+  justify-content: center;
+}
+
+.bannerInfoContainer p {
+  font-size: 1.8rem;
+}
+
+.bannerInfoContainer h1 {
+  font-size: 4.2rem;
+}
+
+.bannerInfoContainer button {
+  border: none;
+  width: 35%;
+  font-size: 1.2rem;
+  padding: 0.8rem;
+  border-radius: 25px;
+  cursor: pointer;
+  z-index: 2;
+}
