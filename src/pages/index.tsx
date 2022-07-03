@@ -19,18 +19,25 @@ const QUERY = gql`
         url
       }
     }
+    categories {
+      id
+      categoryName
+      categoryCoverPhoto {
+        url
+      }
+    }
   }
 `;
 
 export const getStaticProps = async () => {
-  const { collectionBanners } = await graphcms.request(QUERY);
+  const { collectionBanners, categories } = await graphcms.request(QUERY);
   return {
-    props: { collectionBanners },
+    props: { collectionBanners, categories },
     revalidate: 10,
   };
 };
 
-const Home: NextPage = ({ collectionBanners }: any) => {
+const Home: NextPage = ({ collectionBanners, categories }: any) => {
   return (
     <div>
       <Head>
@@ -42,7 +49,7 @@ const Home: NextPage = ({ collectionBanners }: any) => {
       <main>
         <Nav />
         <Hero CollectionBanners={collectionBanners} />
-        <Categories />
+        <Categories Categories={categories} />
       </main>
     </div>
   );
