@@ -3,6 +3,7 @@ import Head from "next/head";
 import { GraphQLClient, gql } from "graphql-request";
 import Nav from "../common/Nav";
 import Hero from "../modules/Home/Hero";
+import Categories from "../modules/Home/Categories";
 
 // GraphCms
 const graphcms = new GraphQLClient(
@@ -12,6 +13,7 @@ const graphcms = new GraphQLClient(
 const QUERY = gql`
   {
     collectionBanners {
+      id
       collectionName
       collectionCoverPhoto {
         url
@@ -40,6 +42,7 @@ const Home: NextPage = ({ collectionBanners }: any) => {
       <main>
         <Nav />
         <Hero CollectionBanners={collectionBanners} />
+        <Categories />
       </main>
     </div>
   );

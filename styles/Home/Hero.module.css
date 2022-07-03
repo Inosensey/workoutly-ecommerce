@@ -15,14 +15,21 @@
   font-size: 2rem;
 }
 
-.arrowNavContainer i {
+.activeArrow {
+  z-index: 50;
   opacity: 0.5;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
 }
 
-.arrowNavContainer i:hover {
+.activeArrow:hover {
   opacity: 1;
+}
+
+.disableArrow {
+  z-index: 50;
+  opacity: 0.5;
+  cursor: no-drop;
 }
 
 .bannersContainer {
@@ -31,11 +38,10 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .bannerInfoContainer {
-  /* background: url("../../public/img/pexels-leon-ardho-1552103.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
@@ -59,7 +65,7 @@
 
 .bannerInfoContainer button {
   border: none;
-  width: 35%;
+  width: 15%;
   font-size: 1.2rem;
   padding: 0.8rem;
   border-radius: 25px;
