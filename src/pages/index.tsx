@@ -4,6 +4,7 @@ import { GraphQLClient, gql } from "graphql-request";
 import Nav from "../common/Nav";
 import Hero from "../modules/Home/Hero";
 import Categories from "../modules/Home/Categories";
+import FeaturedItems from "../modules/Home/FeaturedItems";
 
 // GraphCms
 const graphcms = new GraphQLClient(
@@ -50,6 +51,7 @@ const Home: NextPage = ({ collectionBanners, categories }: any) => {
         <Nav />
         <Hero CollectionBanners={collectionBanners} />
         <Categories Categories={categories} />
+        <FeaturedItems />
       </main>
     </div>
   );
