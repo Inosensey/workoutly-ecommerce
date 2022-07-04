@@ -12,7 +12,7 @@ const graphcms = new GraphQLClient(
 );
 
 const QUERY = gql`
-  {
+  query Items($featured: Boolean!) {
     collectionBanners {
       id
       collectionName
@@ -27,18 +27,29 @@ const QUERY = gql`
         url
       }
     }
+    items(where: { featured: $featured }) {
+      productName
+      productPrice
+      productPhoto {
+        url
+      }
+    }
   }
 `;
 
 export const getStaticProps = async () => {
-  const { collectionBanners, categories } = await graphcms.request(QUERY);
+  const featured = true;
+  const { collectionBanners, categories, items } = await graphcms.request(
+    QUERY,
+    { featured }
+  );
   return {
-    props: { collectionBanners, categories },
+    props: { collectionBanners, categories, items },
     revalidate: 10,
   };
 };
 
-const Home: NextPage = ({ collectionBanners, categories }: any) => {
+const Home: NextPage = ({ collectionBanners, categories, items }: any) => {
   return (
     <div>
       <Head>
@@ -51,7 +62,7 @@ const Home: NextPage = ({ collectionBanners, categories }: any) => {
         <Nav />
         <Hero CollectionBanners={collectionBanners} />
         <Categories Categories={categories} />
-        <FeaturedItems />
+        <FeaturedItems FeaturedItems={items} />
       </main>
     </div>
   );
