@@ -5,6 +5,8 @@ import Nav from "../common/Nav";
 import Hero from "../modules/Home/Hero";
 import Categories from "../modules/Home/Categories";
 import FeaturedItems from "../modules/Home/FeaturedItems";
+import Blog from "../modules/Home/Blog";
+import LimitedItem from "../modules/Home/LimitedItem";
 
 // GraphCms
 const graphcms = new GraphQLClient(
@@ -28,8 +30,21 @@ const QUERY = gql`
       }
     }
     items(where: { featured: $featured }) {
+      id
       productName
       productPrice
+      productPhoto {
+        url
+      }
+    }
+    limitedItems {
+      id
+      productName
+      productPrice
+      coverPhotoTitle
+      coverPhoto {
+        url
+      }
       productPhoto {
         url
       }
@@ -39,17 +54,20 @@ const QUERY = gql`
 
 export const getStaticProps = async () => {
   const featured = true;
-  const { collectionBanners, categories, items } = await graphcms.request(
-    QUERY,
-    { featured }
-  );
+  const { collectionBanners, categories, items, limitedItems } =
+    await graphcms.request(QUERY, { featured });
   return {
-    props: { collectionBanners, categories, items },
+    props: { collectionBanners, categories, items, limitedItems },
     revalidate: 10,
   };
 };
 
-const Home: NextPage = ({ collectionBanners, categories, items }: any) => {
+const Home: NextPage = ({
+  collectionBanners,
+  categories,
+  items,
+  limitedItems,
+}: any) => {
   return (
     <div>
       <Head>
@@ -63,6 +81,8 @@ const Home: NextPage = ({ collectionBanners, categories, items }: any) => {
         <Hero CollectionBanners={collectionBanners} />
         <Categories Categories={categories} />
         <FeaturedItems FeaturedItems={items} />
+        <LimitedItem LimitedItems={limitedItems} />
+        <Blog />
       </main>
     </div>
   );

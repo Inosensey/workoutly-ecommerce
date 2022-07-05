@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  margin: 2rem 0 0 0;
+  width: 60%;
+  justify-content: space-around;
+}
+
+.timeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 22%;
+  padding: 1rem 0;
+  gap: 0.5rem;
+  color: #cccccc;
+  font-family: "League Spartan";
+}

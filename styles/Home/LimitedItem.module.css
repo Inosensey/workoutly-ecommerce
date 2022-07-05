@@ -1,0 +1,95 @@
+.container {
+  margin: 4rem 0 0 0;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  overflow: hidden;
+}
+
+.itemContainer {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.itemCoverPhotoContainer {
+  width: 49%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.itemCoverPhotoContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.itemCoverPhotoContainer:hover > img {
+  transform: scale(1.2);
+}
+
+.itemCoverPhotoContainer h2 {
+  position: absolute;
+  color: #f2f2f2;
+  font-family: "League Spartan";
+  font-size: 2.4rem;
+  width: 70%;
+  text-align: center;
+}
+
+.itemInfoContainer {
+  background-color: #1e292b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 49%;
+  height: 100%;
+}
+
+.productInfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #cccccc;
+  gap: 0.7rem;
+  margin: 0.8rem 0 0 0;
+  font-size: 1.2rem;
+  font-family: "League Spartan";
+}
+
+.productInfoContainer button {
+  padding: 0.5rem 0;
+  width: 100%;
+  font-size: 1rem;
+  font-family: "League Spartan";
+  background-color: #ff7777;
+  color: #ffffff;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+.productImageContainer {
+  width: 60%;
+  height: 50%;
+  overflow: hidden;
+}
+
+.productImageContainer img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.productImageContainer img:hover {
+  transform: scale(1.1);
+}

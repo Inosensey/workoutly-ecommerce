@@ -6,8 +6,11 @@ export default function FeaturedItems({ FeaturedItems }: any) {
       <h1>Featured Equipments</h1>
       <div className={styles.featuredItemContainer}>
         {FeaturedItems.map((item: any) => (
-          <div className={styles.featuredItem}>
+          <div key={item.id} className={styles.featuredItem}>
             <div className={styles.productPhotoContainer}>
+              <div className={styles.overlay}>
+                <button>View</button>
+              </div>
               <img src={item.productPhoto.url} alt="" />
             </div>
             <div className={styles.productInfoContainer}>
