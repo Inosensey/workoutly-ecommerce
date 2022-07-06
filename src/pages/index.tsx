@@ -7,6 +7,7 @@ import Categories from "../modules/Home/Categories";
 import FeaturedItems from "../modules/Home/FeaturedItems";
 import Blog from "../modules/Home/Blog";
 import LimitedItem from "../modules/Home/LimitedItem";
+import Footer from "../modules/Home/Footer/Footer";
 
 // GraphCms
 const graphcms = new GraphQLClient(
@@ -83,6 +84,7 @@ const Home: NextPage = ({
         <FeaturedItems FeaturedItems={items} />
         <LimitedItem LimitedItems={limitedItems} />
         <Blog />
+        <Footer CategoryList={categories} />
       </main>
     </div>
   );
