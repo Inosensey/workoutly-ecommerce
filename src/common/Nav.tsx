@@ -15,10 +15,10 @@ function Nav({ onClick }: any) {
       LinkName: "Shop",
       LinkIcon: <i className="fa-solid fa-shop"></i>,
     },
-    { LinkName: "Features", LinkIcon: <i className="fa-solid fa-star"></i> },
+    { LinkName: "Featured", LinkIcon: <i className="fa-solid fa-star"></i> },
 
     {
-      LinkName: "Sale",
+      LinkName: "Limited",
       LinkIcon: <i className="fa-solid fa-strikethrough"></i>,
     },
   ]);
