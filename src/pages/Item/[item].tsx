@@ -2,12 +2,14 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { gql } from "graphql-request";
 import { GraphCmsApi } from "../../Services/GraphcmsApi";
-
 import styles from "../../../styles/Item/Item.module.css";
+import ItemCard from "../../modules/Item/ItemCard";
+import { useRouter } from "next/router";
+import OtherItem from "../../modules/Item/OtherItem";
 
 //Graphcms
 const QUERY = gql`
-  query Item($slug: String!) {
+  query Item($slug: String!, $itemLimit: Int!) {
     item(where: { slug: $slug }) {
       productName
       productPrice
@@ -19,6 +21,21 @@ const QUERY = gql`
       productPhoto {
         url
       }
+    }
+    items(first: $itemLimit) {
+      productName
+      productPrice
+      slug
+      productPhoto {
+        url
+      }
+    }
+  }
+`;
+const ITEMLIST = gql`
+  {
+    items {
+      id
     }
   }
 `;
@@ -40,13 +57,19 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }: any) => {
   const slug = params.item;
-  const { item } = await GraphCmsApi.request(QUERY, { slug });
+  const ItemList = await GraphCmsApi.request(ITEMLIST);
+  const itemCount = ItemList.items.length / 2;
+  const { item, items } = await GraphCmsApi.request(QUERY, {
+    slug: slug,
+    itemLimit: itemCount,
+  });
   return {
-    props: { item },
+    props: { item, items },
   };
 };
 
-const ItemPage: NextPage = ({ item }: any) => {
+const ItemPage: NextPage = ({ item, items }: any) => {
+  const router = useRouter();
   return (
     <div>
       <Head>
@@ -56,22 +79,14 @@ const ItemPage: NextPage = ({ item }: any) => {
       </Head>
       <main>
         <section className={styles.container}>
-          <div className={styles.itemContainer}>
-            <div className={styles.productPhotoContainer}>
-              <img src={item.productPhoto.url} alt="" />
-            </div>
-            <div className={styles.productInfoContainer}>
-              <h3 className={styles.itemName}>{item.productName}</h3>
-              <p>Rating: {item.rating}</p>
-              <div className={styles.descriptionContainer}>
-                <h4>Details:</h4>
-                <p>{item.description.text}</p>
-              </div>
-              <p className={styles.itemPrice}>{item.productPrice}</p>
-              <p>Stock: {item.productQuantity}</p>
-              <button>Add to Cart</button>
-            </div>
+          <div className={styles.backArrow}>
+            <i
+              onClick={() => router.back()}
+              className="fa-solid fa-circle-chevron-left"
+            ></i>
           </div>
+          <ItemCard item={item} />
+          <OtherItem items={items} />
         </section>
       </main>
     </div>

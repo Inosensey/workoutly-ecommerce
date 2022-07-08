@@ -38,7 +38,6 @@
   color: #fff;
   font-family: "League Spartan";
   font-size: 1rem;
-  background-color: #1e292b;
 }
 
 .productName {
@@ -53,6 +52,15 @@
   position: relative;
   width: 100%;
   height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1e292b;
+}
+
+.productPhotoContainer img {
+  width: 90%;
+  height: 90%;
 }
 
 .overlay {
@@ -91,10 +99,4 @@
 .featuredItem:hover > .productPhotoContainer button {
   opacity: 1;
   bottom: 5%;
-}
-
-.productPhotoContainer img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }

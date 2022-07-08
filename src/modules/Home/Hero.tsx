@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import styles from "../../../styles/Home/Hero.module.css";
+import Link from "next/link";
 
 function Hero({ CollectionBanners }: any) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -153,15 +154,17 @@ function Hero({ CollectionBanners }: any) {
             >
               New Arrivals
             </motion.h1>
-            <motion.button
-              variants={BannerBtnVariant}
-              initial="initial"
-              animate={BannerInfoControl}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              Shop now
-            </motion.button>
+            <Link href={`/Collection/${collection.slug}`}>
+              <motion.button
+                variants={BannerBtnVariant}
+                initial="initial"
+                animate={BannerInfoControl}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                Shop now
+              </motion.button>
+            </Link>
           </motion.div>
         ))}
       </div>

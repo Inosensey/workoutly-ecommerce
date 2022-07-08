@@ -21,11 +21,13 @@ const QUERY = gql`
 `;
 const QUERYITEM = gql`
   query Items($id: ID!) {
-    items(where: { collectionBanner: { id: $id } }) {
+    items(where: { collectionBanners_some: { id: $id } }) {
+      id
       productName
       productPrice
       productQuantity
       rating
+      slug
       productPhoto {
         url
       }

@@ -24,7 +24,6 @@ function Categories({ Categories }: any) {
         >
           {Categories.map((info: any) => (
             <div
-              key={info.id}
               className={styles.category}
               style={{ backgroundImage: `url(${info.categoryCoverPhoto.url})` }}
             >

@@ -19,6 +19,7 @@ const QUERY = gql`
     collectionBanners {
       id
       collectionName
+      slug
       collectionCoverPhoto {
         url
       }
@@ -34,6 +35,7 @@ const QUERY = gql`
       id
       productName
       productPrice
+      slug
       productPhoto {
         url
       }

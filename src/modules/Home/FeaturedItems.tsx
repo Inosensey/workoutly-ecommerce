@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "../../../styles/Home/Featured.module.css";
 
 export default function FeaturedItems({ FeaturedItems }: any) {
@@ -9,7 +10,9 @@ export default function FeaturedItems({ FeaturedItems }: any) {
           <div key={item.id} className={styles.featuredItem}>
             <div className={styles.productPhotoContainer}>
               <div className={styles.overlay}>
-                <button>View</button>
+                <Link href={`/Item/${item.slug}`}>
+                  <button>View</button>
+                </Link>
               </div>
               <img src={item.productPhoto.url} alt="" />
             </div>

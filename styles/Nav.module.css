@@ -35,6 +35,7 @@
   background-image: linear-gradient(to bottom, #4f6c6b, #ff7777);
   background-clip: text;
   color: transparent;
+  cursor: pointer;
 }
 
 .overlay {

@@ -1,27 +1,20 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import { openCart, closeCart } from "../Redux/Reducers/Cart";
+import type { RootState } from "../Redux/store";
 import styles from "../../styles/Nav.module.css";
 import Link from "next/link";
 
-function Nav({ onClick }: any) {
-  const [isMobile, setIsMobile] = useState(false);
+function Nav() {
+  const dispatch = useDispatch();
   const [currentWindowHeight, setCurrentWindowHeight] = useState(0);
   const [previousWindowHeight, setPreviousWindowHeight] = useState(0);
   const [isScrolling, setIsScrolling] = useState("NotScrolling");
-  const [choices] = useState([
-    { LinkName: "Home", LinkIcon: <i className="fa-solid fa-house"></i> },
-    {
-      LinkName: "Shop",
-      LinkIcon: <i className="fa-solid fa-shop"></i>,
-    },
-    { LinkName: "Featured", LinkIcon: <i className="fa-solid fa-star"></i> },
-
-    {
-      LinkName: "Limited",
-      LinkIcon: <i className="fa-solid fa-strikethrough"></i>,
-    },
-  ]);
+  const toggleCart = useSelector(
+    (state: RootState) => state.cartReducer.toggleCart
+  );
 
   const handleScroll = () => {
     setCurrentWindowHeight(window.scrollY);
@@ -37,7 +30,6 @@ function Nav({ onClick }: any) {
   };
 
   useEffect(() => {
-    if (window.innerWidth < 770) setIsMobile(true);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,63 +38,6 @@ function Nav({ onClick }: any) {
     CheckScrollHeight();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentWindowHeight]);
-
-  const OVerLayControl = useAnimation();
-  const SideBarControl = useAnimation();
-  const UlControl = useAnimation();
-  const ListControl = useAnimation();
-
-  const OverlayVariant = {
-    hidden: {
-      display: "none",
-    },
-    show: {
-      display: "block",
-    },
-  };
-  const SideBarVariant = {
-    hidden: {
-      x: isMobile ? "-100%" : "0%",
-    },
-    show: {
-      x: "0%",
-      transition: {
-        type: "tween",
-      },
-    },
-  };
-  const UlVariant = {
-    hidden: {
-      opacity: isMobile ? 0 : 1,
-    },
-    show: {
-      opacity: 1,
-      transition: { when: "beforeChildren", staggerChildren: 0.1 },
-    },
-  };
-  const ListVariant = {
-    hidden: {
-      opacity: 0,
-    },
-    show: {
-      opacity: 1,
-    },
-  };
-
-  const SlideInSideBar = () => {
-    OVerLayControl.start("show");
-    SideBarControl.start("show");
-    UlControl.start("show");
-    ListControl.start("show");
-  };
-
-  const SlideOutSideBar = () => {
-    OVerLayControl.start("hidden");
-    SideBarControl.start("hidden");
-    UlControl.start("hidden");
-    ListControl.start("hidden");
-  };
-
   return (
     <div
       className={
@@ -117,47 +52,31 @@ function Nav({ onClick }: any) {
         <div className={styles.logoContainer}>
           <Image src="/img/Logo.png" layout="fill" objectFit="contain" alt="" />
         </div>
-        <h2>Workoutly</h2>
+        <Link href="/">
+          <h2>Workoutly</h2>
+        </Link>
       </div>
-      <motion.div
-        className={styles.overlay}
-        animate={OVerLayControl}
-        variants={OverlayVariant}
-        onClick={SlideOutSideBar}
-      ></motion.div>
-      <motion.div
-        variants={SideBarVariant}
-        animate={SideBarControl}
-        className={styles.choicesContainer}
-      >
-        <i
-          className={`fa-solid fa-xmark ${styles.exitIcon}`}
-          onClick={SlideOutSideBar}
-        ></i>
-        <motion.div
-          variants={UlVariant}
-          animate={UlControl}
-          className={styles.choices}
-        >
-          {choices.map((choices, index) => (
-            <motion.div
-              className={styles.choice}
-              variants={ListVariant}
-              key={Math.random() * 1000}
-            >
-              {choices.LinkIcon}
-              <Link href={`#${choices.LinkName}`}>
-                <a>
-                  <p onClick={SlideOutSideBar}>{choices.LinkName}</p>
-                </a>
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.div>
+      <div className={styles.overlay}></div>
+      <div className={styles.choicesContainer}>
+        <i className={`fa-solid fa-xmark ${styles.exitIcon}`}></i>
+        <div className={styles.choices}>
+          <div className={styles.choice}>
+            <p>Home</p>
+          </div>
+          <div className={styles.choice}>
+            <p>Featured</p>
+          </div>
+          <div className={styles.choice}>
+            <p>Limited</p>
+          </div>
+          <div className={styles.choice}>
+            <p>Featured</p>
+          </div>
+        </div>
+      </div>
       <div className={styles.buttons}>
-        <button onClick={onClick}>Get Started</button>
-        <div className={styles.burger} onClick={SlideInSideBar}>
+        <button>Get Started</button>
+        <div className={styles.burger}>
           <div className={styles.lines}></div>
           <div className={styles.lines}></div>
           <div className={styles.lines}></div>
