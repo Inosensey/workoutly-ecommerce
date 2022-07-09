@@ -6,11 +6,13 @@ import styles from "../../../styles/Item/Item.module.css";
 import ItemCard from "../../modules/Item/ItemCard";
 import { useRouter } from "next/router";
 import OtherItem from "../../modules/Item/OtherItem";
+import Nav from "../../common/Nav";
 
 //Graphcms
 const QUERY = gql`
   query Item($slug: String!, $itemLimit: Int!) {
     item(where: { slug: $slug }) {
+      id
       productName
       productPrice
       productQuantity
@@ -78,6 +80,7 @@ const ItemPage: NextPage = ({ item, items }: any) => {
         <link rel="icon" href="/Logo.ico" />
       </Head>
       <main>
+        <Nav />
         <section className={styles.container}>
           <div className={styles.backArrow}>
             <i

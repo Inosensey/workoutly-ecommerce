@@ -1,16 +1,11 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../Redux/Reducers/Cart";
 import styles from "../../../styles/Item/Item.module.css";
 
 function ItemCard({ item }: any) {
   const [quantityCount, setQuantityCount] = useState(1);
-
-  const increaseQuantity = () => {
-    setQuantityCount(quantityCount + 1);
-  };
-  const decreaseQuantity = () => {
-    if (quantityCount === 1) return null;
-    setQuantityCount(quantityCount - 1);
-  };
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.itemContainer}>
@@ -26,21 +21,13 @@ function ItemCard({ item }: any) {
         </div>
         <p className={styles.itemPrice}>{item.productPrice}</p>
         <p>Stock: {item.productQuantity}</p>
-        <div className={styles.quantityContainer}>
-          <h4>Quantity:</h4>
-          <div className={styles.quantityController}>
-            <i
-              onClick={() => decreaseQuantity()}
-              className="fa-solid fa-minus"
-            ></i>
-            <p>{quantityCount}</p>
-            <i
-              onClick={() => increaseQuantity()}
-              className="fa-solid fa-plus"
-            ></i>
-          </div>
-        </div>
-        <button>Add to Cart</button>
+        <button
+          onClick={() =>
+            dispatch(addItemToCart({ itemInfo: item, Quantity: 1 }))
+          }
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );

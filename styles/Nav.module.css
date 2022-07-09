@@ -1,10 +1,11 @@
 .nav {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 10%;
   position: fixed;
+  padding: 0 3rem;
   top: 0;
   left: 0;
   transition: all 300ms ease-in-out;
@@ -38,62 +39,16 @@
   cursor: pointer;
 }
 
-.overlay {
-  display: none;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 30;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.choicesContainer {
-  display: block;
-  width: 40%;
-}
-.choicesContainer i {
-  display: none;
-}
-.choices {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-.choice {
-  font-family: "League Spartan";
-  font-size: 1.1rem;
-  cursor: pointer;
-  color: #ffffff;
-}
-
-.choice:hover {
-  color: #ff7777;
-}
-
 .buttons {
+  width: 5%;
   display: flex;
-  width: 15%;
-  gap: 1rem;
+  justify-content: space-between;
 }
-.burger {
-  display: none;
-  width: 25px;
-  gap: 0.2rem;
-}
-.lines {
-  border: 2px solid #ff7777;
-}
-.buttons button {
-  border: 2px solid #ff7777;
-  background: none;
-  border-radius: 2rem;
-  padding: 1rem;
-  width: 85%;
-  color: #ff7777;
+
+.buttons i {
+  font-size: 1.3rem;
+  color: #ffffff;
   cursor: pointer;
-  font-size: 1rem;
 }
 
 @media screen and (max-width: 860px) {
@@ -107,9 +62,6 @@
   .SiteNameContainer h2 {
     font-size: 1.2rem;
   }
-  .choices {
-    font-size: 0.9rem;
-  }
   .buttons button {
     font-size: 0.8rem;
     width: 100%;
@@ -117,60 +69,10 @@
 }
 
 @media screen and (max-width: 768px) {
-  .burger {
-    width: 25px;
-    display: flex;
-    flex-direction: column;
-  }
   .buttons {
     width: 20%;
     justify-content: center;
     align-items: center;
-  }
-  .overlay {
-    display: none;
-  }
-  .choicesContainer {
-    position: absolute;
-    z-index: 30;
-    top: 0;
-    left: 0;
-    transform: translateX(-100%);
-    width: 40%;
-    height: 100vh;
-    background-color: #343634;
-  }
-  .choicesContainer i {
-    display: block;
-  }
-  .exitIcon {
-    display: block;
-    font-size: 2rem;
-    max-width: max-content;
-    height: 8%;
-    margin: 0 1rem 0 auto;
-    color: #b6b6b6;
-    display: flex;
-    align-items: center;
-  }
-  .choices {
-    width: 100%;
-    height: 92%;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 4rem 0 0 0;
-    gap: 1rem;
-    opacity: 0;
-  }
-  .choice {
-    color: #b6b6b6;
-    width: 100%;
-    padding: 1.5rem 1.5rem 1.5rem 2rem;
-    font-size: 1rem;
-    opacity: 0;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
   }
 }
 
@@ -202,9 +104,6 @@
   }
 }
 @media screen and (max-width: 470px) {
-  .choicesContainer {
-    width: 50%;
-  }
   .SiteNameContainer {
     width: 30%;
   }

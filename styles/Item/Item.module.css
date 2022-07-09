@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  margin: 6rem 0 0 0;
 }
 
 .itemContainer {
@@ -58,7 +59,8 @@
   gap: 0.5rem;
 }
 .descriptionContainer p {
-  line-height: 1.5rem;
+  line-height: 1.2rem;
+  font-size: 0.9rem;
 }
 
 .itemName {
@@ -71,39 +73,9 @@
   font-size: 1.5rem;
 }
 
-.quantityContainer {
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-  height: 30px;
-}
-
-.quantityController {
-  display: flex;
-  height: 100%;
-  width: 16%;
-  gap: 0.2rem;
-}
-
-.quantityController i,
-.quantityController p {
-  height: 100%;
-  width: 100%;
-  background-color: #fff;
-  cursor: pointer;
-  color: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.quantityController p {
-  font-family: "League Spartan";
-}
-
 .backArrow {
   position: absolute;
-  top: 3%;
+  top: 0%;
   left: 2%;
   width: max-content;
 }

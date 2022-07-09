@@ -1,17 +1,54 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { closeCart, calculatePrice } from "../../Redux/Reducers/Cart";
+import { RootState } from "../../Redux/store";
 import styles from "../../../styles/ShoppingCart/ShoppingCart.module.css";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 
 function ShoppingCart() {
+  const dispatch = useDispatch();
+  const toggleCart = useSelector(
+    (state: RootState) => state.cartReducer.toggleCart
+  );
+  const cartItems = useSelector(
+    (state: RootState) => state.cartReducer.cartItem
+  );
+  const price = useSelector((state: RootState) => state.cartReducer.price);
+
+  useEffect(() => {
+    dispatch(calculatePrice());
+    console.log(cartItems);
+  }, [cartItems]);
+
+  //Framer motion
+  // const OverlayVariant = {
+  //   initial: (togglecart: any) => ({}),
+  // };
+
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <i className="fa-solid fa-angle-left"></i>
-        <h2>Your Cart</h2>
-        <p>(5 items)</p>
+    <div
+      className={styles.overlay}
+      style={{ display: toggleCart === false ? "none" : "block" }}
+    >
+      <div
+        className={
+          toggleCart === false
+            ? `${styles.container} ${styles.hideCart}`
+            : `${styles.container} ${styles.showCart}`
+        }
+      >
+        <div className={styles.header}>
+          <i
+            onClick={() => dispatch(closeCart())}
+            className="fa-solid fa-circle-left"
+          ></i>
+          <h2>Shopping Cart</h2>
+          <p>(5 items)</p>
+        </div>
+        <CartItem />
+        <Checkout />
       </div>
-      <CartItem />
-      <Checkout />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { openCart, closeCart } from "../Redux/Reducers/Cart";
 import type { RootState } from "../Redux/store";
@@ -39,7 +38,7 @@ function Nav() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentWindowHeight]);
   return (
-    <div
+    <nav
       className={
         isScrolling === "NotScrolling"
           ? styles.nav
@@ -56,33 +55,14 @@ function Nav() {
           <h2>Workoutly</h2>
         </Link>
       </div>
-      <div className={styles.overlay}></div>
-      <div className={styles.choicesContainer}>
-        <i className={`fa-solid fa-xmark ${styles.exitIcon}`}></i>
-        <div className={styles.choices}>
-          <div className={styles.choice}>
-            <p>Home</p>
-          </div>
-          <div className={styles.choice}>
-            <p>Featured</p>
-          </div>
-          <div className={styles.choice}>
-            <p>Limited</p>
-          </div>
-          <div className={styles.choice}>
-            <p>Featured</p>
-          </div>
-        </div>
-      </div>
       <div className={styles.buttons}>
-        <button>Get Started</button>
-        <div className={styles.burger}>
-          <div className={styles.lines}></div>
-          <div className={styles.lines}></div>
-          <div className={styles.lines}></div>
-        </div>
+        <i className="fa-solid fa-circle-user"></i>
+        <i
+          onClick={() => dispatch(openCart())}
+          className="fa-solid fa-cart-shopping"
+        ></i>
       </div>
-    </div>
+    </nav>
   );
 }
 

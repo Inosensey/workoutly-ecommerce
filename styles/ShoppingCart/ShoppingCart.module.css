@@ -1,11 +1,32 @@
+.overlay {
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  overflow: hidden;
+  display: none;
+}
+
 .container {
-  width: 30%;
+  width: 40%;
   height: 100vh;
   position: absolute;
   right: 0;
   top: 0;
   background: #343634;
   z-index: 99;
+  transition: transform 0.3s ease-in-out;
+}
+
+.hideCart {
+  transform: translateX(100%);
+}
+
+.showCart {
+  transform: translateX(0%);
 }
 
 .header {
@@ -20,6 +41,11 @@
   font-family: "League Spartan";
 }
 
+.header h2 {
+  font-family: "League Spartan";
+  color: #ff7777;
+}
+
 .header i {
   font-size: 1.2rem;
   color: #ccc;
@@ -30,20 +56,21 @@
   height: 80%;
   width: 100%;
   overflow-y: auto;
-  padding: 0 1rem;
+  padding: 1rem;
   gap: 1.5rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .itemContainer {
   display: flex;
-  width: 100%;
+  width: 80%;
   height: 25%;
 }
 
 .itemPhotoContainer {
-  width: 40%;
+  width: 30%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -51,11 +78,11 @@
   background-color: #1e292b;
 }
 .itemPhotoContainer img {
-  width: 80%;
-  height: 80%;
+  width: 70%;
+  height: 70%;
 }
 .itemInfoContainer {
-  width: 60%;
+  width: 70%;
   height: 100%;
   padding: 0.5rem;
   display: flex;
@@ -66,7 +93,7 @@
   font-family: "League Spartan";
 }
 .itemInfoContainer p {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .itemActionContainer {
   display: flex;
@@ -75,7 +102,7 @@
   position: absolute;
   bottom: 5%;
   left: 0%;
-  width: 100%;
+  width: 70%;
   padding: 0.5rem;
 }
 .itemActionContainer i {
@@ -87,12 +114,12 @@
   gap: 0.6rem;
   align-items: center;
   height: 30px;
-  width: 35%;
+  width: 40%;
 }
 
 .quantityController {
   display: flex;
-  height: 100%;
+  height: 90%;
   gap: 0.2rem;
   width: 100%;
 }
@@ -109,17 +136,24 @@
   justify-content: center;
 }
 
+.quantityController p {
+  padding: 0;
+  margin: 0;
+}
+
 .checkOutContainer {
   width: 100%;
   height: 11%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 
 .checkoutInfo {
   display: flex;
   justify-content: space-between;
+  width: 90%;
   padding: 0.5rem;
   color: #fff;
   font-size: 1.2rem;
@@ -127,7 +161,7 @@
 }
 
 .checkOutContainer button {
-  width: 100%;
+  width: 50%;
   background: #ff7777;
   color: #fff;
   font-family: "League Spartan";
