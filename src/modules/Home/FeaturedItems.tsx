@@ -17,7 +17,7 @@ export default function FeaturedItems({ FeaturedItems }: any) {
               <img src={item.productPhoto.url} alt="" />
             </div>
             <div className={styles.productInfoContainer}>
-              <p>{item.productPrice}</p>
+              <p>{item.productPrice}$</p>
               <p className={styles.productName}>{item.productName}</p>
             </div>
           </div>

@@ -7,6 +7,7 @@ import ItemCard from "../../modules/Item/ItemCard";
 import { useRouter } from "next/router";
 import OtherItem from "../../modules/Item/OtherItem";
 import Nav from "../../common/Nav";
+import ReviewComments from "../../modules/Item/ReviewComments";
 
 //Graphcms
 const QUERY = gql`
@@ -25,6 +26,7 @@ const QUERY = gql`
       }
     }
     items(first: $itemLimit) {
+      id
       productName
       productPrice
       slug
@@ -67,6 +69,7 @@ export const getStaticProps = async ({ params }: any) => {
   });
   return {
     props: { item, items },
+    revalidate: 10,
   };
 };
 
@@ -89,6 +92,7 @@ const ItemPage: NextPage = ({ item, items }: any) => {
             ></i>
           </div>
           <ItemCard item={item} />
+          <ReviewComments />
           <OtherItem items={items} />
         </section>
       </main>

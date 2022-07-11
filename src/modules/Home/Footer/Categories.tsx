@@ -6,7 +6,7 @@ function Categories({ CategoryList }: any) {
       <h3>Categories</h3>
       <div className={styles.categoryNames}>
         {CategoryList.map((category: any) => (
-          <p>{category.categoryName}</p>
+          <p key={category.categoryName}>{category.categoryName}</p>
         ))}
       </div>
     </div>

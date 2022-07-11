@@ -9,21 +9,24 @@ type QuantityActionTypes = {
   itemInfo: Object;
   ActionType: String;
 };
-type PriceTypes = {
+
+interface PriceTypes {
   totalItems: Number;
   totalPrice: Number;
-};
-
-export interface CounterState {
+}
+export interface CartState {
   toggleCart: Boolean;
   cartItem: Array<Object>;
-  price: Object;
+  price: PriceTypes;
 }
 
-const initialState: CounterState = {
+const initialState: CartState = {
   toggleCart: false,
   cartItem: [],
-  price: {},
+  price: {
+    totalItems: 0,
+    totalPrice: 0,
+  },
 };
 
 export const cartSlice = createSlice({
@@ -41,9 +44,13 @@ export const cartSlice = createSlice({
       const ExistingItem: any = state.cartItem.find(
         (item: Object) => item.itemInfo.id === itemInfo.id
       );
-      if (ExistingItem !== undefined) {
+      if (
+        ExistingItem !== undefined &&
+        itemInfo.productQuantity > ExistingItem.Quantity
+      ) {
         ExistingItem.Quantity += 1;
-      } else {
+      }
+      if (ExistingItem === undefined) {
         state.cartItem.push(action.payload);
       }
     },
@@ -57,19 +64,25 @@ export const cartSlice = createSlice({
       const ExistingItem: any = state.cartItem.find(
         (item: Object) => item.itemInfo.id === itemInfo.id
       );
-      if (ActionType === "Increment") ExistingItem.Quantity += 1;
+      if (
+        ActionType === "Increment" &&
+        ExistingItem.itemInfo.productQuantity > ExistingItem.Quantity
+      )
+        ExistingItem.Quantity += 1;
       if (ActionType === "Decrement" && ExistingItem.Quantity !== 1)
         ExistingItem.Quantity -= 1;
     },
     calculatePrice: (state) => {
       let items = 0;
       let price = 0;
+      let totalPrice = 0;
       state.cartItem.map((item: any) => {
         items = items + item.Quantity;
         price = item.itemInfo.productPrice * item.Quantity;
+        totalPrice = totalPrice + price;
       });
-      state.price.totalPrice = price;
-      state.price.totalItem = items;
+      state.price.totalPrice = parseFloat(totalPrice.toFixed(2));
+      state.price.totalItems = items;
     },
   },
 });

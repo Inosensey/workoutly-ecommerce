@@ -5,13 +5,13 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 101;
   overflow: hidden;
   display: none;
 }
 
 .container {
-  width: 40%;
+  width: 35%;
   height: 100vh;
   position: absolute;
   right: 0;
@@ -65,12 +65,12 @@
 
 .itemContainer {
   display: flex;
-  width: 80%;
-  height: 25%;
+  width: 70%;
+  min-height: 25%;
 }
 
 .itemPhotoContainer {
-  width: 30%;
+  width: 40%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -82,7 +82,7 @@
   height: 70%;
 }
 .itemInfoContainer {
-  width: 70%;
+  width: 60%;
   height: 100%;
   padding: 0.5rem;
   display: flex;
@@ -102,7 +102,7 @@
   position: absolute;
   bottom: 5%;
   left: 0%;
-  width: 70%;
+  width: 100%;
   padding: 0.5rem;
 }
 .itemActionContainer i {

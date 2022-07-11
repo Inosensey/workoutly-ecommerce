@@ -1,0 +1,89 @@
+.overlay {
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginContainer {
+  width: 30%;
+  height: 90%;
+  background-color: #fff;
+  position: relative;
+}
+
+.closePopUp {
+  position: absolute;
+  color: #343634;
+  right: 5%;
+  top: 2%;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.headerContainer {
+  width: max-content;
+  margin: 2rem auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.headerContainer h2 {
+  font-family: "Anton";
+  background-image: linear-gradient(to bottom, #4f6c6b, #ff7777);
+  background-clip: text;
+  color: transparent;
+  font-size: 1.7rem;
+}
+
+.logoContainer {
+  position: relative;
+  width: 70%;
+  height: 80px;
+}
+
+.formControl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 1.5rem 0 0 0;
+}
+.inputControl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 80%;
+  font-family: "League Spartan";
+}
+.inputControl label {
+  color: #343634;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.inputControl input {
+  width: 100%;
+  padding: 0.4rem;
+  font-family: "League Spartan";
+  font-size: 1rem;
+}
+
+.formControl button {
+  width: 30%;
+  border: none;
+  background-color: #ff7777;
+  font-family: "League Spartan";
+  font-size: 1.1rem;
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 0.5rem;
+}

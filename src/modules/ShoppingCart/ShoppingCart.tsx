@@ -18,13 +18,12 @@ function ShoppingCart() {
 
   useEffect(() => {
     dispatch(calculatePrice());
-    console.log(cartItems);
   }, [cartItems]);
 
-  //Framer motion
-  // const OverlayVariant = {
-  //   initial: (togglecart: any) => ({}),
-  // };
+  // useEffect(() => {
+  //   if (toggleCart === true) return (document.body.style.overflow = "hidden");
+  //   if (toggleCart === false) return (document.body.style.overflow = "auto");
+  // }, [toggleCart]);
 
   return (
     <div

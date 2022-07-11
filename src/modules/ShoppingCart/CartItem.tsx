@@ -66,7 +66,7 @@ function CartItem() {
                   </div>
                 </div>
                 <i
-                  onClick={() => dispatch(removeItemFromCart(item.id))}
+                  onClick={() => dispatch(removeItemFromCart(item.itemInfo.id))}
                   className="fa-solid fa-circle-xmark"
                 ></i>
               </div>

@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../Redux/Reducers/Cart";
+import { motion } from "framer-motion";
 import styles from "../../../styles/Item/Item.module.css";
 
 function ItemCard({ item }: any) {
-  const [quantityCount, setQuantityCount] = useState(1);
   const dispatch = useDispatch();
 
   return (
@@ -19,15 +18,17 @@ function ItemCard({ item }: any) {
           <h4>Details:</h4>
           <p>{item.description.text}</p>
         </div>
-        <p className={styles.itemPrice}>{item.productPrice}</p>
+        <p className={styles.itemPrice}>{item.productPrice}$</p>
         <p>Stock: {item.productQuantity}</p>
-        <button
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           onClick={() =>
             dispatch(addItemToCart({ itemInfo: item, Quantity: 1 }))
           }
         >
           Add to Cart
-        </button>
+        </motion.button>
       </div>
     </div>
   );

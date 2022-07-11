@@ -74,7 +74,7 @@ function LimitedItem({ LimitedItems }: any) {
             </div>
             <div className={styles.productInfoContainer}>
               <p>{item.productName}</p>
-              <p>{item.productPrice}</p>
+              <p>{item.productPrice}$</p>
               <button>Add to Cart</button>
             </div>
             <Timer />
