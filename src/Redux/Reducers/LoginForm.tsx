@@ -15,9 +15,11 @@ export const LoginFromSlice = createSlice({
   initialState,
   reducers: {
     openPopUpLoginForm: (state) => {
+      document.body.style.overflow = "hidden";
       state.toggleLoginPopUp = true;
     },
     closePopUpLoginForm: (state) => {
+      document.body.style.overflow = "auto";
       state.toggleLoginPopUp = false;
     },
   },

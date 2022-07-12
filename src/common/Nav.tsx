@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openCart } from "../Redux/Reducers/Cart";
 import { openPopUpLoginForm } from "../Redux/Reducers/LoginForm";
 import type { RootState } from "../Redux/store";
@@ -12,6 +12,9 @@ function Nav() {
   const [currentWindowHeight, setCurrentWindowHeight] = useState(0);
   const [previousWindowHeight, setPreviousWindowHeight] = useState(0);
   const [isScrolling, setIsScrolling] = useState("NotScrolling");
+  const cartItem = useSelector(
+    (state: RootState) => state.cartReducer.cartItem
+  );
 
   const handleScroll = () => {
     setCurrentWindowHeight(window.scrollY);
@@ -58,10 +61,17 @@ function Nav() {
           onClick={() => dispatch(openPopUpLoginForm())}
           className="fa-solid fa-circle-user"
         ></i>
-        <i
-          onClick={() => dispatch(openCart())}
-          className="fa-solid fa-cart-shopping"
-        ></i>
+        <div className={styles.cartIconContainer}>
+          {cartItem.length !== 0 && (
+            <span className={styles.cartItemCounter}>
+              {cartItem.length <= 9 ? cartItem.length : "9+"}
+            </span>
+          )}
+          <i
+            onClick={() => dispatch(openCart())}
+            className="fa-solid fa-cart-shopping"
+          ></i>
+        </div>
       </div>
     </nav>
   );

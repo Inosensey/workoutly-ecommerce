@@ -1,3 +1,4 @@
+import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { closeCart, calculatePrice } from "../../Redux/Reducers/Cart";
@@ -14,27 +15,64 @@ function ShoppingCart() {
   const cartItems = useSelector(
     (state: RootState) => state.cartReducer.cartItem
   );
-  const price = useSelector((state: RootState) => state.cartReducer.price);
+
+  // Framer Motion
+  const SlideControl = useAnimation();
+  const OverlayControl = useAnimation();
+  const OverlayVariant = {
+    open: {
+      opacity: 1,
+      zIndex: "101",
+    },
+    close: {
+      opacity: 0,
+      zIndex: "0",
+    },
+  };
+  const SlideIn = {
+    open: {
+      x: "0%",
+      transition: {
+        type: "tween",
+      },
+    },
+    close: {
+      x: "100%",
+      transition: {
+        type: "tween",
+      },
+    },
+  };
 
   useEffect(() => {
     dispatch(calculatePrice());
   }, [cartItems]);
-
-  // useEffect(() => {
-  //   if (toggleCart === true) return (document.body.style.overflow = "hidden");
-  //   if (toggleCart === false) return (document.body.style.overflow = "auto");
-  // }, [toggleCart]);
+  useEffect(() => {
+    if (toggleCart === true) {
+      OverlayControl.start("open");
+      SlideControl.start("open");
+    }
+    if (toggleCart === false) {
+      OverlayControl.start("close");
+      SlideControl.start("close");
+    }
+  }, [toggleCart]);
 
   return (
-    <div
+    <motion.div
       className={styles.overlay}
-      style={{ display: toggleCart === false ? "none" : "block" }}
+      variants={OverlayVariant}
+      animate={OverlayControl}
+      initial="close"
     >
-      <div
+      <motion.div
+        variants={SlideIn}
+        animate={SlideControl}
         className={
-          toggleCart === false
-            ? `${styles.container} ${styles.hideCart}`
-            : `${styles.container} ${styles.showCart}`
+          styles.container
+          // toggleCart === false
+          //   ? `${styles.container} ${styles.hideCart}`
+          //   : `${styles.container} ${styles.showCart}`
         }
       >
         <div className={styles.header}>
@@ -43,12 +81,17 @@ function ShoppingCart() {
             className="fa-solid fa-circle-left"
           ></i>
           <h2>Shopping Cart</h2>
-          <p>(5 items)</p>
+          <p>
+            {cartItems.length}{" "}
+            {cartItems.length === 0 || cartItems.length === 1
+              ? "Item"
+              : "Items"}
+          </p>
         </div>
         <CartItem />
         <Checkout />
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 

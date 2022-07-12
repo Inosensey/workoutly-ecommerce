@@ -5,9 +5,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 101;
+  position: fixed;
   overflow: hidden;
-  display: none;
 }
 
 .container {
@@ -17,16 +16,6 @@
   right: 0;
   top: 0;
   background: #343634;
-  z-index: 99;
-  transition: transform 0.3s ease-in-out;
-}
-
-.hideCart {
-  transform: translateX(100%);
-}
-
-.showCart {
-  transform: translateX(0%);
 }
 
 .header {

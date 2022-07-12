@@ -4,6 +4,7 @@ import styles from "../../../styles/Item/OtherItem.module.css";
 function OtherItem({ items }: any) {
   return (
     <section className={styles.container}>
+      <h3>Items you may like</h3>
       <div className={styles.items}>
         {items.map((item: any) => (
           <Link href={`${item.slug}`} key={item.id}>

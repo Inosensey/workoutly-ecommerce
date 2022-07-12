@@ -92,7 +92,7 @@ const ItemPage: NextPage = ({ item, items }: any) => {
             ></i>
           </div>
           <ItemCard item={item} />
-          <ReviewComments />
+          <ReviewComments rating={item.rating} />
           <OtherItem items={items} />
         </section>
       </main>

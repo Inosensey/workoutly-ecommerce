@@ -1,6 +1,12 @@
 .container {
-  width: 90%;
+  width: 75%;
   overflow: hidden;
+}
+.container h3 {
+  color: #ff7777;
+  font-size: 1.5rem;
+  padding: 0 0 0 0.5rem;
+  font-family: "League Spartan";
 }
 .items {
   width: 100%;
@@ -10,7 +16,7 @@
   padding: 0.5rem;
 }
 .item {
-  min-width: 16%;
+  min-width: 18%;
   cursor: pointer;
   height: 100%;
   box-shadow: 0 0 3px 0 rgb(0, 0, 0, 0.8);

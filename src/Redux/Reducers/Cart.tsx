@@ -34,9 +34,11 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     openCart: (state) => {
+      document.body.style.overflow = "hidden";
       state.toggleCart = true;
     },
     closeCart: (state) => {
+      document.body.style.overflow = "auto";
       state.toggleCart = false;
     },
     addItemToCart: (state, action: PayloadAction<CartItemTypes>) => {
