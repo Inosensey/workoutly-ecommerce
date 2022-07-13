@@ -9,24 +9,17 @@ import Checkout from "./Checkout";
 
 function ShoppingCart() {
   const dispatch = useDispatch();
-  const toggleCart = useSelector(
-    (state: RootState) => state.cartReducer.toggleCart
-  );
   const cartItems = useSelector(
     (state: RootState) => state.cartReducer.cartItem
   );
 
   // Framer Motion
-  const SlideControl = useAnimation();
-  const OverlayControl = useAnimation();
   const OverlayVariant = {
     open: {
-      opacity: 1,
-      zIndex: "101",
+      display: "block",
     },
     close: {
-      opacity: 0,
-      zIndex: "0",
+      opacity: "none",
     },
   };
   const SlideIn = {
@@ -47,34 +40,16 @@ function ShoppingCart() {
   useEffect(() => {
     dispatch(calculatePrice());
   }, [cartItems]);
-  useEffect(() => {
-    if (toggleCart === true) {
-      OverlayControl.start("open");
-      SlideControl.start("open");
-    }
-    if (toggleCart === false) {
-      OverlayControl.start("close");
-      SlideControl.start("close");
-    }
-  }, [toggleCart]);
 
   return (
     <motion.div
       className={styles.overlay}
       variants={OverlayVariant}
-      animate={OverlayControl}
+      animate="open"
       initial="close"
+      exit="close"
     >
-      <motion.div
-        variants={SlideIn}
-        animate={SlideControl}
-        className={
-          styles.container
-          // toggleCart === false
-          //   ? `${styles.container} ${styles.hideCart}`
-          //   : `${styles.container} ${styles.showCart}`
-        }
-      >
+      <motion.div variants={SlideIn} className={styles.container}>
         <div className={styles.header}>
           <i
             onClick={() => dispatch(closeCart())}

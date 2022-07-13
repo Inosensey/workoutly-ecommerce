@@ -12,20 +12,18 @@
   position: fixed;
 }
 
-.loginContainer {
+.registerContainer {
   width: 30%;
   height: 90%;
   background-color: #fff;
   position: relative;
 }
 
-.closePopUp {
-  position: absolute;
-  color: #343634;
-  right: 5%;
-  top: 2%;
-  font-size: 1.5rem;
-  cursor: pointer;
+.registerContainer h3 {
+  width: max-content;
+  margin: 1rem auto 0 auto;
+  color: #404040;
+  font-family: "League Spartan";
 }
 
 .headerContainer {
@@ -89,57 +87,14 @@
   padding: 0.4rem;
 }
 
-.existingAccounts {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin: 1rem 0 0 0;
-  gap: 1rem;
-}
-.separationORContainer {
-  display: flex;
-  width: 68%;
-  align-items: center;
-}
-.separationORContainer hr {
-  width: 45%;
-  border: 0.1px solid #ccc;
-  border-radius: 25px;
-  height: 1px;
-}
-.separationORContainer p {
-  padding: 0 0.3rem;
-}
-
-.workoutlyAccount {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 68%;
-  font-family: "League Spartan";
-  background-color: #343634;
-  color: #ccc;
-  padding: 0.7rem;
-  gap: 0.5rem;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.workoutlyAccount .logoContainer {
-  position: relative;
-  width: 10%;
-  height: 20px;
-}
-
-.registerContainer {
+.loginContainer {
   width: max-content;
   font-family: "League Spartan";
   font-size: 1rem;
   margin: 2rem auto 0 auto;
   color: #404040;
 }
-.registerContainer span {
+.loginContainer span {
   color: #ff7777;
   cursor: pointer;
 }
