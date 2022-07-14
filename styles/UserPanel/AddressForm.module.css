@@ -1,0 +1,68 @@
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popUpContainer {
+  width: 35%;
+  height: 90%;
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  background-color: #fff;
+}
+.popUpContainer h3 {
+  font-family: "League Spartan";
+  font-size: 1.5rem;
+  color: #1a1a1a;
+}
+.formControl {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1.5rem 0 0 0;
+  height: 90%;
+  overflow: auto;
+}
+.inputControl {
+  width: 80%;
+}
+.inputControl label {
+  color: #000;
+  /* border: 2px solid magenta; */
+}
+.inputControl input {
+  border: 1px solid #000;
+}
+
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+.buttonContainer button {
+  width: 20%;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-family: "League Spartan";
+  font-size: 1rem;
+}
+.cancel {
+  color: #ff7777;
+  background: none;
+  border: 1px solid #ff7777;
+}
+.add {
+  color: #fff;
+  background: #ff7777;
+  border: none;
+}

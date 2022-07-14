@@ -1,0 +1,62 @@
+.container {
+  height: 100vh;
+  width: 18%;
+  background-color: #1e292b;
+  position: relative;
+  border-right: 2px solid #1e292b;
+}
+
+.headerContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0 0 1rem;
+}
+.headerContainer h3 {
+  color: #ff7777;
+  font-family: "League Spartan";
+  font-size: 1.4rem;
+}
+.logoContainer {
+  width: 20%;
+  height: 50px;
+  position: relative;
+}
+
+.menuContainer {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin: 2rem 0 0 0;
+}
+.menuContainer li {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  font-family: "League Spartan";
+  cursor: pointer;
+}
+.menuContainer li:hover {
+  color: #ff7777;
+}
+.menuContainer i {
+  color: #4f6c6b;
+  width: 15%;
+}
+
+.logoutContainer {
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  text-align: center;
+  color: #ccc;
+  font-family: "League Spartan";
+  font-size: 1.4rem;
+}
+.logoutContainer p {
+  cursor: pointer;
+}
+.logoutContainer p:hover {
+  text-decoration: underline;
+  color: #ff7777;
+}

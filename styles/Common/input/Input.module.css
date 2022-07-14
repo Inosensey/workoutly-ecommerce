@@ -1,0 +1,16 @@
+.inputControl {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: "League Spartan";
+}
+.inputControl label {
+  color: #e6e6e6;
+  font-size: 1.2rem;
+}
+.inputControl input {
+  padding: 0.4rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+}
