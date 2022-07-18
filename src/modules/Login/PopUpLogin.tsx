@@ -1,32 +1,67 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { closePopUpLoginForm } from "../../Redux/Reducers/LoginForm";
+import { addSession } from "../../Redux/Reducers/Auth";
+import loginUser from "../../Services/Auth/loginUser";
+import Input from "../../common/input/Input";
 import styles from "../../../styles/PopLogin/PopLogin.module.css";
+
+// Framer Motion Variants
+const DropIn = {
+  hidden: {
+    y: "-100vh",
+    opacity: 0,
+  },
+  visible: {
+    y: "0",
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      type: "spring",
+      damping: 25,
+      stiffness: 500,
+    },
+  },
+  exit: {
+    y: "100vh",
+    opacity: 0,
+  },
+};
+
+const DefaultLoginValues = {
+  username: "",
+  password: "",
+};
+const DefaultErrorValues = {
+  isError: false,
+  Message: "",
+};
 
 function PopUpLogin({ setToggleForm }: any) {
   const dispatch = useDispatch();
+  const [loginDetails, setLoginDetails] = useState(DefaultLoginValues);
+  const [errorValues, setErrorValues] = useState(DefaultErrorValues);
 
-  // Framer Motion Variants
-  const DropIn = {
-    hidden: {
-      y: "-100vh",
-      opacity: 0,
-    },
-    visible: {
-      y: "0",
-      opacity: 1,
-      transition: {
-        duration: 0.1,
-        type: "spring",
-        damping: 25,
-        stiffness: 500,
-      },
-    },
-    exit: {
-      y: "100vh",
-      opacity: 0,
-    },
+  const LoginHandler = async (email: string, password: string) => {
+    const response = await loginUser(email, password);
+    return response;
+  };
+  const checkLoginResponse = (response: any) => {
+    console.log(response);
+    if (response.Error !== undefined) {
+      setErrorValues({ isError: true, Message: response?.Error.message });
+    } else {
+      setErrorValues(DefaultErrorValues);
+      dispatch(
+        addSession({
+          Auth: response?.Session,
+          User: response?.User,
+        })
+      );
+    }
+    setLoginDetails(DefaultLoginValues);
   };
 
   return (
@@ -48,15 +83,52 @@ function PopUpLogin({ setToggleForm }: any) {
         <h2>Workoutly</h2>
       </div>
       <form className={styles.formControl}>
-        <div className={styles.inputControl}>
-          <label>Email</label>
-          <input type="text" name="" id="" />
+        <div className={styles.inputContainer}>
+          <Input
+            Type="text"
+            Name="username"
+            Label="Username"
+            inputValue={loginDetails.username}
+            setInputValue={(e: any) => {
+              setLoginDetails({ ...loginDetails, username: e.target.value });
+            }}
+            enableValidation={false}
+            Notification={""}
+            Valid={null}
+            Disabled={false}
+          />
         </div>
-        <div className={styles.inputControl}>
-          <label>Password</label>
-          <input type="password" name="" id="" />
+        <div className={styles.inputContainer}>
+          <Input
+            Type="password"
+            Name="password"
+            Label="Password"
+            inputValue={loginDetails.password}
+            setInputValue={(e: any) => {
+              setLoginDetails({ ...loginDetails, password: e.target.value });
+            }}
+            enableValidation={false}
+            Notification={""}
+            Valid={null}
+            Disabled={false}
+          />
         </div>
-        <button>Login</button>
+        {errorValues.isError && (
+          <p className={styles.errorMessage}>{errorValues.Message}</p>
+        )}
+        <button
+          onClick={async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const result = await LoginHandler(
+              loginDetails.username,
+              loginDetails.password
+            );
+            checkLoginResponse(result);
+          }}
+        >
+          Login
+        </button>
       </form>
       <div className={styles.existingAccounts}>
         <div className={styles.separationORContainer}>

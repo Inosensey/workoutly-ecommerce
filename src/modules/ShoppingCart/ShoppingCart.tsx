@@ -14,14 +14,6 @@ function ShoppingCart() {
   );
 
   // Framer Motion
-  const OverlayVariant = {
-    open: {
-      display: "block",
-    },
-    close: {
-      opacity: "none",
-    },
-  };
   const SlideIn = {
     open: {
       x: "0%",
@@ -42,14 +34,14 @@ function ShoppingCart() {
   }, [cartItems]);
 
   return (
-    <motion.div
-      className={styles.overlay}
-      variants={OverlayVariant}
-      animate="open"
-      initial="close"
-      exit="close"
-    >
-      <motion.div variants={SlideIn} className={styles.container}>
+    <div className={styles.overlay}>
+      <motion.div
+        variants={SlideIn}
+        className={styles.container}
+        initial="close"
+        animate="open"
+        exit="close"
+      >
         <div className={styles.header}>
           <i
             onClick={() => dispatch(closeCart())}
@@ -66,7 +58,7 @@ function ShoppingCart() {
         <CartItem />
         <Checkout />
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 

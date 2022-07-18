@@ -35,9 +35,14 @@ const QUERYITEM = gql`
   }
 `;
 const SLUGLIST = gql`
-  {
+  query {
     collectionBanners {
+      id
+      collectionName
       slug
+      collectionCoverPhoto {
+        url
+      }
     }
   }
 `;

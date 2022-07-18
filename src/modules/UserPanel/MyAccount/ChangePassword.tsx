@@ -1,7 +1,18 @@
+import { useState } from "react";
 import styles from "../../../../styles/UserPanel/ChangePassword.module.css";
 import Input from "../../../common/input/Input";
 
+const DefaultPasswordDetails = {
+  oldPassword: "",
+  newPassword: "",
+  confirmPassword: "",
+};
+
 function ChangePassword() {
+  const [passwordDetails, setPasswordDetails] = useState(
+    DefaultPasswordDetails
+  );
+
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
@@ -14,6 +25,13 @@ function ChangePassword() {
             Name="oldPassword"
             Type="text"
             Label="Password"
+            inputValue={passwordDetails.oldPassword}
+            setInputValue={(e: any) =>
+              setPasswordDetails({
+                ...passwordDetails,
+                oldPassword: e.target.value,
+              })
+            }
             Disabled={true}
           />
         </div>
@@ -22,14 +40,28 @@ function ChangePassword() {
             Name="newPassword"
             Type="text"
             Label="New password"
+            inputValue={passwordDetails.newPassword}
+            setInputValue={(e: any) =>
+              setPasswordDetails({
+                ...passwordDetails,
+                newPassword: e.target.value,
+              })
+            }
             Disabled={true}
           />
         </div>
         <div className={styles.inputContainer}>
           <Input
-            Name="retypePassword"
+            Name="confirmPassowrd"
             Type="text"
-            Label="Retype new Password"
+            Label="Confirm new Password"
+            inputValue={passwordDetails.confirmPassword}
+            setInputValue={(e: any) =>
+              setPasswordDetails({
+                ...passwordDetails,
+                confirmPassword: e.target.value,
+              })
+            }
             Disabled={true}
           />
         </div>

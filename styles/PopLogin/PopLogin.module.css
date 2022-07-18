@@ -58,24 +58,21 @@
   gap: 1rem;
   margin: 0.8rem 0 0 0;
 }
-.inputControl {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.inputContainer {
   width: 80%;
-  font-family: "League Spartan";
 }
-.inputControl label {
+.inputContainer label {
   color: #343634;
   font-weight: 900;
   font-size: 1.1rem;
 }
-
-.inputControl input {
+.inputContainer input {
   width: 100%;
   padding: 0.4rem;
   font-family: "League Spartan";
   font-size: 1rem;
+  border: 1px solid #343634;
+  border-radius: 0px;
 }
 
 .formControl button {
@@ -124,6 +121,14 @@
   gap: 0.5rem;
   border-radius: 5px;
   cursor: pointer;
+}
+.errorMessage {
+  font-family: "League Spartan";
+  padding: 0.4rem;
+  border: 2px solid #ff3333;
+  background-color: #ffcccc;
+  color: #ff3333;
+  font-size: 0.9rem;
 }
 
 .workoutlyAccount .logoContainer {

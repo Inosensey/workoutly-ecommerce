@@ -17,6 +17,8 @@
   height: 90%;
   background-color: #fff;
   position: relative;
+  overflow: auto;
+  padding: 0 0 1rem 0;
 }
 
 .registerContainer h3 {
@@ -54,26 +56,24 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin: 0.8rem 0 0 0;
+  margin: 1rem 0 0 0;
 }
-.inputControl {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+
+.inputContainer {
   width: 80%;
-  font-family: "League Spartan";
 }
-.inputControl label {
+.inputContainer label {
   color: #343634;
   font-weight: 900;
   font-size: 1.1rem;
 }
-
-.inputControl input {
+.inputContainer input {
   width: 100%;
   padding: 0.4rem;
   font-family: "League Spartan";
   font-size: 1rem;
+  border: 1px solid #343634;
+  border-radius: 0px;
 }
 
 .formControl button {
