@@ -1,0 +1,50 @@
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 200;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  width: 35%;
+  height: 30%;
+  background-color: #1e292b;
+  padding: 0.2rem;
+}
+
+.header {
+  background-color: #ff7777;
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "League Spartan";
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80%;
+  gap: 0.8rem;
+  font-family: "League Spartan";
+  font-size: 1.1rem;
+  color: #ffffff;
+}

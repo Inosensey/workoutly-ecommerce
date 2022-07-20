@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import { RootState } from "../../Redux/store";
 import FormContainer from "../Login/FormContainer";
+import LoadingPopUp from "../../common/LoadingPopUp";
 
 function Layout({ children }: any) {
   const TogglePopUpLoginForm = useSelector(
@@ -11,9 +12,12 @@ function Layout({ children }: any) {
   const toggleCart = useSelector(
     (state: RootState) => state.cartReducer.toggleCart
   );
+  const toggleLoadingPopUp =
+    useSelector((state: RootState) => state.LoadingPopUpReducer) || {};
 
   return (
     <>
+      {toggleLoadingPopUp.isLoading && <LoadingPopUp />}
       <AnimatePresence
         initial={false}
         exitBeforeEnter={true}

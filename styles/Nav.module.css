@@ -38,7 +38,7 @@
 }
 
 .buttons {
-  width: 5%;
+  width: 6%;
   display: flex;
   justify-content: space-between;
 }
@@ -66,6 +66,52 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.myAccountContainer {
+  position: relative;
+}
+.myAccountDropdown {
+  position: absolute;
+  background-color: #ffffff;
+  width: 180px;
+  padding: 0.5rem;
+  border-radius: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  font-family: "League Spartan";
+  font-size: 1rem;
+}
+.myAccountDropdown:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 49%;
+  top: -10%;
+  width: 10px;
+  height: 18px;
+  border: none;
+  background-color: #ffffff;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+}
+.dropdownContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dropdownContainer i {
+  color: #000;
+  font-size: 1rem;
+}
+.dropdownContainer li {
+  cursor: pointer;
+}
+.dropdownContainer li:hover {
+  color: #ff7777;
 }
 
 @media screen and (max-width: 860px) {

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { closePopUpLoginForm } from "../../Redux/Reducers/LoginForm";
 import { addSession } from "../../Redux/Reducers/Auth";
+import { toggleLoadingPopUp } from "../../Redux/Reducers/PopUpLoading";
 import loginUser from "../../Services/Auth/loginUser";
 import Input from "../../common/input/Input";
 import styles from "../../../styles/PopLogin/PopLogin.module.css";
@@ -31,7 +32,7 @@ const DropIn = {
 };
 
 const DefaultLoginValues = {
-  username: "",
+  email: "",
   password: "",
 };
 const DefaultErrorValues = {
@@ -49,8 +50,7 @@ function PopUpLogin({ setToggleForm }: any) {
     return response;
   };
   const checkLoginResponse = (response: any) => {
-    console.log(response);
-    if (response.Error !== undefined) {
+    if (response.Error !== null) {
       setErrorValues({ isError: true, Message: response?.Error.message });
     } else {
       setErrorValues(DefaultErrorValues);
@@ -60,7 +60,9 @@ function PopUpLogin({ setToggleForm }: any) {
           User: response?.User,
         })
       );
+      dispatch(closePopUpLoginForm());
     }
+
     setLoginDetails(DefaultLoginValues);
   };
 
@@ -85,12 +87,12 @@ function PopUpLogin({ setToggleForm }: any) {
       <form className={styles.formControl}>
         <div className={styles.inputContainer}>
           <Input
-            Type="text"
-            Name="username"
-            Label="Username"
-            inputValue={loginDetails.username}
+            Type="email"
+            Name="email"
+            Label="Email"
+            inputValue={loginDetails.email}
             setInputValue={(e: any) => {
-              setLoginDetails({ ...loginDetails, username: e.target.value });
+              setLoginDetails({ ...loginDetails, email: e.target.value });
             }}
             enableValidation={false}
             Notification={""}
@@ -120,11 +122,26 @@ function PopUpLogin({ setToggleForm }: any) {
           onClick={async (e) => {
             e.preventDefault();
             e.stopPropagation();
+            dispatch(
+              toggleLoadingPopUp({
+                ActionName: "Logging in",
+                LoadingMessage:
+                  "Please wait while we check your login credentials",
+                isLoading: true,
+              })
+            );
             const result = await LoginHandler(
-              loginDetails.username,
+              loginDetails.email,
               loginDetails.password
             );
             checkLoginResponse(result);
+            dispatch(
+              toggleLoadingPopUp({
+                ActionName: "",
+                LoadingMessage: "",
+                isLoading: false,
+              })
+            );
           }}
         >
           Login

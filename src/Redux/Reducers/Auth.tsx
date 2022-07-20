@@ -16,8 +16,11 @@ export const SessionSlice = createSlice({
     addSession: (state, action: PayloadAction<Object>) => {
       state.Session = action.payload;
     },
+    removeSession: (state) => {
+      state.Session = {};
+    },
   },
 });
 
-export const { addSession } = SessionSlice.actions;
+export const { addSession, removeSession } = SessionSlice.actions;
 export default SessionSlice.reducer;
