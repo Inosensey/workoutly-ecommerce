@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRef } from "react";
 import styles from "../../../../styles/UserPanel/ProfileForm.module.css";
 import Input from "../../../common/input/Input";
 
@@ -11,9 +12,11 @@ const DefaultPersonalDetails = {
 };
 
 function ProfileForm() {
+  const inputRef = useRef<HTMLDivElement>(null);
   const [personalDetails, setPersonalDetails] = useState(
     DefaultPersonalDetails
   );
+  const [isEditing, setIsEditing] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -22,7 +25,7 @@ function ProfileForm() {
         <p>Manage and secure your account</p>
       </div>
       <form className={styles.formControl}>
-        <div className={styles.inputContainer}>
+        <div className={styles.inputContainer} ref={inputRef}>
           <Input
             Name="firstName"
             Type="text"
@@ -34,7 +37,10 @@ function ProfileForm() {
                 firstName: e.target.value,
               })
             }
-            Disabled={true}
+            enableValidation={false}
+            Notification={""}
+            Valid={null}
+            Disabled={isEditing ? false : true}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -49,7 +55,10 @@ function ProfileForm() {
                 middleName: e.target.value,
               })
             }
-            Disabled={true}
+            enableValidation={false}
+            Notification={""}
+            Valid={null}
+            Disabled={isEditing ? false : true}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -64,7 +73,10 @@ function ProfileForm() {
                 lastName: e.target.value,
               })
             }
-            Disabled={true}
+            enableValidation={false}
+            Notification={""}
+            Valid={null}
+            Disabled={isEditing ? false : true}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -79,7 +91,10 @@ function ProfileForm() {
                 birthDate: e.target.value,
               })
             }
-            Disabled={true}
+            enableValidation={false}
+            Notification={""}
+            Valid={null}
+            Disabled={isEditing ? false : true}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -91,10 +106,41 @@ function ProfileForm() {
             setInputValue={(e: any) =>
               setPersonalDetails({ ...personalDetails, gender: e.target.value })
             }
-            Disabled={true}
+            enableValidation={false}
+            Notification={""}
+            Valid={null}
+            Disabled={isEditing ? false : true}
           />
         </div>
-        <button>Save</button>
+        <div className={styles.buttonsContainer}>
+          {isEditing ? (
+            <>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsEditing(false);
+                }}
+                className={styles.cancel}
+              >
+                Cancel
+              </button>
+              <button className={styles.save}>Save</button>
+            </>
+          ) : (
+            <button
+              className={styles.edit}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                inputRef.current!.scrollIntoView({ behavior: "smooth" });
+                setIsEditing(true);
+              }}
+            >
+              Edit
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );

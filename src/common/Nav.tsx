@@ -6,7 +6,7 @@ import { openCart } from "../Redux/Reducers/Cart";
 import { openPopUpLoginForm } from "../Redux/Reducers/LoginForm";
 import { removeSession } from "../Redux/Reducers/Auth";
 import type { RootState } from "../Redux/store";
-import { supabase } from "../Services/supabaseClient";
+import { supabase } from "../Services/Supabase/supabaseClient";
 import { toggleLoadingPopUp } from "../Redux/Reducers/PopUpLoading";
 import styles from "../../styles/Nav.module.css";
 import Link from "next/link";

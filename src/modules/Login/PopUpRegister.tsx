@@ -7,7 +7,7 @@ import { toggleLoadingPopUp } from "../../Redux/Reducers/PopUpLoading";
 import Input from "../../common/input/Input";
 import styles from "../../../styles/PopLogin/PopUpRegister.module.css";
 import useInputValidation from "../../Hooks/useInputValidation";
-import addUser from "../../Services/Auth/addUser";
+import addUser from "../../Services/Supabase/addUser";
 
 // Framer Motion Variants
 const DropIn = {

@@ -1,8 +1,36 @@
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { removeSession } from "../../Redux/Reducers/Auth";
+import { toggleLoadingPopUp } from "../../Redux/Reducers/PopUpLoading";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { supabase } from "../../Services/Supabase/supabaseClient";
 import styles from "../../../styles/UserPanel/Sidebar.module.css";
+import Router from "next/router";
 
 function Sidebar() {
+  const dispatch = useDispatch();
+
+  const logout = async () => {
+    dispatch(
+      toggleLoadingPopUp({
+        ActionName: "Logging out",
+        LoadingMessage: "Please wait while we sign out your account",
+        isLoading: true,
+      })
+    );
+    await supabase.auth.signOut();
+    dispatch(removeSession());
+    dispatch(
+      toggleLoadingPopUp({
+        ActionName: "",
+        LoadingMessage: "",
+        isLoading: false,
+      })
+    );
+    Router.push("/");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.headerContainer}>
@@ -24,12 +52,14 @@ function Sidebar() {
         <motion.li whileHover={{ scale: 1.1 }}>
           <i className="fa-solid fa-bell"></i>Notifications
         </motion.li>
-        <motion.li whileHover={{ scale: 1.1 }}>
-          <i className="fa-solid fa-shop"></i>Go Shopping
-        </motion.li>
+        <Link href="/">
+          <motion.li whileHover={{ scale: 1.1 }}>
+            <i className="fa-solid fa-shop"></i>Go Shopping
+          </motion.li>
+        </Link>
       </ul>
       <div className={styles.logoutContainer}>
-        <p>Logout</p>
+        <p onClick={() => logout()}>Logout</p>
       </div>
     </div>
   );

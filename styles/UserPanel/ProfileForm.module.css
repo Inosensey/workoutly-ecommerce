@@ -26,7 +26,13 @@
   width: 60%;
 }
 
-.formControl button {
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.save,
+.edit {
   width: 20%;
   padding: 0.5rem;
   cursor: pointer;
@@ -35,4 +41,15 @@
   color: #fff;
   background: #ff7777;
   border: none;
+}
+
+.cancel {
+  width: 20%;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-family: "League Spartan";
+  font-size: 1rem;
+  color: #ff7777;
+  border: 1px solid #ff7777;
+  background: none;
 }
