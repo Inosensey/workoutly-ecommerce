@@ -1,11 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Address from "./MyAccount/Address";
 import ChangePassword from "./MyAccount/ChangePassword";
 import ProfileForm from "./MyAccount/ProfileForm";
 import styles from "../../../styles/UserPanel/MyAccount.module.css";
+import { supabase } from "../../Services/Supabase/supabaseClient";
+import getPersonalDetails from "../../Services/Supabase/getPersonalDetails";
+import { RootState } from "../../Redux/store";
 
 function MyAccountContents() {
+  const Session =
+    useSelector((state: RootState) => state.AuthReducer.Session) || {};
   const [currentTab, setCurrentTab] = useState("My Profile");
+  const [details, setDetails] = useState();
+
+  useEffect(() => {
+    personalDetails();
+  }, []);
+  const personalDetails = async () => {
+    supabase.auth.setAuth(Session.Auth.access_token);
+    const response: any = await getPersonalDetails(Session.User.id);
+    setDetails(response?.Data);
+  };
   return (
     <>
       <div className={styles.tabContainer}>

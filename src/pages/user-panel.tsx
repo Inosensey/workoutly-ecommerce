@@ -1,26 +1,14 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import AccessForbidden from "../modules/403/AccessForbidden";
 import Content from "../modules/UserPanel/Content";
 import Sidebar from "../modules/UserPanel/Sidebar";
 import { RootState } from "../Redux/store";
-import getPersonalDetails from "../Services/Supabase/getPersonalDetails";
-import { supabase } from "../Services/Supabase/supabaseClient";
 
 export const UserPanel = () => {
   const Session: any =
     useSelector((state: RootState) => state.AuthReducer.Session) || {};
-  const [details, setDetails] = useState({});
-
-  useEffect(() => {
-    personalDetails();
-  }, []);
-  const personalDetails = async () => {
-    supabase.auth.setAuth(Session.Auth.access_token);
-    const response: any = await getPersonalDetails(Session.User.id);
-    setDetails(response?.Data);
-  };
 
   return (
     <div>
