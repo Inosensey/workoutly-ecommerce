@@ -1,10 +1,22 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../../../styles/UserPanel/Address.module.css";
+import getAddresses from "../../../Services/Supabase/getAddresses";
 import AddressForm from "./AddressForm";
 
 function Address() {
   const [toggleForm, setToggleForm] = useState(false);
+  const [addresses, setAddresses] = useState([]);
+
+  useEffect(() => {
+    getAddressHandler();
+  }, []);
+
+  const getAddressHandler = async () => {
+    const response: any = (await getAddresses()) || {};
+    setAddresses(response?.data);
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -18,7 +30,7 @@ function Address() {
             <i className="fa-solid fa-circle-plus"></i> Add new Address
           </motion.button>
         </div>
-        <div
+        {/* <div
           style={{
             height: "90%",
             display: "flex",
@@ -29,6 +41,33 @@ function Address() {
           }}
         >
           <p>You don't have any address yet</p>
+        </div> */}
+        <div className={styles.addressList}>
+          {addresses.map((info: any) => (
+            <div className={styles.address}>
+              <div className={styles.addressInfoContainer}>
+                <div className={styles.addressInfo}>
+                  <label>Full Name:</label>
+                  <p>{info.full_name}</p>
+                </div>
+                <div className={styles.addressInfo}>
+                  <label>Phone:</label>
+                  <p>{info.phone_number}</p>
+                </div>
+                <div className={styles.addressInfo}>
+                  <label>Address:</label>
+                  <p>
+                    {info.region}, {info.province}, {info.city}, {info.street},{" "}
+                    {info.postal_code}
+                  </p>
+                </div>
+              </div>
+              <div className={styles.addressActions}>
+                <button className={styles.delete}>Delete</button>
+                <button className={styles.edit}>Edit</button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <AnimatePresence

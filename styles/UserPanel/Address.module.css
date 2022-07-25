@@ -21,3 +21,70 @@
   padding: 0.5rem;
   width: 20%;
 }
+
+.addressList {
+  /* border: 2px solid magenta; */
+  height: 85%;
+  margin: 1rem 0 0 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: auto;
+  align-items: center;
+}
+.address {
+  box-shadow: 0 0 15px 3px rgb(0, 0, 0, 0.6);
+  min-height: 60%;
+  width: 85%;
+  display: flex;
+}
+.addressInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  width: 70%;
+  height: 100%;
+}
+.addressInfo {
+  display: flex;
+  font-family: "League Spartan";
+  font-size: 1rem;
+  padding: 0 1rem 0 0;
+}
+.addressInfo label {
+  width: 25%;
+  padding: 0 1rem 0 0;
+  color: #b3b3b3;
+  text-align: right;
+}
+.address p {
+  color: #fff;
+  width: 75%;
+}
+
+.addressActions {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.addressActions button {
+  width: 40%;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-family: "League Spartan";
+  font-size: 1rem;
+}
+.edit {
+  color: #fff;
+  background: #ff7777;
+  border: none;
+}
+.delete {
+  color: #ff7777;
+  border: 1px solid #ff7777;
+  background: none;
+}

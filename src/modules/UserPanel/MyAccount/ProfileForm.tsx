@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../../../../styles/UserPanel/ProfileForm.module.css";
 import Input from "../../../common/input/Input";
+import { toggleLoadingPopUp } from "../../../Redux/Reducers/PopUpLoading";
+import { RootState } from "../../../Redux/store";
+import getPersonalDetails from "../../../Services/Supabase/getPersonalDetails";
+import { supabase } from "../../../Services/Supabase/supabaseClient";
+import updatePersonalDetails from "../../../Services/Supabase/updatePersonalDetails";
 
-const DefaultPersonalDetails = {
+const DefaultDetails = {
+  id: "",
   firstName: "",
   middleName: "",
   lastName: "",
@@ -12,11 +19,51 @@ const DefaultPersonalDetails = {
 };
 
 function ProfileForm() {
+  const dispatch = useDispatch();
   const inputRef = useRef<HTMLDivElement>(null);
-  const [personalDetails, setPersonalDetails] = useState(
-    DefaultPersonalDetails
-  );
+  const Session: any =
+    useSelector((state: RootState) => state.AuthReducer.Session) || {};
+  const [details, setDetails] = useState(DefaultDetails);
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    personalDetails();
+  }, []);
+  const personalDetails = async () => {
+    supabase.auth.setAuth(Session.Auth.access_token);
+    const response: any = await getPersonalDetails(Session.User.id);
+    if (response.Data === null) return;
+    setDetails({
+      ...details,
+      firstName: response.Data[0].first_name,
+      middleName: response.Data[0].middle_name,
+      lastName: response.Data[0].last_name,
+      birthDate: response.Data[0].birth_date,
+      gender: response.Data[0].gender,
+    });
+  };
+  const updatePersonalDetailsHandler = async () => {
+    dispatch(
+      toggleLoadingPopUp({
+        ActionName: "Updating",
+        LoadingMessage: "Please wait while we update your account",
+        isLoading: true,
+      })
+    );
+    const response = await updatePersonalDetails(details, Session.User.id);
+    dispatch(
+      toggleLoadingPopUp({
+        ActionName: "",
+        LoadingMessage: "",
+        isLoading: false,
+      })
+    );
+    if (response?.data !== null) {
+      personalDetails();
+      inputRef.current!.scrollIntoView({ behavior: "smooth" });
+      setIsEditing(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -30,10 +77,10 @@ function ProfileForm() {
             Name="firstName"
             Type="text"
             Label="First name"
-            inputValue={personalDetails.firstName}
+            inputValue={details.firstName}
             setInputValue={(e: any) =>
-              setPersonalDetails({
-                ...personalDetails,
+              setDetails({
+                ...details,
                 firstName: e.target.value,
               })
             }
@@ -48,10 +95,10 @@ function ProfileForm() {
             Name="middleName"
             Type="text"
             Label="Middle name"
-            inputValue={personalDetails.middleName}
+            inputValue={details.middleName}
             setInputValue={(e: any) =>
-              setPersonalDetails({
-                ...personalDetails,
+              setDetails({
+                ...details,
                 middleName: e.target.value,
               })
             }
@@ -66,10 +113,10 @@ function ProfileForm() {
             Name="lastName"
             Type="text"
             Label="Last name"
-            inputValue={personalDetails.lastName}
+            inputValue={details.lastName}
             setInputValue={(e: any) =>
-              setPersonalDetails({
-                ...personalDetails,
+              setDetails({
+                ...details,
                 lastName: e.target.value,
               })
             }
@@ -84,10 +131,10 @@ function ProfileForm() {
             Name="birthDate"
             Type="date"
             Label="Birth date"
-            inputValue={personalDetails.birthDate}
+            inputValue={details.birthDate}
             setInputValue={(e: any) =>
-              setPersonalDetails({
-                ...personalDetails,
+              setDetails({
+                ...details,
                 birthDate: e.target.value,
               })
             }
@@ -102,9 +149,9 @@ function ProfileForm() {
             Name="gender"
             Type="text"
             Label="Gender"
-            inputValue={personalDetails.gender}
+            inputValue={details.gender}
             setInputValue={(e: any) =>
-              setPersonalDetails({ ...personalDetails, gender: e.target.value })
+              setDetails({ ...details, gender: e.target.value })
             }
             enableValidation={false}
             Notification={""}
@@ -119,13 +166,23 @@ function ProfileForm() {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
+                  inputRef.current!.scrollIntoView({ behavior: "smooth" });
                   setIsEditing(false);
                 }}
                 className={styles.cancel}
               >
                 Cancel
               </button>
-              <button className={styles.save}>Save</button>
+              <button
+                className={styles.save}
+                onClick={async (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  updatePersonalDetailsHandler();
+                }}
+              >
+                Save
+              </button>
             </>
           ) : (
             <button

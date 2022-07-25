@@ -2,6 +2,11 @@ import { motion } from "framer-motion";
 import Input from "../../../common/input/Input";
 import styles from "../../../../styles/UserPanel/AddressForm.module.css";
 import { useState } from "react";
+import addAddress from "../../../Services/Supabase/addAddress";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../Redux/store";
+import { supabase } from "../../../Services/Supabase/supabaseClient";
+import { toggleLoadingPopUp } from "../../../Redux/Reducers/PopUpLoading";
 
 // Framer Motion Variants
 const DropIn = {
@@ -36,7 +41,32 @@ const DefaultAddressDetails = {
 };
 
 function AddressForm({ setToggleForm }: any) {
+  const dispatch = useDispatch();
+  const Session: any =
+    useSelector((state: RootState) => state.AuthReducer.Session) || {};
   const [addressDetails, setAddressDetails] = useState(DefaultAddressDetails);
+
+  const addAddressHandler = async () => {
+    dispatch(
+      toggleLoadingPopUp({
+        ActionName: "Adding Address",
+        LoadingMessage: "Please wait while we add your address",
+        isLoading: true,
+      })
+    );
+    const response = await addAddress(addressDetails, Session.User.id);
+    if (response?.data == null && response?.error == null) {
+      setAddressDetails(DefaultAddressDetails);
+      setToggleForm(false);
+    }
+    dispatch(
+      toggleLoadingPopUp({
+        ActionName: "",
+        LoadingMessage: "",
+        isLoading: false,
+      })
+    );
+  };
 
   return (
     <div className={styles.overlay}>
@@ -62,6 +92,9 @@ function AddressForm({ setToggleForm }: any) {
                     fullName: e.target.value,
                   })
                 }
+                enableValidation={false}
+                Notification={""}
+                Valid={null}
                 Disabled={false}
               />
             </div>
@@ -74,9 +107,12 @@ function AddressForm({ setToggleForm }: any) {
                 setInputValue={(e: any) =>
                   setAddressDetails({
                     ...addressDetails,
-                    fullName: e.target.value,
+                    phoneNumber: e.target.value,
                   })
                 }
+                enableValidation={false}
+                Notification={""}
+                Valid={null}
                 Disabled={false}
               />
             </div>
@@ -92,6 +128,9 @@ function AddressForm({ setToggleForm }: any) {
                     region: e.target.value,
                   })
                 }
+                enableValidation={false}
+                Notification={""}
+                Valid={null}
                 Disabled={false}
               />
             </div>
@@ -107,6 +146,9 @@ function AddressForm({ setToggleForm }: any) {
                     province: e.target.value,
                   })
                 }
+                enableValidation={false}
+                Notification={""}
+                Valid={null}
                 Disabled={false}
               />
             </div>
@@ -119,6 +161,9 @@ function AddressForm({ setToggleForm }: any) {
                 setInputValue={(e: any) =>
                   setAddressDetails({ ...addressDetails, city: e.target.value })
                 }
+                enableValidation={false}
+                Notification={""}
+                Valid={null}
                 Disabled={false}
               />
             </div>
@@ -134,6 +179,9 @@ function AddressForm({ setToggleForm }: any) {
                     street: e.target.value,
                   })
                 }
+                enableValidation={false}
+                Notification={""}
+                Valid={null}
                 Disabled={false}
               />
             </div>
@@ -149,6 +197,9 @@ function AddressForm({ setToggleForm }: any) {
                     postalCode: e.target.value,
                   })
                 }
+                enableValidation={false}
+                Notification={""}
+                Valid={null}
                 Disabled={false}
               />
             </div>
@@ -163,7 +214,16 @@ function AddressForm({ setToggleForm }: any) {
               >
                 Cancel
               </button>
-              <button className={styles.add}>Add</button>
+              <button
+                className={styles.add}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  addAddressHandler();
+                }}
+              >
+                Add
+              </button>
             </div>
           </form>
         </div>
