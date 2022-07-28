@@ -21,7 +21,13 @@ import Layout from "../modules/Layout/Layout";
 const persistConfig = {
   key: "root",
   version: 1,
-  blacklist: ["loginFormReducer", "LoadingPopUpReducer"],
+  blacklist: [
+    "loginFormReducer",
+    "LoadingPopUpReducer",
+    "NotifPopUpReducer",
+    "CheckOutPopUpReducer",
+    "SidebarLinksReducer",
+  ],
   storage,
 };
 

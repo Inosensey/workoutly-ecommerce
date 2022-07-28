@@ -48,3 +48,17 @@
   font-size: 1.1rem;
   color: #ffffff;
 }
+.okBtnContainer {
+  width: 15%;
+  margin: 1rem 0 0 0;
+}
+.okBtnContainer button {
+  font-family: "League Spartan";
+  border: none;
+  width: 100%;
+  padding: 0.3rem;
+  background: #ff7777;
+  color: #ffffff;
+  font-size: 1.1rem;
+  cursor: pointer;
+}

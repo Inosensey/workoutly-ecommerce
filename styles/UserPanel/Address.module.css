@@ -59,9 +59,10 @@
   color: #b3b3b3;
   text-align: right;
 }
-.address p {
+.addressInfo p {
   color: #fff;
   width: 75%;
+  line-height: 1.2rem;
 }
 
 .addressActions {

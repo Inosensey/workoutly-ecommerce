@@ -26,7 +26,7 @@ function Ratings({ rating }: Props) {
       </div>
       <div className={styles.starsCounterContainer}>
         {[4, 3, 2, 1, 0].map((num: number) => (
-          <div className={styles.stars}>
+          <div className={styles.stars} key={num}>
             <div className={styles.starsOuter}>
               <div
                 className={styles.starsInner}

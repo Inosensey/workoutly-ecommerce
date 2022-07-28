@@ -1,8 +1,11 @@
 import { supabase } from "./supabaseClient";
 
-const getAddresses = async () => {
+export const getAddresses = async () => {
   try {
-    const { data, error } = await supabase.from("address").select("*");
+    const { data, error } = await supabase
+      .from("address")
+      .select("*")
+      .order("updated_at", { ascending: false });
     return {
       data,
       error,
@@ -12,4 +15,17 @@ const getAddresses = async () => {
   }
 };
 
-export default getAddresses;
+export const getSpecificAddress = async (addressId: number) => {
+  try {
+    const { data, error } = await supabase
+      .from("address")
+      .select("*")
+      .eq("address_id", addressId);
+    return {
+      data,
+      error,
+    };
+  } catch (error) {
+    console.log({ Error: error });
+  }
+};

@@ -1,7 +1,7 @@
-import { Audio, Triangle } from "react-loader-spinner";
+import { Triangle } from "react-loader-spinner";
 import { RootState } from "../Redux/store";
 import { useSelector } from "react-redux";
-import styles from "../../styles/Common/LoadingPopUp.module.css";
+import styles from "../../styles/Common/PopUp.module.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 function LoadingPopUp() {

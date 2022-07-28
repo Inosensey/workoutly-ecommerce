@@ -5,8 +5,8 @@ import { useState } from "react";
 import addAddress from "../../../Services/Supabase/addAddress";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store";
-import { supabase } from "../../../Services/Supabase/supabaseClient";
 import { toggleLoadingPopUp } from "../../../Redux/Reducers/PopUpLoading";
+import updateAddress from "../../../Services/Supabase/updateAddress";
 
 // Framer Motion Variants
 const DropIn = {
@@ -30,21 +30,18 @@ const DropIn = {
   },
 };
 
-const DefaultAddressDetails = {
-  fullName: "",
-  phoneNumber: "",
-  region: "",
-  province: "",
-  city: "",
-  street: "",
-  postalCode: "",
-};
-
-function AddressForm({ setToggleForm }: any) {
+function AddressForm({
+  getAddress,
+  setToggleForm,
+  addressDetails,
+  setAddressDetails,
+  DefaultAddressDetails,
+  FormName,
+  FormAction,
+}: any) {
   const dispatch = useDispatch();
   const Session: any =
     useSelector((state: RootState) => state.AuthReducer.Session) || {};
-  const [addressDetails, setAddressDetails] = useState(DefaultAddressDetails);
 
   const addAddressHandler = async () => {
     dispatch(
@@ -58,6 +55,29 @@ function AddressForm({ setToggleForm }: any) {
     if (response?.data == null && response?.error == null) {
       setAddressDetails(DefaultAddressDetails);
       setToggleForm(false);
+      getAddress();
+    }
+    dispatch(
+      toggleLoadingPopUp({
+        ActionName: "",
+        LoadingMessage: "",
+        isLoading: false,
+      })
+    );
+  };
+  const updateAddressHandler = async () => {
+    dispatch(
+      toggleLoadingPopUp({
+        ActionName: "Updating Address",
+        LoadingMessage: "Please wait while we update your address",
+        isLoading: true,
+      })
+    );
+    const response = await updateAddress(addressDetails);
+    if (response?.data !== null) {
+      setAddressDetails(DefaultAddressDetails);
+      setToggleForm(false);
+      getAddress();
     }
     dispatch(
       toggleLoadingPopUp({
@@ -78,7 +98,7 @@ function AddressForm({ setToggleForm }: any) {
         exit="exit"
       >
         <div className={styles.popUpContainer}>
-          <h3>New Address</h3>
+          <h3>{FormName}</h3>
           <form className={styles.formControl}>
             <div className={styles.inputControl}>
               <Input
@@ -210,6 +230,7 @@ function AddressForm({ setToggleForm }: any) {
                   e.stopPropagation();
                   e.preventDefault();
                   setToggleForm(false);
+                  setAddressDetails(DefaultAddressDetails);
                 }}
               >
                 Cancel
@@ -219,10 +240,12 @@ function AddressForm({ setToggleForm }: any) {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  addAddressHandler();
+                  FormAction === "Add"
+                    ? addAddressHandler()
+                    : updateAddressHandler();
                 }}
               >
-                Add
+                {FormAction === "Add" ? "Add" : "Save"}
               </button>
             </div>
           </form>

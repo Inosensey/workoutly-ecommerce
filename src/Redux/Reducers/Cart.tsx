@@ -42,9 +42,9 @@ export const cartSlice = createSlice({
       state.toggleCart = false;
     },
     addItemToCart: (state, action: PayloadAction<CartItemTypes>) => {
-      const { itemInfo } = action.payload;
+      const { itemInfo }: any = action.payload;
       const ExistingItem: any = state.cartItem.find(
-        (item: Object) => item.itemInfo.id === itemInfo.id
+        (item: any) => item.itemInfo.id === itemInfo.id
       );
       if (
         ExistingItem !== undefined &&
@@ -62,9 +62,9 @@ export const cartSlice = createSlice({
       );
     },
     adjustItemQuantity: (state, action: PayloadAction<QuantityActionTypes>) => {
-      const { itemInfo, ActionType } = action.payload;
+      const { itemInfo, ActionType }: any = action.payload;
       const ExistingItem: any = state.cartItem.find(
-        (item: Object) => item.itemInfo.id === itemInfo.id
+        (item: any) => item.itemInfo.id === itemInfo.id
       );
       if (
         ActionType === "Increment" &&
@@ -73,6 +73,9 @@ export const cartSlice = createSlice({
         ExistingItem.Quantity += 1;
       if (ActionType === "Decrement" && ExistingItem.Quantity !== 1)
         ExistingItem.Quantity -= 1;
+    },
+    removeAllItemFromCart: (state) => {
+      state.cartItem = [];
     },
     calculatePrice: (state) => {
       let items = 0;
@@ -95,6 +98,7 @@ export const {
   closeCart,
   addItemToCart,
   removeItemFromCart,
+  removeAllItemFromCart,
   adjustItemQuantity,
   calculatePrice,
 } = cartSlice.actions;

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { supabase } from "../../Services/Supabase/supabaseClient";
 import styles from "../../../styles/UserPanel/Sidebar.module.css";
 import Router from "next/router";
+import { setLink } from "../../Redux/Reducers/SidebarLinks";
 
 function Sidebar() {
   const dispatch = useDispatch();
@@ -30,6 +31,9 @@ function Sidebar() {
     );
     Router.push("/");
   };
+  const ChangeLink = (Link: string) => {
+    dispatch(setLink(Link));
+  };
 
   return (
     <div className={styles.container}>
@@ -40,10 +44,18 @@ function Sidebar() {
         <h3>Username</h3>
       </div>
       <ul className={styles.menuContainer}>
-        <motion.li whileHover={{ scale: 1.1 }}>
+        <motion.li
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={(e) => ChangeLink("My Account")}
+        >
           <i className="fa-solid fa-user"></i>My Account
         </motion.li>
-        <motion.li whileHover={{ scale: 1.1 }}>
+        <motion.li
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={(e) => ChangeLink("My Orders")}
+        >
           <i className="fa-solid fa-file-lines"></i>My Orders
         </motion.li>
         <motion.li whileHover={{ scale: 1.1 }}>

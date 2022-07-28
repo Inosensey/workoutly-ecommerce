@@ -4,6 +4,8 @@ import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import { RootState } from "../../Redux/store";
 import FormContainer from "../Login/FormContainer";
 import LoadingPopUp from "../../common/LoadingPopUp";
+import Checkout from "../Checkout/Checkout";
+import NotifPopUp from "../../common/NotifPopUp";
 
 function Layout({ children }: any) {
   const TogglePopUpLoginForm = useSelector(
@@ -12,11 +14,18 @@ function Layout({ children }: any) {
   const toggleCart = useSelector(
     (state: RootState) => state.cartReducer.toggleCart
   );
+  const toggleCheckOutPopUp = useSelector(
+    (state: RootState) => state.CheckOutPopUpReducer.toggleCheckOutPopUp
+  );
   const toggleLoadingPopUp =
     useSelector((state: RootState) => state.LoadingPopUpReducer) || {};
+  const toggleNotifPopUp =
+    useSelector((state: RootState) => state.NotifPopUpReducer) || {};
 
   return (
     <>
+      {toggleCheckOutPopUp && <Checkout />}
+      {toggleNotifPopUp.show && <NotifPopUp />}
       {toggleLoadingPopUp.isLoading && <LoadingPopUp />}
       <AnimatePresence
         initial={false}

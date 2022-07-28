@@ -30,13 +30,13 @@ function CartItem() {
         </div>
       ) : (
         cartItems.map((item: any) => (
-          <div className={styles.itemContainer}>
+          <div className={styles.itemContainer} key={Math.random() * 1000}>
             <div className={styles.itemPhotoContainer}>
               <img src={`${item.itemInfo.productPhoto.url}`} alt="" />
             </div>
             <div className={styles.itemInfoContainer}>
               <p>{item.itemInfo.productName}</p>
-              <p>{item.itemInfo.productPrice}</p>
+              <p>{item.itemInfo.productPrice}$</p>
               <div className={styles.itemActionContainer}>
                 <div className={styles.quantityContainer}>
                   <div className={styles.quantityController}>

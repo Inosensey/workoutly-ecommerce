@@ -1,9 +1,13 @@
 import styles from "../../../styles/UserPanel/Header.module.css";
 
-function Header() {
+interface Props {
+  CurrentLink: string;
+}
+
+function Header({ CurrentLink }: Props) {
   return (
     <div className={styles.container}>
-      <h2>My Account</h2>
+      <h2>{CurrentLink}</h2>
     </div>
   );
 }
