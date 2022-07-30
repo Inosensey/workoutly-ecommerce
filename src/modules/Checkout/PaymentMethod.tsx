@@ -1,7 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleLoadingPopUp } from "../../Redux/Reducers/PopUpLoading";
+import {
+  hideLoadingPopUp,
+  showLoadingPopUp,
+} from "../../Redux/Reducers/PopUpLoading";
 import { RootState } from "../../Redux/store";
 import addOrder from "../../Services/Supabase/addOrder";
 import {
@@ -13,6 +16,7 @@ import AddressForm from "../UserPanel/MyAccount/AddressForm";
 import styles from "../../../styles/Checkout/PaymentMethod.module.css";
 import { closePopUpCheckOut } from "../../Redux/Reducers/PopUpCheckOut";
 import { closeCart, removeAllItemFromCart } from "../../Redux/Reducers/Cart";
+import { showNotifPopUp } from "../../Redux/Reducers/PopUpNotif";
 
 //Framer motion
 const UlVariant = {
@@ -76,7 +80,7 @@ function PaymentMethod() {
 
   const getSpecificAddressHandler = async (id: number) => {
     dispatch(
-      toggleLoadingPopUp({
+      showLoadingPopUp({
         ActionName: "Getting address",
         LoadingMessage: "Please wait while we fetch your address",
         isLoading: true,
@@ -101,30 +105,18 @@ function PaymentMethod() {
       address_id: response.data[0].address_id,
       status: 0,
     });
-    dispatch(
-      toggleLoadingPopUp({
-        ActionName: "",
-        LoadingMessage: "",
-        isLoading: false,
-      })
-    );
+    dispatch(hideLoadingPopUp());
   };
   const addOrderHandler = async () => {
     dispatch(
-      toggleLoadingPopUp({
+      showLoadingPopUp({
         ActionName: "Adding order",
         LoadingMessage: "Please wait while we take care of your order",
         isLoading: true,
       })
     );
     const response = await addOrder(orderDetails);
-    dispatch(
-      toggleLoadingPopUp({
-        ActionName: "",
-        LoadingMessage: "",
-        isLoading: false,
-      })
-    );
+    dispatch(hideLoadingPopUp());
     if (response?.data === null && response.error === null) {
       ClearShoppingCart();
     }
@@ -136,6 +128,15 @@ function PaymentMethod() {
     dispatch(closePopUpCheckOut());
     dispatch(removeAllItemFromCart());
     dispatch(closeCart());
+    dispatch(
+      showNotifPopUp({
+        NotifType: "Add Order",
+        NotifName: "Notification",
+        NotifMessage: "Order Successfully. Thank you for purchasing.",
+        NotifAction: null,
+        show: true,
+      })
+    );
   };
   return (
     <>

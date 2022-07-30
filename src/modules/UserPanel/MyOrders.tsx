@@ -46,7 +46,7 @@ function MyOrders() {
                     <td>{details.order_id}</td>
                     <td>{details.full_name}</td>
                     <td>
-                      {details.item_metadata.itemDetails
+                      {details.item_metadata
                         .map((item: any) => `${item.itemInfo.productName}`)
                         .join(", ")}
                     </td>

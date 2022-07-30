@@ -2,20 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 type NotifInfoTypes = {
+  NotifType: string;
   NotifName: String;
-  LoadingMessage: String;
+  NotifMessage: String;
+  NotifAction: any;
   show: Boolean;
 };
 
 export interface NotifInfoState {
+  NotifType: string;
   NotifName: String;
-  LoadingMessage: String;
+  NotifMessage: String;
+  NotifAction: any;
   show: Boolean;
 }
 
 const initialState: NotifInfoState = {
+  NotifType: "",
   NotifName: "",
-  LoadingMessage: "",
+  NotifMessage: "",
+  NotifAction: "",
   show: false,
 };
 
@@ -23,13 +29,21 @@ export const NotifPopSlice = createSlice({
   name: "NotifPopUp",
   initialState,
   reducers: {
-    toggleNotifPopUp: (state, action: PayloadAction<NotifInfoTypes>) => {
+    showNotifPopUp: (state, action: PayloadAction<NotifInfoTypes>) => {
+      state.NotifType = action.payload.NotifType;
       state.NotifName = action.payload.NotifName;
-      state.LoadingMessage = action.payload.LoadingMessage;
+      state.NotifMessage = action.payload.NotifMessage;
+      state.NotifAction = action.payload.NotifAction;
       state.show = action.payload.show;
+    },
+    hideNotifPopUp: (state) => {
+      state.NotifType = "";
+      state.NotifName = "";
+      state.NotifMessage = "";
+      state.show = false;
     },
   },
 });
 
-export const { toggleNotifPopUp } = NotifPopSlice.actions;
+export const { showNotifPopUp, hideNotifPopUp } = NotifPopSlice.actions;
 export default NotifPopSlice.reducer;

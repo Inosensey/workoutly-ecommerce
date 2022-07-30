@@ -23,13 +23,18 @@ export const LoadingPopUpSlice = createSlice({
   name: "LoadingPopUp",
   initialState,
   reducers: {
-    toggleLoadingPopUp: (state, action: PayloadAction<LoadingInfoTypes>) => {
+    showLoadingPopUp: (state, action: PayloadAction<LoadingInfoTypes>) => {
       state.ActionName = action.payload.ActionName;
       state.LoadingMessage = action.payload.LoadingMessage;
       state.isLoading = action.payload.isLoading;
     },
+    hideLoadingPopUp: (state) => {
+      state.ActionName = "";
+      state.LoadingMessage = "";
+      state.isLoading = false;
+    },
   },
 });
 
-export const { toggleLoadingPopUp } = LoadingPopUpSlice.actions;
+export const { showLoadingPopUp, hideLoadingPopUp } = LoadingPopUpSlice.actions;
 export default LoadingPopUpSlice.reducer;

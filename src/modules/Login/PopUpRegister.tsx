@@ -2,12 +2,17 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { toggleLoadingPopUp } from "../../Redux/Reducers/PopUpLoading";
+import {
+  showLoadingPopUp,
+  hideLoadingPopUp,
+} from "../../Redux/Reducers/PopUpLoading";
 
 import Input from "../../common/input/Input";
 import styles from "../../../styles/PopLogin/PopUpRegister.module.css";
 import useInputValidation from "../../Hooks/useInputValidation";
 import addUser from "../../Services/Supabase/addUser";
+import { supabase } from "../../Services/Supabase/supabaseClient";
+import { showNotifPopUp } from "../../Redux/Reducers/PopUpNotif";
 
 // Framer Motion Variants
 const DropIn = {
@@ -137,7 +142,7 @@ function PopUpRegister({ setToggleForm }: any) {
             e.preventDefault();
             e.stopPropagation();
             dispatch(
-              toggleLoadingPopUp({
+              showLoadingPopUp({
                 ActionName: "Signing Up",
                 LoadingMessage:
                   "Please wait while we check and store your information",
@@ -145,11 +150,14 @@ function PopUpRegister({ setToggleForm }: any) {
               })
             );
             await addUserHandler(userDetails.email, userDetails.password);
+            dispatch(hideLoadingPopUp());
             dispatch(
-              toggleLoadingPopUp({
-                ActionName: "",
-                LoadingMessage: "",
-                isLoading: false,
+              showNotifPopUp({
+                NotifType: "Register",
+                NotifName: "Notification",
+                NotifMessage: "Registered Successfully. You can now Login.",
+                NotifAction: null,
+                show: true,
               })
             );
           }}

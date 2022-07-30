@@ -6,8 +6,13 @@ import FormContainer from "../Login/FormContainer";
 import LoadingPopUp from "../../common/LoadingPopUp";
 import Checkout from "../Checkout/Checkout";
 import NotifPopUp from "../../common/NotifPopUp";
+import { supabase } from "../../Services/Supabase/supabaseClient";
+import { useEffect } from "react";
 
 function Layout({ children }: any) {
+  useEffect(() => {
+    supabase.auth.refreshSession();
+  }, []);
   const TogglePopUpLoginForm = useSelector(
     (state: RootState) => state.loginFormReducer.toggleLoginPopUp
   );
@@ -21,7 +26,6 @@ function Layout({ children }: any) {
     useSelector((state: RootState) => state.LoadingPopUpReducer) || {};
   const toggleNotifPopUp =
     useSelector((state: RootState) => state.NotifPopUpReducer) || {};
-
   return (
     <>
       {toggleCheckOutPopUp && <Checkout />}

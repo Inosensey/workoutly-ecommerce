@@ -2,7 +2,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "../../../../styles/UserPanel/Address.module.css";
-import { toggleLoadingPopUp } from "../../../Redux/Reducers/PopUpLoading";
+import {
+  showLoadingPopUp,
+  hideLoadingPopUp,
+} from "../../../Redux/Reducers/PopUpLoading";
+import { showNotifPopUp } from "../../../Redux/Reducers/PopUpNotif";
 import deleteAddress from "../../../Services/Supabase/deleteAddress";
 import {
   getAddresses,
@@ -45,7 +49,7 @@ function Address() {
   };
   const getSpecificAddressHandler = async (id: number) => {
     dispatch(
-      toggleLoadingPopUp({
+      showLoadingPopUp({
         ActionName: "Getting address",
         LoadingMessage: "Please wait while we fetch your address",
         isLoading: true,
@@ -63,35 +67,32 @@ function Address() {
       street: response.data[0].street,
       postalCode: response.data[0].postal_code,
     });
-    dispatch(
-      toggleLoadingPopUp({
-        ActionName: "",
-        LoadingMessage: "",
-        isLoading: false,
-      })
-    );
+    dispatch(hideLoadingPopUp());
     setFormInfo({ ...formInfo, FormName: "Edit Address", FormAction: "Edit" });
     setToggleForm(true);
   };
   const deleteAddressHandler = async (addressId: number) => {
     dispatch(
-      toggleLoadingPopUp({
+      showLoadingPopUp({
         ActionName: "Deleting address",
         LoadingMessage: "Please wait while we delete your address",
         isLoading: true,
       })
     );
     const response: any = await deleteAddress(addressId);
+    dispatch(
+      showNotifPopUp({
+        NotifType: "Delete Address",
+        NotifName: "Notification",
+        NotifMessage: "Address Deleted Successfully",
+        NotifAction: null,
+        show: true,
+      })
+    );
+    dispatch(hideLoadingPopUp());
     if (response.error === null) {
       getAddressHandler();
     }
-    dispatch(
-      toggleLoadingPopUp({
-        ActionName: "",
-        LoadingMessage: "",
-        isLoading: false,
-      })
-    );
   };
 
   return (

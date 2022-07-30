@@ -1,12 +1,15 @@
 import { motion } from "framer-motion";
 import Input from "../../../common/input/Input";
-import styles from "../../../../styles/UserPanel/AddressForm.module.css";
-import { useState } from "react";
 import addAddress from "../../../Services/Supabase/addAddress";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store";
-import { toggleLoadingPopUp } from "../../../Redux/Reducers/PopUpLoading";
+import {
+  hideLoadingPopUp,
+  showLoadingPopUp,
+} from "../../../Redux/Reducers/PopUpLoading";
 import updateAddress from "../../../Services/Supabase/updateAddress";
+import styles from "../../../../styles/UserPanel/AddressForm.module.css";
+import { showNotifPopUp } from "../../../Redux/Reducers/PopUpNotif";
 
 // Framer Motion Variants
 const DropIn = {
@@ -45,47 +48,57 @@ function AddressForm({
 
   const addAddressHandler = async () => {
     dispatch(
-      toggleLoadingPopUp({
+      showLoadingPopUp({
         ActionName: "Adding Address",
         LoadingMessage: "Please wait while we add your address",
         isLoading: true,
       })
     );
     const response = await addAddress(addressDetails, Session.User.id);
+    dispatch(hideLoadingPopUp());
     if (response?.data == null && response?.error == null) {
-      setAddressDetails(DefaultAddressDetails);
-      setToggleForm(false);
-      getAddress();
+      ClearAddressForm();
     }
-    dispatch(
-      toggleLoadingPopUp({
-        ActionName: "",
-        LoadingMessage: "",
-        isLoading: false,
-      })
-    );
   };
   const updateAddressHandler = async () => {
     dispatch(
-      toggleLoadingPopUp({
+      showLoadingPopUp({
         ActionName: "Updating Address",
         LoadingMessage: "Please wait while we update your address",
         isLoading: true,
       })
     );
     const response = await updateAddress(addressDetails);
+    dispatch(hideLoadingPopUp());
     if (response?.data !== null) {
-      setAddressDetails(DefaultAddressDetails);
-      setToggleForm(false);
-      getAddress();
+      ClearAddressForm();
     }
-    dispatch(
-      toggleLoadingPopUp({
-        ActionName: "",
-        LoadingMessage: "",
-        isLoading: false,
-      })
-    );
+  };
+
+  const ClearAddressForm = () => {
+    setAddressDetails(DefaultAddressDetails);
+    setToggleForm(false);
+    getAddress();
+    if (FormAction === "Add")
+      dispatch(
+        showNotifPopUp({
+          NotifType: "Add Address",
+          NotifName: "Notification",
+          NotifMessage: "Address Added Successfully.",
+          NotifAction: null,
+          show: true,
+        })
+      );
+    if (FormAction !== "Add")
+      dispatch(
+        showNotifPopUp({
+          NotifType: "Update Address",
+          NotifName: "Notification",
+          NotifMessage: "Address Updated Successfully.",
+          NotifAction: null,
+          show: true,
+        })
+      );
   };
 
   return (

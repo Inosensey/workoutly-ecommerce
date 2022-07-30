@@ -7,9 +7,13 @@ import { openPopUpLoginForm } from "../Redux/Reducers/LoginForm";
 import { removeSession } from "../Redux/Reducers/Auth";
 import type { RootState } from "../Redux/store";
 import { supabase } from "../Services/Supabase/supabaseClient";
-import { toggleLoadingPopUp } from "../Redux/Reducers/PopUpLoading";
+import {
+  showLoadingPopUp,
+  hideLoadingPopUp,
+} from "../Redux/Reducers/PopUpLoading";
 import styles from "../../styles/Nav.module.css";
 import Link from "next/link";
+import { showNotifPopUp } from "../Redux/Reducers/PopUpNotif";
 
 //Framer motion
 const DropDownVariant = {
@@ -57,7 +61,7 @@ function Nav() {
   };
   const Logout = async () => {
     dispatch(
-      toggleLoadingPopUp({
+      showLoadingPopUp({
         ActionName: "Logging out",
         LoadingMessage: "Please wait while we sign out your account",
         isLoading: true,
@@ -65,11 +69,14 @@ function Nav() {
     );
     await supabase.auth.signOut();
     dispatch(removeSession());
+    dispatch(hideLoadingPopUp());
     dispatch(
-      toggleLoadingPopUp({
-        ActionName: "",
-        LoadingMessage: "",
-        isLoading: false,
+      showNotifPopUp({
+        NotifType: "Logout",
+        NotifName: "Notification",
+        NotifMessage: "Logout Successfully. Thank you for stopping by.",
+        NotifAction: null,
+        show: true,
       })
     );
     setShowDropDown(false);
