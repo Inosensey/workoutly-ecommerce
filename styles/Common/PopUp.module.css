@@ -48,6 +48,9 @@
   font-size: 1.1rem;
   color: #ffffff;
 }
+.message p {
+  padding: 0 1rem;
+}
 .btnContainer {
   width: 80%;
   display: flex;

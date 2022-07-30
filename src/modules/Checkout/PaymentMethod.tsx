@@ -63,14 +63,21 @@ function PaymentMethod() {
     DefaultAddressDetails
   );
   const [orderDetails, setOrderDetails] = useState(DefaultOrderDetails);
+  const cartPrice = useSelector((state: RootState) => state.cartReducer.price);
   const cartItems = useSelector(
     (state: RootState) => state.cartReducer.cartItem
   );
+  const totalPrice =
+    Number(cartPrice.totalPrice) - 0.5 * Number(cartPrice.totalPrice) + 2.99;
   const session: any = supabase.auth.session();
 
   useEffect(() => {
     getAddressHandler();
-    setOrderDetails({ ...orderDetails, item: cartItems });
+    setOrderDetails({
+      ...orderDetails,
+      item: cartItems,
+      total_price: totalPrice,
+    });
   }, []);
 
   const getAddressHandler = async () => {
@@ -116,6 +123,7 @@ function PaymentMethod() {
       })
     );
     const response = await addOrder(orderDetails);
+    console.log(response);
     dispatch(hideLoadingPopUp());
     if (response?.data === null && response.error === null) {
       ClearShoppingCart();
@@ -132,7 +140,8 @@ function PaymentMethod() {
       showNotifPopUp({
         NotifType: "Add Order",
         NotifName: "Notification",
-        NotifMessage: "Order Successfully. Thank you for purchasing.",
+        NotifMessage:
+          "Order Successfully. Thank you for purchasing. Do you want to view your order?",
         NotifAction: null,
         show: true,
       })

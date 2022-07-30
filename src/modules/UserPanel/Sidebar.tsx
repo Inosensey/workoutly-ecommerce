@@ -1,7 +1,10 @@
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { removeSession } from "../../Redux/Reducers/Auth";
-import { toggleLoadingPopUp } from "../../Redux/Reducers/PopUpLoading";
+import {
+  hideLoadingPopUp,
+  showLoadingPopUp,
+} from "../../Redux/Reducers/PopUpLoading";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "../../Services/Supabase/supabaseClient";
@@ -14,7 +17,7 @@ function Sidebar() {
 
   const logout = async () => {
     dispatch(
-      toggleLoadingPopUp({
+      showLoadingPopUp({
         ActionName: "Logging out",
         LoadingMessage: "Please wait while we sign out your account",
         isLoading: true,
@@ -22,13 +25,7 @@ function Sidebar() {
     );
     await supabase.auth.signOut();
     dispatch(removeSession());
-    dispatch(
-      toggleLoadingPopUp({
-        ActionName: "",
-        LoadingMessage: "",
-        isLoading: false,
-      })
-    );
+    dispatch(hideLoadingPopUp());
     Router.push("/");
   };
   const ChangeLink = (Link: string) => {

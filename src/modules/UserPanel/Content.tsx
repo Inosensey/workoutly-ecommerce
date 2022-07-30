@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import Header from "./Header";
 import MyAccountContents from "./MyAccountContents";
-import MyOrders from "./MyOrders";
+import MyOrders from "./MyOrdersContents";
 
 function Content() {
   const Link = useSelector(
