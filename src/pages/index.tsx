@@ -8,7 +8,6 @@ import FeaturedItems from "../modules/Home/FeaturedItems";
 import Blog from "../modules/Home/Blog";
 import LimitedItem from "../modules/Home/LimitedItem";
 import Footer from "../modules/Home/Footer/Footer";
-import { supabase } from "../Services/Supabase/supabaseClient";
 
 // GraphCms
 const graphcms = new GraphQLClient(

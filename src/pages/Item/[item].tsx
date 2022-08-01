@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import OtherItem from "../../modules/Item/OtherItem";
 import Nav from "../../common/Nav";
 import ReviewComments from "../../modules/Item/ReviewComments";
+import { supabase } from "../../Services/Supabase/supabaseClient";
+import getOrders from "../../Services/Supabase/getOrders";
 
 //Graphcms
 const QUERY = gql`
@@ -92,7 +94,7 @@ const ItemPage: NextPage = ({ item, items }: any) => {
             ></i>
           </div>
           <ItemCard item={item} />
-          <ReviewComments rating={item.rating} />
+          <ReviewComments rating={item.rating} item={item} />
           <OtherItem items={items} />
         </section>
       </main>

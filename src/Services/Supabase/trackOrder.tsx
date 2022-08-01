@@ -5,7 +5,7 @@ const trackOrder = async (trackNumber: string) => {
     let { data, error } = await supabase
       .from("orders")
       .select("*")
-      .eq("track_number", trackNumber);
+      .eq("track_id", trackNumber);
     return {
       data,
       error,

@@ -6,10 +6,11 @@ type OrderDetailsType = {
   item: {};
   total_price: number;
   address_id: number;
-  status: number;
+  status: string;
 };
 
 const addOrder = async (orderDetails: OrderDetailsType) => {
+  const date = new Date();
   try {
     const { data, error } = await supabase.from("orders").insert(
       [
@@ -20,6 +21,7 @@ const addOrder = async (orderDetails: OrderDetailsType) => {
           total_price: orderDetails.total_price,
           address_id: orderDetails.address_id,
           status: orderDetails.status,
+          purchased_at: date.toLocaleDateString(),
         },
       ],
       { returning: "minimal" }

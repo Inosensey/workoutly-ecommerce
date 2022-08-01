@@ -4,13 +4,14 @@ import Ratings from "./Ratings";
 
 interface Props {
   rating: number;
+  item: any;
 }
 
-function ReviewComments({ rating }: Props) {
+function ReviewComments({ rating, item }: Props) {
   return (
     <div className={styles.container}>
       <Ratings rating={rating} />
-      <Comments />
+      <Comments item={item} />
     </div>
   );
 }

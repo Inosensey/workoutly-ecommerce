@@ -1,9 +1,14 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import Orders from "./Orders";
-
-import styles from "../../../../styles/UserPanel/TrackDetails.module.css";
+import { useDispatch } from "react-redux";
+import {
+  showLoadingPopUp,
+  hideLoadingPopUp,
+} from "../../../Redux/Reducers/PopUpLoading";
 import trackOrder from "../../../Services/Supabase/trackOrder";
+import styles from "../../../../styles/UserPanel/TrackDetails.module.css";
+import Orders from "./Orders";
+import Receipt from "./Receipt";
 
 interface Props {
   trackNumber: string;
@@ -31,6 +36,7 @@ const DropIn = {
 };
 
 function TrackDetails({ trackNumber, setToggleTrackDetails }: Props) {
+  const dispatch = useDispatch();
   const [order, setOrder] = useState([]);
 
   useEffect(() => {
@@ -38,10 +44,18 @@ function TrackDetails({ trackNumber, setToggleTrackDetails }: Props) {
   }, []);
 
   const getTrackDetailsHandler = async () => {
+    dispatch(
+      showLoadingPopUp({
+        ActionName: "Tracking Order",
+        LoadingMessage: "Tracking order please wait",
+        isLoading: true,
+      })
+    );
     const response: any = await trackOrder(trackNumber);
+    dispatch(hideLoadingPopUp());
     setOrder(response?.data);
-    console.log(response);
   };
+  if (order.length === 0) return <div></div>;
   return (
     <div className={styles.overlay}>
       <motion.div
@@ -58,7 +72,9 @@ function TrackDetails({ trackNumber, setToggleTrackDetails }: Props) {
             setToggleTrackDetails(false);
           }}
         ></i>
-        <div className={styles.receiptContainer}></div>
+        <div className={styles.receiptContainer}>
+          <Receipt order={order} />
+        </div>
         <div className={styles.orderDetailsContainer}>
           <Orders order={order} />
         </div>

@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "../../../../styles/UserPanel/ProfileForm.module.css";
 import Input from "../../../common/input/Input";
-import { toggleLoadingPopUp } from "../../../Redux/Reducers/PopUpLoading";
+import {
+  showLoadingPopUp,
+  hideLoadingPopUp,
+} from "../../../Redux/Reducers/PopUpLoading";
 import { RootState } from "../../../Redux/store";
-import getPersonalDetails from "../../../Services/Supabase/getPersonalDetails";
+import getProfile from "../../../Services/Supabase/getProfile";
 import { supabase } from "../../../Services/Supabase/supabaseClient";
 import updatePersonalDetails from "../../../Services/Supabase/updatePersonalDetails";
+import styles from "../../../../styles/UserPanel/ProfileForm.module.css";
 
 const DefaultDetails = {
   id: "",
@@ -27,39 +30,33 @@ function ProfileForm() {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    personalDetails();
+    getProfileHandler();
   }, []);
-  const personalDetails = async () => {
+  const getProfileHandler = async () => {
     supabase.auth.setAuth(Session.Auth.access_token);
-    const response: any = await getPersonalDetails(Session.User.id);
+    const response: any = await getProfile();
     if (response.Data === null) return;
     setDetails({
       ...details,
-      firstName: response.Data[0].first_name,
-      middleName: response.Data[0].middle_name,
-      lastName: response.Data[0].last_name,
-      birthDate: response.Data[0].birth_date,
-      gender: response.Data[0].gender,
+      firstName: response.Data[0].personal_details.first_name || "",
+      middleName: response.Data[0].personal_details.middle_name || "",
+      lastName: response.Data[0].personal_details.last_name || "",
+      birthDate: response.Data[0].personal_details.birth_date || "",
+      gender: response.Data[0].personal_details.gender || "",
     });
   };
   const updatePersonalDetailsHandler = async () => {
     dispatch(
-      toggleLoadingPopUp({
+      showLoadingPopUp({
         ActionName: "Updating",
         LoadingMessage: "Please wait while we update your account",
         isLoading: true,
       })
     );
     const response = await updatePersonalDetails(details, Session.User.id);
-    dispatch(
-      toggleLoadingPopUp({
-        ActionName: "",
-        LoadingMessage: "",
-        isLoading: false,
-      })
-    );
+    dispatch(hideLoadingPopUp());
     if (response?.data !== null) {
-      personalDetails();
+      getProfileHandler();
       inputRef.current!.scrollIntoView({ behavior: "smooth" });
       setIsEditing(false);
     }

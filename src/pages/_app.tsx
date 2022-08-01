@@ -17,6 +17,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import persistedReducers from "../Redux/Reducers/reducers";
 import Layout from "../modules/Layout/Layout";
+import { supabase } from "../Services/Supabase/supabaseClient";
+import { useEffect } from "react";
 
 const persistConfig = {
   key: "root",

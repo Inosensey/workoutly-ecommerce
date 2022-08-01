@@ -48,7 +48,7 @@ const DefaultOrderDetails = {
   item: {},
   total_price: 0,
   address_id: 0,
-  status: 0,
+  status: "",
 };
 
 function PaymentMethod() {
@@ -110,7 +110,7 @@ function PaymentMethod() {
       id: session.user.id,
       fullName: response.data[0].full_name,
       address_id: response.data[0].address_id,
-      status: 0,
+      status: "Packed",
     });
     dispatch(hideLoadingPopUp());
   };
@@ -123,7 +123,6 @@ function PaymentMethod() {
       })
     );
     const response = await addOrder(orderDetails);
-    console.log(response);
     dispatch(hideLoadingPopUp());
     if (response?.data === null && response.error === null) {
       ClearShoppingCart();
@@ -141,7 +140,7 @@ function PaymentMethod() {
         NotifType: "Add Order",
         NotifName: "Notification",
         NotifMessage:
-          "Order Successfully. Thank you for purchasing. Do you want to view your order?",
+          "Successfully ordered. Thank you for your purchase!. Do you want to view your order?",
         NotifAction: null,
         show: true,
       })

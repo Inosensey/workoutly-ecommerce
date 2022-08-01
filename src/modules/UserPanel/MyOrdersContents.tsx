@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import getOrders from "../../Services/Supabase/getOrders";
 import styles from "../../../styles/UserPanel/MyOrders.module.css";
 import TrackDetails from "./MyOrder/TrackDetails";
@@ -9,7 +8,6 @@ function MyOrders() {
   const [trackNumber, setTrackNumber] = useState("");
   const [toggleTrackDetails, setToggleTrackDetails] = useState(false);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     getOrdersHandler();
   }, []);
@@ -84,7 +82,7 @@ function MyOrders() {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              setTrackNumber(details.track_number);
+                              setTrackNumber(details.track_id);
                               setToggleTrackDetails(true);
                             }}
                           >

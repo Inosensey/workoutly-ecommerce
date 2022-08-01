@@ -1,21 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../../../styles/UserPanel/OrderDetails.module.css";
+import { supabase } from "../../../Services/Supabase/supabaseClient";
 
 function Orders({ order }: any) {
-  const [currentStep, setCurrentStep] = useState(4);
-  console.log(((currentStep - 1) / 3) * 100);
+  const [currentStep, setCurrentStep] = useState(1);
+  const date = new Date(
+    order.length !== 0 ? order[0].purchased_at : Date.now()
+  );
+  date.setDate(date.getDate() + 1 * 7);
+  const expected_arrival = date.toLocaleDateString();
   return (
     <div className={styles.container}>
       {order.length !== 0 && (
         <>
           <div className={styles.headerContainer}>
             <div className={styles.orderIdContainer}>
-              <h3>Order ID:</h3>
+              <h4>Order ID:</h4>
               <p>{order[0].order_id}</p>
             </div>
-            <div className={styles.purchaseDateContainer}>
-              <h3>Purchase Date:</h3>
-              <p>date here</p>
+            <div className={styles.dateContainer}>
+              <h4>Purchase Date:</h4>
+              <p>{order[0].purchased_at}</p>
+            </div>
+            <div className={styles.dateContainer}>
+              <h4>Expected arrival:</h4>
+              <p>{expected_arrival}</p>
             </div>
           </div>
           <div className={styles.orderInfoContainer}>

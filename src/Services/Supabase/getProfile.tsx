@@ -1,11 +1,10 @@
 import { supabase } from "./supabaseClient";
 
-const getPersonalDetails = async (id: string) => {
+const getProfile = async () => {
   try {
     let { data: personal_details, error } = await supabase
-      .from("personal_details")
-      .select("*")
-      .eq("id", id);
+      .from("profiles")
+      .select("*, personal_details(*)");
     const response = {
       Data: personal_details,
       Error: error,
@@ -16,4 +15,4 @@ const getPersonalDetails = async (id: string) => {
   }
 };
 
-export default getPersonalDetails;
+export default getProfile;
