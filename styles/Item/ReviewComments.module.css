@@ -1,13 +1,13 @@
 .container {
   width: 75%;
-  height: 90vh;
+  height: 800px;
   margin: 2rem auto;
   background-color: #1e292b;
 }
 
 .ratingContainer {
   width: 100%;
-  height: 40%;
+  height: 25%;
   color: #ccc;
   display: flex;
 }
@@ -64,16 +64,17 @@
 
 .starsCounterContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
   width: 70%;
   height: 100%;
   padding: 1rem 0 0 0;
 }
 
-.stars {
+.stars,
+.countRatings {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 0.7rem;
 }
 
@@ -85,21 +86,107 @@
 .commentContainer {
   width: 100%;
   margin: 1rem 0 0 0;
+  height: 73%;
 }
 
 .commentHeader {
-  padding: 1rem 1rem 1rem 2rem;
+  padding: 0 0 0 2rem;
   font-size: 1.3rem;
   color: #ff7777;
   font-family: "League Spartan";
 }
 
 .comments {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ff7777;
+  padding: 0 2rem;
+  margin: 0.5rem 0 0 0;
   width: 100%;
-  height: 43vh;
+  height: 100%;
   overflow-y: auto;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+}
+.inputController {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.inputController h3 {
+  color: #ccc;
+  font-weight: 500;
+  font-size: 1rem;
+}
+.inputController textarea {
+  border: none;
+  background: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 1rem;
+  color: #ccc;
+  resize: none;
+  font-family: "League Spartan";
+  overflow: hidden;
+}
+.inputRating {
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+}
+.inputRating select {
+  width: 6%;
+}
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 15%;
+  margin: 0.5rem 0 0 0;
+}
+.btnContainer button {
+  width: 47%;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+.submit,
+.edit {
+  background-color: #ff7777;
+  color: #fff;
+  border: none;
+}
+.cancel {
+  background: none;
+  border: 1px solid #ff7777;
+  color: #ff7777;
+}
+
+.commentListContainer {
+  height: 85%;
+  margin: 1rem 0 0 0;
+}
+.comment {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.comment .starsInner,
+.comment .starsOuter {
+  font-size: 1rem;
+}
+.comment p {
+  color: #fff;
+  font-size: 1rem;
+}
+.commentList {
+  min-height: 76%;
+  padding: 0.5rem;
+}
+.personalCommentContainer h2 {
+  color: #ff7777;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+.personalCommentContainer {
+  padding: 0.2rem 0.5rem 0.7rem 0.5rem;
+  background-color: #343634;
 }

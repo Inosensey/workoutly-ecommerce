@@ -38,7 +38,7 @@ function Sidebar() {
         <div className={styles.logoContainer}>
           <Image src="/img/Logo.png" layout="fill" objectFit="contain" alt="" />
         </div>
-        <h3>Username</h3>
+        <h3>Workoutly</h3>
       </div>
       <ul className={styles.menuContainer}>
         <motion.li

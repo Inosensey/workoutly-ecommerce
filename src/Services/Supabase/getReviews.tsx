@@ -1,8 +1,11 @@
 import { supabase } from "./supabaseClient";
 
-const getReviews = async () => {
+const getReviews = async (itemId: string) => {
   try {
-    const { data, error } = await supabase.from("reviews").select("*");
+    const { data, error } = await supabase
+      .from("reviews")
+      .select("*")
+      .eq("item_id", itemId);
     return {
       data,
       error,

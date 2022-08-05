@@ -28,14 +28,12 @@ function ProfileForm() {
     useSelector((state: RootState) => state.AuthReducer.Session) || {};
   const [details, setDetails] = useState(DefaultDetails);
   const [isEditing, setIsEditing] = useState(false);
-
   useEffect(() => {
     getProfileHandler();
   }, []);
   const getProfileHandler = async () => {
-    supabase.auth.setAuth(Session.Auth.access_token);
     const response: any = await getProfile();
-    if (response.Data === null) return;
+    if (response.Data === null || response.Data.length === 0) return;
     setDetails({
       ...details,
       firstName: response.Data[0].personal_details.first_name || "",
