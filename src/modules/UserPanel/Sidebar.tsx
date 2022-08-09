@@ -55,11 +55,12 @@ function Sidebar() {
         >
           <i className="fa-solid fa-file-lines"></i>My Orders
         </motion.li>
-        <motion.li whileHover={{ scale: 1.1 }}>
+        <motion.li
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={(e) => ChangeLink("My Reviews")}
+        >
           <i className="fa-solid fa-comment-dots"></i>My Reviews
-        </motion.li>
-        <motion.li whileHover={{ scale: 1.1 }}>
-          <i className="fa-solid fa-bell"></i>Notifications
         </motion.li>
         <Link href="/">
           <motion.li whileHover={{ scale: 1.1 }}>

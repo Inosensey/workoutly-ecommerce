@@ -26,6 +26,7 @@ const QUERY = gql`
       productPhoto {
         url
       }
+      slug
     }
     items(first: $itemLimit) {
       id
@@ -76,6 +77,7 @@ export const getStaticProps = async ({ params }: any) => {
 };
 
 const ItemPage: NextPage = ({ item, items }: any) => {
+  console.log(item);
   const router = useRouter();
   return (
     <div>

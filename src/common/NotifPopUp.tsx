@@ -32,7 +32,8 @@ function NotifPopUp() {
       ToggleNotifPopUp.NotifType === "Update Address" ||
       ToggleNotifPopUp.NotifType === "Delete Address" ||
       ToggleNotifPopUp.NotifType === "Logout" ||
-      ToggleNotifPopUp.NotifType === "Checkout"
+      ToggleNotifPopUp.NotifType === "Checkout" ||
+      ToggleNotifPopUp.NotifType === "Error Order"
     ) {
       return (
         <div className={styles.btnContainer}>

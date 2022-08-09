@@ -3,11 +3,12 @@
   height: 82%;
   margin: 0 auto;
 }
-
 .contentContainer {
   width: 100%;
   height: 85%;
   border-radius: 15px;
   margin: 2rem auto 0 auto;
   background-color: #1e292b;
+  padding: 0.8rem;
+  overflow: auto;
 }

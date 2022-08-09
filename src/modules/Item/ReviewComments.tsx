@@ -71,8 +71,10 @@ function ReviewComments({ item }: any) {
   const getRating = (reviews: any) => {
     let rating = 0;
     let totalRating = 0;
-    reviews.map((details: any) => (rating += details.rating));
-    totalRating = (rating / (reviews.length * 5)) * 5;
+    if (reviews.length !== 0) {
+      reviews.map((details: any) => (rating += details.rating));
+      totalRating = (rating / (reviews.length * 5)) * 5;
+    }
     setRating(totalRating);
   };
   const CountStars = (reviews: any) => {

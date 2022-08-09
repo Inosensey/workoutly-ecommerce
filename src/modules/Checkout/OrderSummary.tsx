@@ -8,8 +8,7 @@ function OrderSummary() {
     (state: RootState) => state.cartReducer.cartItem
   );
   const originalPrice = Number(cartPrice.totalPrice) + Number(2.99);
-  const totalPrice =
-    Number(cartPrice.totalPrice) - 0.5 * Number(cartPrice.totalPrice) + 2.99;
+  const totalPrice = 0.5 * (Number(cartPrice.totalPrice) + 2.99);
   return (
     <div className={styles.container}>
       <h2 className={styles.header}>Order Summary</h2>

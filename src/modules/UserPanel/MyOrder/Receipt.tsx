@@ -17,7 +17,8 @@ function Receipt({ order }: any) {
       totalItemPrice += item.Quantity * item.itemInfo.productPrice;
       return totalItemPrice;
     });
-    setOriginalPrice(totalItemPrice);
+    setOriginalPrice(totalItemPrice + Number(2.99));
+    console.log(totalItemPrice);
   };
   return (
     <div className={styles.container}>
@@ -49,7 +50,7 @@ function Receipt({ order }: any) {
               </div>
               <div className={styles.pricesInfoContainer}>
                 <p>Original Price</p>
-                <p>{originalPrice}$</p>
+                <p>{originalPrice.toFixed(2)}$</p>
               </div>
               <div className={styles.pricesInfoContainer}>
                 <p>Discounted Price</p>

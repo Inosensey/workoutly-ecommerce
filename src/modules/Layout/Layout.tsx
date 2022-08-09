@@ -11,7 +11,9 @@ import { useEffect } from "react";
 
 function Layout({ children }: any) {
   useEffect(() => {
+    const session: any = supabase.auth.session() || {};
     supabase.auth.refreshSession();
+    supabase.auth.api.refreshAccessToken(session?.refresh_token);
   }, []);
   const TogglePopUpLoginForm = useSelector(
     (state: RootState) => state.loginFormReducer.toggleLoginPopUp
@@ -26,6 +28,25 @@ function Layout({ children }: any) {
     useSelector((state: RootState) => state.LoadingPopUpReducer) || {};
   const toggleNotifPopUp =
     useSelector((state: RootState) => state.NotifPopUpReducer) || {};
+
+  useEffect(() => {
+    const sessions = supabase.auth.session();
+
+    // configure the auth state listener
+    // if the auth state changes the session will be updated
+    // and a POST request will be made to the /api/auth route
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        // console.log(event);
+        // console.log(session);
+      }
+    );
+
+    return () => {
+      authListener?.unsubscribe();
+    };
+  }, []);
+
   return (
     <>
       {toggleCheckOutPopUp && <Checkout />}

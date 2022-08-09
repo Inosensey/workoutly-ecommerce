@@ -53,8 +53,11 @@ function Nav() {
   const CheckScrollHeight = () => {
     setPreviousWindowHeight(currentWindowHeight);
     if (currentWindowHeight === 0) return setIsScrolling("NotScrolling");
-    if (currentWindowHeight > previousWindowHeight)
-      return setIsScrolling("ScrollDown");
+    if (currentWindowHeight > previousWindowHeight) {
+      setIsScrolling("ScrollDown");
+      setShowDropDown(false);
+      return;
+    }
 
     if (currentWindowHeight < previousWindowHeight)
       return setIsScrolling("ScrollUp");

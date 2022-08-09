@@ -16,7 +16,7 @@ function OtherItem({ items }: any) {
                 <p className={styles.productName}>
                   <>{item.productName}</>
                 </p>
-                <p>{item.productPrice}</p>
+                <p>{item.productPrice}$</p>
               </div>
             </div>
           </Link>

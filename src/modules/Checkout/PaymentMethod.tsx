@@ -67,8 +67,7 @@ function PaymentMethod() {
   const cartItems = useSelector(
     (state: RootState) => state.cartReducer.cartItem
   );
-  const totalPrice =
-    Number(cartPrice.totalPrice) - 0.5 * Number(cartPrice.totalPrice) + 2.99;
+  const totalPrice = 0.5 * (Number(cartPrice.totalPrice) + 2.99);
   const session: any = supabase.auth.session();
 
   useEffect(() => {
@@ -115,6 +114,18 @@ function PaymentMethod() {
     dispatch(hideLoadingPopUp());
   };
   const addOrderHandler = async () => {
+    if (orderDetails.address_id === 0) {
+      return dispatch(
+        showNotifPopUp({
+          NotifType: "Error Order",
+          NotifName: "Notification",
+          NotifMessage:
+            "Select an address first or add an address if you don't have one before completing your purchase",
+          NotifAction: null,
+          show: true,
+        })
+      );
+    }
     dispatch(
       showLoadingPopUp({
         ActionName: "Adding order",

@@ -143,7 +143,7 @@ function Comments({
               alignItems: "center",
               color: "#ff7777",
               width: "100%",
-              height: "100%",
+              height: "76%",
             }}
           >
             <h2>Loading</h2>
@@ -156,7 +156,7 @@ function Comments({
               alignItems: "center",
               color: "#ff7777",
               width: "100%",
-              height: "100%",
+              height: "76%",
             }}
           >
             <h2>No reviews yet</h2>
@@ -166,13 +166,15 @@ function Comments({
             {reviews.map(
               (details: any) =>
                 details.id === user?.id && (
-                  <PersonalComment
-                    profile={profile}
-                    comment={personalComment}
-                    getReviewsDetails={getReviewsDetails}
-                    reviewDetails={reviewDetails}
-                    setReviewDetails={setReviewDetails}
-                  />
+                  <div key={details.id}>
+                    <PersonalComment
+                      profile={profile}
+                      comment={personalComment}
+                      getReviewsDetails={getReviewsDetails}
+                      reviewDetails={reviewDetails}
+                      setReviewDetails={setReviewDetails}
+                    />
+                  </div>
                 )
             )}
 

@@ -1,0 +1,24 @@
+.tabContainer {
+  width: 100%;
+  margin: 2rem auto 0 auto;
+  background-color: #1e292b;
+}
+
+.tabs {
+  display: flex;
+  list-style: none;
+}
+
+.tabs li {
+  padding: 1rem;
+  color: #ccc;
+  cursor: pointer;
+  width: 20%;
+  text-align: center;
+  font-family: "league Spartan";
+  font-size: 1.1rem;
+}
+
+.tabs li:hover {
+  border-bottom: 1px solid #ff7777;
+}
