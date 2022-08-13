@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
-import getOrders from "../../Services/Supabase/getOrders";
-import getProfile from "../../Services/Supabase/getProfile";
-import getReviews from "../../Services/Supabase/getReviews";
 import Comments from "./Comments";
 import Ratings from "./Ratings";
+import {
+  Order,
+  Product,
+  Profile,
+  Review,
+} from "../../TypeScript/ReusableTypes";
+import { ReviewDetailsType, StarType } from "./Logic/Types";
+import GetReviewDetailsLogic from "./Logic/GetReviewDetailsLogic";
 import styles from "../../../styles/Item/ReviewComments.module.css";
 
 const DefaultReviewValues = {
@@ -35,86 +40,43 @@ const Stars = {
     StarCount: 0,
   },
 };
+const ProfileDetails = {
+  id: "",
+  personal_details_id: "",
+  username: "",
+  personal_details: {
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    gender: "",
+    birth_date: new Date(),
+  },
+};
 
-function ReviewComments({ item }: any) {
-  const [order, setOrder] = useState<any[]>([]);
-  const [reviews, setReviews] = useState([]);
-  const [rating, setRating] = useState(1);
-  const [star, setStar] = useState(Stars);
-  const [userDetails, setUserDetails] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [reviewDetails, setReviewDetails] = useState(DefaultReviewValues);
+const ReviewComments: React.FC<Product> = (props: Product) => {
+  const [order, setOrder] = useState<Order[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [rating, setRating] = useState<number>(1);
+  const [star, setStar] = useState<StarType>(Stars);
+  const [userDetails, setUserDetails] = useState<Profile>(ProfileDetails);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [reviewDetails, setReviewDetails] =
+    useState<ReviewDetailsType>(DefaultReviewValues);
+  const { getReviewsDetails } = GetReviewDetailsLogic(
+    {
+      setIsLoading,
+      setOrder,
+      setReviews,
+      setUserDetails,
+      setReviewDetails,
+      setRating,
+      setStar,
+    },
+    { order, reviews, userDetails, reviewDetails, star }
+  );
   useEffect(() => {
-    getReviewsDetails();
+    getReviewsDetails(props.id);
   }, []);
-  const getReviewsDetails = async () => {
-    setIsLoading(true);
-    let [order, profile, reviews]: any = await Promise.all([
-      getOrders(),
-      getProfile(),
-      getReviews(item.id),
-    ]);
-    console.log(profile);
-    setOrder(order.data);
-    setReviews(reviews.data);
-    setUserDetails(profile.Data);
-    setReviewDetails({
-      ...reviewDetails,
-      id: profile.Data[0].id,
-      item_id: item.id,
-      username: profile.Data[0].username,
-    });
-    getRating(reviews.data);
-    CountStars(reviews.data);
-    setIsLoading(false);
-  };
-  const getRating = (reviews: any) => {
-    let rating = 0;
-    let totalRating = 0;
-    if (reviews.length !== 0) {
-      reviews.map((details: any) => (rating += details.rating));
-      totalRating = (rating / (reviews.length * 5)) * 5;
-    }
-    setRating(totalRating);
-  };
-  const CountStars = (reviews: any) => {
-    let count = {
-      OneStar: 0,
-      TwoStar: 0,
-      ThreeStar: 0,
-      FourStar: 0,
-      FiveStar: 0,
-    };
-    for (let i = 0; i < reviews.length; i++) {
-      if (reviews[i].rating === 1) count.OneStar += 1;
-      if (reviews[i].rating === 2) count.TwoStar += 1;
-      if (reviews[i].rating === 3) count.ThreeStar += 1;
-      if (reviews[i].rating === 4) count.FourStar += 1;
-      if (reviews[i].rating === 5) count.FiveStar += 1;
-    }
-    setStar((prev) => ({
-      OneStar: {
-        ...prev.OneStar,
-        StarCount: count.OneStar,
-      },
-      TwoStar: {
-        ...prev.OneStar,
-        StarCount: count.TwoStar,
-      },
-      ThreeStar: {
-        ...prev.OneStar,
-        StarCount: count.ThreeStar,
-      },
-      FourStar: {
-        ...prev.OneStar,
-        StarCount: count.FourStar,
-      },
-      FiveStar: {
-        ...prev.OneStar,
-        StarCount: count.FiveStar,
-      },
-    }));
-  };
   return (
     <div className={styles.container}>
       <Ratings
@@ -123,7 +85,7 @@ function ReviewComments({ item }: any) {
         reviewsCount={reviews.length}
       />
       <Comments
-        item={item}
+        item_id={props.id}
         order={order}
         reviews={reviews}
         profile={userDetails}
@@ -134,6 +96,6 @@ function ReviewComments({ item }: any) {
       />
     </div>
   );
-}
+};
 
 export default ReviewComments;

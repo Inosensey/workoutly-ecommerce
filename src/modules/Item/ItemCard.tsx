@@ -2,29 +2,28 @@ import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../Redux/Reducers/Cart";
 import { motion } from "framer-motion";
 import styles from "../../../styles/Item/Item.module.css";
+import { Item, Product } from "../../TypeScript/ReusableTypes";
 
-function ItemCard({ item }: any) {
+const ItemCard: React.FC<Product> = (props: Product) => {
   const dispatch = useDispatch();
-
   return (
     <div className={styles.itemContainer}>
       <div className={styles.productPhotoContainer}>
-        <img src={item.productPhoto.url} alt="" />
+        <img src={props.productPhoto.url} alt="" />
       </div>
       <div className={styles.productInfoContainer}>
-        <h3 className={styles.itemName}>{item.productName}</h3>
-        <p>Rating: {item.rating}</p>
+        <h3 className={styles.itemName}>{props.productName}</h3>
         <div className={styles.descriptionContainer}>
           <h4>Details:</h4>
-          <p>{item.description.text}</p>
+          <p>{props.description.text}</p>
         </div>
-        <p className={styles.itemPrice}>{item.productPrice}$</p>
-        <p>Stock: {item.productQuantity}</p>
+        <p className={styles.itemPrice}>{props.productPrice}$</p>
+        <p>Stock: {props.productQuantity}</p>
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() =>
-            dispatch(addItemToCart({ itemInfo: item, Quantity: 1 }))
+            dispatch(addItemToCart({ itemInfo: props, Quantity: 1 }))
           }
         >
           Add to Cart
@@ -32,6 +31,6 @@ function ItemCard({ item }: any) {
       </div>
     </div>
   );
-}
+};
 
 export default ItemCard;

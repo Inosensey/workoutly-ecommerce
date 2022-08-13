@@ -1,6 +1,18 @@
 import Link from "next/link";
 import styles from "../../../styles/Item/OtherItem.module.css";
 
+interface Props {
+  items: {
+    id: string;
+    productName: string;
+    productPrice: number;
+    slug: string;
+    productPhoto: {
+      url: string;
+    };
+  };
+}
+
 function OtherItem({ items }: any) {
   return (
     <section className={styles.container}>

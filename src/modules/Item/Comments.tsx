@@ -1,12 +1,41 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../../Services/Supabase/supabaseClient";
 import addReview from "../../Services/Supabase/addReview";
-import styles from "../../../styles/Item/ReviewComments.module.css";
 import PersonalComment from "./PersonalComment";
 import Comment from "./Comment";
+import { Order, Profile, Review } from "../../TypeScript/ReusableTypes";
+import { ReviewDetailsType } from "./Logic/Types";
+import CommentLogic from "./Logic/CommentLogic";
+import styles from "../../../styles/Item/ReviewComments.module.css";
+
+interface IfUserAlreadyCommentedInterface {
+  Result: boolean;
+  PersonalCommentDetails: Review | undefined;
+}
+
+interface Props {
+  item_id: string;
+  order: Order[];
+  reviews: Review[];
+  profile: Profile;
+  isLoading: boolean;
+  getReviewsDetails: any;
+  reviewDetails: ReviewDetailsType;
+  setReviewDetails: any;
+}
+
+const ReviewDetails = {
+  review_id: 0,
+  id: "",
+  item_id: "",
+  review: "",
+  created_at: new Date(),
+  rating: 0,
+  username: "",
+};
 
 function Comments({
-  item,
+  item_id,
   order,
   reviews,
   profile,
@@ -14,43 +43,37 @@ function Comments({
   getReviewsDetails,
   reviewDetails,
   setReviewDetails,
-}: any) {
-  const [userHastItem, setUserHasItem] = useState(false);
-  const [userAlreadyCommented, setUserAlreadyCommented] = useState(false);
-  const [personalComment, setPersonalComment] = useState({});
-  const [commentList, setCommentList] = useState([]);
-  const [showInput, setShowInput] = useState(false);
+}: Props) {
+  const [userHastItem, setUserHasItem] = useState<boolean>(false);
+  const [userAlreadyCommented, setUserAlreadyCommented] =
+    useState<boolean>(false);
+  const [personalComment, setPersonalComment] = useState<Review>(ReviewDetails);
+  const [commentList, setCommentList] = useState<Review[]>([]);
+  const [showInput, setShowInput] = useState<boolean>(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const {
+    CheckIfUserAlreadyCommented,
+    CheckIfUserHasTheItem,
+    addReviewHandler,
+  } = CommentLogic();
   const user = supabase.auth.user();
 
   useEffect(() => {
-    CheckIfUserHasTheItem();
-    CheckIfUserAlreadyCommented();
-    setCommentList(reviews.filter((details: any) => details.id !== user?.id));
+    GetCommentDetails();
+    setCommentList(
+      reviews.filter((details: Review) => details.id !== user?.id)
+    );
   }, [order]);
-  const CheckIfUserHasTheItem = () => {
-    if (order.length === 0) return;
-    for (let outer = 0; outer < order.length; outer++) {
-      for (let inner = 0; inner < order[outer].item_metadata.length; inner++) {
-        if (order[outer].item_metadata[inner].itemInfo.id === item.id) {
-          setUserHasItem(true);
-        }
-      }
+  const GetCommentDetails = () => {
+    const IfUserAlreadyCommented: IfUserAlreadyCommentedInterface =
+      CheckIfUserAlreadyCommented(reviews);
+    setUserHasItem(CheckIfUserHasTheItem(order, item_id));
+    if (IfUserAlreadyCommented.Result !== false) {
+      setUserAlreadyCommented(IfUserAlreadyCommented.Result);
+      setPersonalComment(IfUserAlreadyCommented.PersonalCommentDetails!);
     }
   };
-  const addReviewHandler = async () => {
-    const response = await addReview(reviewDetails);
-    if (response?.error === null) return getReviewsDetails();
-  };
-  const CheckIfUserAlreadyCommented = () => {
-    if (reviews.length === 0) return;
-    reviews.map((details: any) => {
-      if (user?.id === details.id) {
-        setUserAlreadyCommented(true);
-        setPersonalComment(details);
-      }
-    });
-  };
+  // };
   return (
     <div className={styles.commentContainer}>
       <div className={styles.commentHeader}>
@@ -63,7 +86,7 @@ function Comments({
             <div className={styles.inputContainer}>
               <form>
                 <div className={styles.inputController}>
-                  <h3>{profile[0].username}</h3>
+                  <h3>{profile.username}</h3>
                   <div className={styles.inputRating}>
                     <h3>Rating</h3>
                     <select
@@ -113,7 +136,11 @@ function Comments({
                     onClick={(e) => {
                       e.stopPropagation();
                       e.preventDefault();
-                      addReviewHandler();
+                      addReviewHandler(
+                        reviewDetails,
+                        item_id,
+                        getReviewsDetails
+                      );
                     }}
                   >
                     Submit
@@ -164,7 +191,7 @@ function Comments({
         ) : (
           <div className={styles.commentListContainer}>
             {reviews.map(
-              (details: any) =>
+              (details: Review) =>
                 details.id === user?.id && (
                   <div key={details.id}>
                     <PersonalComment
@@ -179,7 +206,7 @@ function Comments({
             )}
 
             <div className={styles.commentList}>
-              {commentList.map((details: any) => (
+              {commentList.map((details: Review) => (
                 <div className={styles.inputController} key={details.review_id}>
                   <h3>{details.username}</h3>
                   <Comment

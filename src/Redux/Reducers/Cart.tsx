@@ -1,12 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { Item } from "../../TypeScript/ReusableTypes";
 
-type CartItemTypes = {
-  itemInfo: Object;
-  Quantity: Number;
-};
 type QuantityActionTypes = {
-  itemInfo: Object;
+  itemInfo: Item;
   ActionType: String;
 };
 
@@ -16,7 +13,7 @@ interface PriceTypes {
 }
 export interface CartState {
   toggleCart: Boolean;
-  cartItem: Array<Object>;
+  cartItem: Array<Item>;
   price: PriceTypes;
 }
 
@@ -41,14 +38,14 @@ export const cartSlice = createSlice({
       document.body.style.overflow = "auto";
       state.toggleCart = false;
     },
-    addItemToCart: (state, action: PayloadAction<CartItemTypes>) => {
-      const { itemInfo }: any = action.payload;
-      const ExistingItem: any = state.cartItem.find(
-        (item: any) => item.itemInfo.id === itemInfo.id
+    addItemToCart: (state, action: PayloadAction<Item>) => {
+      let ExistingItem: Item | undefined = state.cartItem.find(
+        (item) => item.itemInfo.id === action.payload.itemInfo.id
       );
       if (
         ExistingItem !== undefined &&
-        itemInfo.productQuantity > ExistingItem.Quantity
+        action.payload.itemInfo?.productQuantity &&
+        action.payload.itemInfo.productQuantity > ExistingItem.Quantity
       ) {
         ExistingItem.Quantity += 1;
       }
@@ -58,21 +55,22 @@ export const cartSlice = createSlice({
     },
     removeItemFromCart: (state, action: PayloadAction<String>) => {
       state.cartItem = state.cartItem.filter(
-        (item: any) => item.itemInfo.id !== action.payload
+        (item) => item.itemInfo.id !== action.payload
       );
     },
     adjustItemQuantity: (state, action: PayloadAction<QuantityActionTypes>) => {
-      const { itemInfo, ActionType }: any = action.payload;
-      const ExistingItem: any = state.cartItem.find(
-        (item: any) => item.itemInfo.id === itemInfo.id
+      const { itemInfo, ActionType }: QuantityActionTypes = action.payload;
+      const ExistingItem: Item | undefined = state.cartItem.find(
+        (item) => item.itemInfo.id === itemInfo.itemInfo.id
       );
+      if (typeof ExistingItem === undefined) return;
       if (
         ActionType === "Increment" &&
-        ExistingItem.itemInfo.productQuantity > ExistingItem.Quantity
+        ExistingItem!.itemInfo.productQuantity! > ExistingItem!.Quantity
       )
-        ExistingItem.Quantity += 1;
-      if (ActionType === "Decrement" && ExistingItem.Quantity !== 1)
-        ExistingItem.Quantity -= 1;
+        ExistingItem!.Quantity += 1;
+      if (ActionType === "Decrement" && ExistingItem!.Quantity !== 1)
+        ExistingItem!.Quantity -= 1;
     },
     removeAllItemFromCart: (state) => {
       state.cartItem = [];
@@ -81,7 +79,7 @@ export const cartSlice = createSlice({
       let items = 0;
       let price = 0;
       let totalPrice = 0;
-      state.cartItem.map((item: any) => {
+      state.cartItem.map((item) => {
         items = items + item.Quantity;
         price = item.itemInfo.productPrice * item.Quantity;
         totalPrice = totalPrice + price;

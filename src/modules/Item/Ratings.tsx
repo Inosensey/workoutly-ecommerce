@@ -1,9 +1,10 @@
 import Star from "./Star";
 import styles from "../../../styles/Item/ReviewComments.module.css";
+import { StarType } from "./Logic/Types";
 
 interface Props {
   rating: number;
-  starRating: any;
+  starRating: StarType;
   reviewsCount: number;
 }
 

@@ -1,7 +1,12 @@
 import Star from "./Star";
 import styles from "../../../styles/Item/ReviewComments.module.css";
 
-function Comment({ comment, width }: any) {
+interface Props {
+  comment: string;
+  width: number;
+}
+
+function Comment({ comment, width }: Props) {
   return (
     <div className={styles.comment}>
       <Star width={width} />

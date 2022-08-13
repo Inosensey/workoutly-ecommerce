@@ -36,7 +36,7 @@ function ToBeReviewed({ Items }: Props) {
             <p className={styles.description}>
               {details.itemInfo.description.text}
             </p>
-            <p>{details.itemInfo.productPrice}</p>
+            <p>Price: {details.itemInfo.productPrice}$</p>
             <Link href={`Item/${details.itemInfo.slug}`}>
               <h3 className={styles.itemReviewBtn}>Write a review</h3>
             </Link>

@@ -11,6 +11,7 @@ function CartItem() {
   const cartItems = useSelector(
     (state: RootState) => state.cartReducer.cartItem
   );
+  console.log(cartItems);
   return (
     <div className={styles.cartItems}>
       {!cartItems.length ? (

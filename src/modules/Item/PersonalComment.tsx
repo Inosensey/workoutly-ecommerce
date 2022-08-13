@@ -1,7 +1,17 @@
 import { useRef, useState } from "react";
 import updateReview from "../../Services/Supabase/updateReview";
 import Comment from "./Comment";
+import { Profile, Review } from "../../TypeScript/ReusableTypes";
+import { ReviewDetailsType } from "./Logic/Types";
 import styles from "../../../styles/Item/ReviewComments.module.css";
+
+interface Props {
+  profile: Profile;
+  comment: Review;
+  getReviewsDetails: any;
+  reviewDetails: ReviewDetailsType;
+  setReviewDetails: any;
+}
 
 function PersonalComment({
   profile,
@@ -9,13 +19,13 @@ function PersonalComment({
   getReviewsDetails,
   setReviewDetails,
   comment,
-}: any) {
-  const [isEditing, setIsEditing] = useState(false);
+}: Props) {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const updateReviewHandler = async () => {
     const response = await updateReview(reviewDetails, comment.review_id);
     if (response?.error === null) {
-      getReviewsDetails();
+      getReviewsDetails(reviewDetails.item_id);
       setIsEditing(false);
       return;
     }
@@ -27,7 +37,7 @@ function PersonalComment({
       <h2>Your review</h2>
       <div className={styles.inputContainer}>
         <div className={styles.inputController}>
-          <h3>{profile[0].username}</h3>
+          <h3>{profile.username}</h3>
           {isEditing ? (
             <>
               <div className={styles.inputRating}>

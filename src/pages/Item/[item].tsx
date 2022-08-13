@@ -2,14 +2,13 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { gql } from "graphql-request";
 import { GraphCmsApi } from "../../Services/GraphcmsApi";
-import styles from "../../../styles/Item/Item.module.css";
 import ItemCard from "../../modules/Item/ItemCard";
 import { useRouter } from "next/router";
 import OtherItem from "../../modules/Item/OtherItem";
 import Nav from "../../common/Nav";
 import ReviewComments from "../../modules/Item/ReviewComments";
-import { supabase } from "../../Services/Supabase/supabaseClient";
-import getOrders from "../../Services/Supabase/getOrders";
+import { Item, Product } from "../../TypeScript/ReusableTypes";
+import styles from "../../../styles/Item/Item.module.css";
 
 //Graphcms
 const QUERY = gql`
@@ -54,15 +53,38 @@ const SLUGLIST = gql`
   }
 `;
 
+type Slug = {
+  slug: string;
+};
+interface Params {
+  params: {
+    item: string;
+  };
+}
+interface Props {
+  item: Product;
+  items: {
+    id: string;
+    productName: string;
+    productPrice: number;
+    slug: string;
+    productPhoto: {
+      url: string;
+    };
+  };
+}
+
 export const getStaticPaths = async () => {
-  const { items } = await GraphCmsApi.request(SLUGLIST);
+  const response = await GraphCmsApi.request(SLUGLIST);
   return {
-    paths: items.map((item: any) => ({ params: { item: item.slug } })),
+    paths: response.items.map((item: Slug) => ({
+      params: { item: item.slug },
+    })),
     fallback: false,
   };
 };
 
-export const getStaticProps = async ({ params }: any) => {
+export const getStaticProps = async ({ params }: Params) => {
   const slug = params.item;
   const ItemList = await GraphCmsApi.request(ITEMLIST);
   const itemCount = ItemList.items.length / 2;
@@ -76,7 +98,7 @@ export const getStaticProps = async ({ params }: any) => {
   };
 };
 
-const ItemPage: NextPage = ({ item, items }: any) => {
+const ItemPage: NextPage<Props> = ({ item, items }) => {
   const router = useRouter();
   return (
     <div>
@@ -94,8 +116,8 @@ const ItemPage: NextPage = ({ item, items }: any) => {
               className="fa-solid fa-circle-chevron-left"
             ></i>
           </div>
-          <ItemCard item={item} />
-          <ReviewComments item={item} />
+          <ItemCard {...item} />
+          <ReviewComments {...item} />
           <OtherItem items={items} />
         </section>
       </main>

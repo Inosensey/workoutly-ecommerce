@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
-import styles from "../../../styles/Checkout/OrderSummary.module.css";
 import { RootState } from "../../Redux/store";
+import styles from "../../../styles/Checkout/OrderSummary.module.css";
 
 function OrderSummary() {
   const cartPrice = useSelector((state: RootState) => state.cartReducer.price);
   const cartItems = useSelector(
     (state: RootState) => state.cartReducer.cartItem
   );
+  console.log(cartItems);
   const originalPrice = Number(cartPrice.totalPrice) + Number(2.99);
   const totalPrice = 0.5 * (Number(cartPrice.totalPrice) + 2.99);
   return (
