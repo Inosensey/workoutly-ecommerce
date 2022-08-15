@@ -39,7 +39,11 @@ function MyReviewsContents() {
               item[itemIndex].itemInfo.id === reviews[reviewIndex].item_id
             ) {
               historyItemList.push(item[itemIndex]);
-            } else {
+            }
+            if (
+              orders[orderIndex].id !== reviews[reviewIndex].id &&
+              item[itemIndex].itemInfo.id !== reviews[reviewIndex].item_id
+            ) {
               toBeReviewedItemList.push(item[itemIndex]);
             }
           }
