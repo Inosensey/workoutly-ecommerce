@@ -21,7 +21,6 @@ function Receipt({ order }: Props) {
       return totalItemPrice;
     });
     setOriginalPrice(totalItemPrice + Number(2.99));
-    console.log(totalItemPrice);
   };
   return (
     <div className={styles.container}>

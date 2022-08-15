@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import Tabs from "./Tabs";
 import ToBeReviewed from "./MyReviews/ToBeReviewed";
 import History from "./MyReviews/History";
-import styles from "../../../styles/UserPanel/MyReviewsContent.module.css";
 import getOrders from "../../Services/Supabase/getOrders";
 import getAllReviews from "../../Services/Supabase/getAllReviews";
 import { supabase } from "../../Services/Supabase/supabaseClient";
+import { Item, Order, Review } from "../../TypeScript/ReusableTypes";
+import styles from "../../../styles/UserPanel/MyReviewsContent.module.css";
 
 function MyReviewsContents() {
   const user = supabase.auth.user();
-  const [currentTab, setCurrentTab] = useState("To Be Reviewed");
-  const [toBeReviewed, setToBeReviewed] = useState<any>([]);
-  const [history, setHistory] = useState<any>([]);
+  const [currentTab, setCurrentTab] = useState<string>("To Be Reviewed");
+  const [toBeReviewed, setToBeReviewed] = useState<Item[]>([]);
+  const [history, setHistory] = useState<Item[]>([]);
   const [tabList] = useState(["To Be Reviewed", "History"]);
 
   useEffect(() => {
@@ -25,9 +26,9 @@ function MyReviewsContents() {
     ]);
     CheckIfItemHasBeenReviews(orders.data, reviews.data);
   };
-  const CheckIfItemHasBeenReviews = (orders: any, reviews: any) => {
-    let historyItemList: Array<any> = [];
-    let toBeReviewedItemList: Array<any> = [];
+  const CheckIfItemHasBeenReviews = (orders: Order[], reviews: Review[]) => {
+    let historyItemList: Array<Item> = [];
+    let toBeReviewedItemList: Array<Item> = [];
     for (let orderIndex = 0; orderIndex < orders.length; orderIndex++) {
       let item = orders[orderIndex].item_metadata;
       for (let itemIndex = 0; itemIndex < item.length; itemIndex++) {

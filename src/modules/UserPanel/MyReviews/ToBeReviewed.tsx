@@ -1,32 +1,14 @@
 import Link from "next/link";
+import { Item } from "../../../TypeScript/ReusableTypes";
 import styles from "../../../../styles/UserPanel/ToBeReviewed.module.css";
 
-type ItemInfo = {
-  id: string;
-  productName: string;
-  productPrice: number;
-  productPhoto: productPhoto;
-  description: description;
-  slug: string;
-};
-type productPhoto = {
-  url: string;
-};
-type description = {
-  text: string;
-};
-type Item = {
-  Quality: number;
-  itemInfo: ItemInfo;
-};
 interface Props {
-  Items: Array<Item>;
+  Items: Item[];
 }
 function ToBeReviewed({ Items }: Props) {
-  console.log(Items);
   return (
     <div className={styles.container}>
-      {Items.map((details) => (
+      {Items.map((details: Item) => (
         <div className={styles.itemInfoContainer} key={details.itemInfo.id}>
           <div className={styles.itemImage}>
             <img src={details.itemInfo.productPhoto.url} alt="" />
