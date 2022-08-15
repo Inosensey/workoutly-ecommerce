@@ -17,6 +17,11 @@ import styles from "../../../styles/Checkout/PaymentMethod.module.css";
 import { closePopUpCheckOut } from "../../Redux/Reducers/PopUpCheckOut";
 import { closeCart, removeAllItemFromCart } from "../../Redux/Reducers/Cart";
 import { showNotifPopUp } from "../../Redux/Reducers/PopUpNotif";
+import {
+  AddressDetailsType,
+  AddressFormInfoType,
+} from "../UserPanel/Logic/Types";
+import { Item } from "../../TypeScript/ReusableTypes";
 
 //Framer motion
 const UlVariant = {
@@ -29,14 +34,14 @@ const UlVariant = {
 };
 
 const DefaultAddressDetails = {
-  addressId: 0,
-  fullName: "",
-  phoneNumber: "",
+  address_id: 0,
+  full_name: "",
+  phone_number: "",
   region: "",
   province: "",
   city: "",
   street: "",
-  postalCode: "",
+  postal_code: "",
 };
 const DefaultFormInfo = {
   FormName: "",
@@ -45,31 +50,57 @@ const DefaultFormInfo = {
 const DefaultOrderDetails = {
   id: "",
   fullName: "",
-  item: {},
+  item: [
+    {
+      Quantity: 0,
+      itemInfo: {
+        description: {
+          text: "",
+        },
+        id: "",
+        productName: "",
+        productPhoto: { url: "" },
+        productPrice: 0,
+        productQuantity: 1,
+        slug: "",
+      },
+    },
+  ],
   total_price: 0,
   address_id: 0,
   status: "",
 };
 
+interface OrderDetails {
+  id: string;
+  fullName: string;
+  item: Item[];
+  total_price: number;
+  address_id: number;
+  status: string;
+}
+
 function PaymentMethod() {
   const dispatch = useDispatch();
-  const [toggleAddressList, setToggleAddressList] = useState(false);
-  const [addressList, setAddressList] = useState([]);
-  const [formInfo, setFormInfo] = useState(DefaultFormInfo);
-  const [toggleForm, setToggleForm] = useState(false);
-  const [addressDetails, setAddressDetails] = useState(DefaultAddressDetails);
-  const [selectedAddress, setSelectedAddress] = useState("");
-  const [selectedAddressDetails, setSelectedAddressDetails] = useState(
+  const [toggleAddressList, setToggleAddressList] = useState<boolean>(false);
+  const [addressList, setAddressList] = useState<AddressDetailsType[]>([]);
+  const [formInfo, setFormInfo] =
+    useState<AddressFormInfoType>(DefaultFormInfo);
+  const [toggleForm, setToggleForm] = useState<boolean>(false);
+  const [addressDetails, setAddressDetails] = useState<AddressDetailsType>(
     DefaultAddressDetails
   );
-  const [orderDetails, setOrderDetails] = useState(DefaultOrderDetails);
+  const [selectedAddress, setSelectedAddress] = useState<string>("");
+  const [selectedAddressDetails, setSelectedAddressDetails] =
+    useState<AddressDetailsType>(DefaultAddressDetails);
+  const [orderDetails, setOrderDetails] =
+    useState<OrderDetails>(DefaultOrderDetails);
   const cartPrice = useSelector((state: RootState) => state.cartReducer.price);
-  const cartItems = useSelector(
+  const cartItems: Item[] = useSelector(
     (state: RootState) => state.cartReducer.cartItem
   );
   const totalPrice = 0.5 * (Number(cartPrice.totalPrice) + 2.99);
   const session: any = supabase.auth.session();
-
   useEffect(() => {
     getAddressHandler();
     setOrderDetails({
@@ -95,14 +126,14 @@ function PaymentMethod() {
     const response: any = (await getSpecificAddress(id)) || {};
     setSelectedAddressDetails({
       ...selectedAddressDetails,
-      addressId: response.data[0].address_id,
-      fullName: response.data[0].full_name,
-      phoneNumber: response.data[0].phone_number,
+      address_id: response.data[0].address_id,
+      full_name: response.data[0].full_name,
+      phone_number: response.data[0].phone_number,
       region: response.data[0].region,
       province: response.data[0].province,
       city: response.data[0].city,
       street: response.data[0].street,
-      postalCode: response.data[0].postal_code,
+      postal_code: response.data[0].postal_code,
     });
     setOrderDetails({
       ...orderDetails,
@@ -214,27 +245,27 @@ function PaymentMethod() {
             <div className={styles.addressInfo}>
               <label>Full Name:</label>
               <p>
-                {selectedAddressDetails.addressId === 0
+                {selectedAddressDetails.address_id === 0
                   ? "No address selected"
-                  : selectedAddressDetails.fullName}
+                  : selectedAddressDetails.full_name}
               </p>
             </div>
             <div className={styles.addressInfo}>
               <label>Phone:</label>
               <p>
-                {selectedAddressDetails.addressId === 0
+                {selectedAddressDetails.address_id === 0
                   ? "No address selected"
-                  : selectedAddressDetails.phoneNumber}
+                  : selectedAddressDetails.phone_number}
               </p>
             </div>
             <div className={styles.addressInfo}>
               <label>Address:</label>
               <p>
-                {selectedAddressDetails.addressId === 0
+                {selectedAddressDetails.address_id === 0
                   ? "No address selected"
                   : `${selectedAddressDetails.region}, ${selectedAddressDetails.province}, 
                   ${selectedAddressDetails.city}, ${selectedAddressDetails.street}
-                      , ${selectedAddressDetails.postalCode}`}
+                      , ${selectedAddressDetails.postal_code}`}
               </p>
             </div>
           </div>

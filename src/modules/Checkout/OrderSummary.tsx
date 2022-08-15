@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
+import { Item } from "../../TypeScript/ReusableTypes";
 import styles from "../../../styles/Checkout/OrderSummary.module.css";
 
 function OrderSummary() {
@@ -14,7 +15,7 @@ function OrderSummary() {
     <div className={styles.container}>
       <h2 className={styles.header}>Order Summary</h2>
       <div className={styles.itemContainer}>
-        {cartItems.map((item: any) => (
+        {cartItems.map((item: Item) => (
           <div className={styles.item} key={Math.random() * 1000}>
             <div className={styles.itemPhotoContainer}>
               <img src={`${item.itemInfo.productPhoto.url}`} alt="" />

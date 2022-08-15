@@ -40,7 +40,7 @@ export const cartSlice = createSlice({
     },
     addItemToCart: (state, action: PayloadAction<Item>) => {
       let ExistingItem: Item | undefined = state.cartItem.find(
-        (item) => item.itemInfo.id === action.payload.itemInfo.id
+        (item: Item) => item.itemInfo.id === action.payload.itemInfo.id
       );
       if (
         ExistingItem !== undefined &&
@@ -55,7 +55,7 @@ export const cartSlice = createSlice({
     },
     removeItemFromCart: (state, action: PayloadAction<String>) => {
       state.cartItem = state.cartItem.filter(
-        (item) => item.itemInfo.id !== action.payload
+        (item: Item) => item.itemInfo.id !== action.payload
       );
     },
     adjustItemQuantity: (state, action: PayloadAction<QuantityActionTypes>) => {
@@ -79,7 +79,7 @@ export const cartSlice = createSlice({
       let items = 0;
       let price = 0;
       let totalPrice = 0;
-      state.cartItem.map((item) => {
+      state.cartItem.map((item: Item) => {
         items = items + item.Quantity;
         price = item.itemInfo.productPrice * item.Quantity;
         totalPrice = totalPrice + price;
