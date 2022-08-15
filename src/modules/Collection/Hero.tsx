@@ -1,6 +1,11 @@
 import styles from "../../../styles/Collection/Hero.module.css";
+import { CollectionBannersType } from "./Logic/Types";
 
-function Hero({ CollectionBanner }: any) {
+interface Props {
+  CollectionBanner: CollectionBannersType[];
+}
+
+function Hero({ CollectionBanner }: Props) {
   return (
     <section
       className={styles.container}

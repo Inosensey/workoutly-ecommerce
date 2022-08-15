@@ -6,6 +6,10 @@ import React from "react";
 import Nav from "../../common/Nav";
 import Hero from "../../modules/Collection/Hero";
 import Items from "../../modules/Collection/Items";
+import {
+  CollectionBannersType,
+  ItemsType,
+} from "../../modules/Collection/Logic/Types";
 
 //Graphcms
 const QUERY = gql`
@@ -67,7 +71,12 @@ export const getStaticProps = async ({ params }: any) => {
   };
 };
 
-const CollectionPage: NextPage = ({ collectionBanners, items }: any) => {
+interface Props {
+  collectionBanners: CollectionBannersType[];
+  items: ItemsType[];
+}
+
+const CollectionPage: NextPage<Props> = ({ collectionBanners, items }) => {
   return (
     <div>
       <Head>

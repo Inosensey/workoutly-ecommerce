@@ -1,11 +1,16 @@
 import Link from "next/link";
+import { ItemsType } from "./Logic/Types";
 import styles from "../../../styles/Collection/Items.module.css";
 
-function Items({ Items }: any) {
+interface Props {
+  Items: ItemsType[];
+}
+
+function Items({ Items }: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.itemsContainer}>
-        {Items.map((item: any) => (
+        {Items.map((item: ItemsType) => (
           <div className={styles.items} key={item.id}>
             <div className={styles.productPhotoContainer}>
               <img src={item.productPhoto.url} />
