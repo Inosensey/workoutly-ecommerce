@@ -6,9 +6,10 @@ import {
   hideLoadingPopUp,
 } from "../../../Redux/Reducers/PopUpLoading";
 import trackOrder from "../../../Services/Supabase/trackOrder";
-import styles from "../../../../styles/UserPanel/TrackDetails.module.css";
 import Orders from "./Orders";
 import Receipt from "./Receipt";
+import { Order } from "../../../TypeScript/ReusableTypes";
+import styles from "../../../../styles/UserPanel/TrackDetails.module.css";
 
 interface Props {
   trackNumber: string;
@@ -37,7 +38,7 @@ const DropIn = {
 
 function TrackDetails({ trackNumber, setToggleTrackDetails }: Props) {
   const dispatch = useDispatch();
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState<Order[]>([]);
 
   useEffect(() => {
     getTrackDetailsHandler();
@@ -52,6 +53,7 @@ function TrackDetails({ trackNumber, setToggleTrackDetails }: Props) {
       })
     );
     const response: any = await trackOrder(trackNumber);
+    console.log(response.data);
     dispatch(hideLoadingPopUp());
     setOrder(response?.data);
   };

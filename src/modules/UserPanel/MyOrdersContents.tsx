@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import getOrders from "../../Services/Supabase/getOrders";
-import styles from "../../../styles/UserPanel/MyOrders.module.css";
 import TrackDetails from "./MyOrder/TrackDetails";
+import { OrderDetailsType } from "./Logic/Types";
+import { Item } from "../../TypeScript/ReusableTypes";
+import styles from "../../../styles/UserPanel/MyOrders.module.css";
 
 function MyOrders() {
-  const [orders, setOrders] = useState([]);
-  const [trackNumber, setTrackNumber] = useState("");
-  const [toggleTrackDetails, setToggleTrackDetails] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState<OrderDetailsType[]>([]);
+  const [trackNumber, setTrackNumber] = useState<string>("");
+  const [toggleTrackDetails, setToggleTrackDetails] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     getOrdersHandler();
   }, []);
@@ -76,7 +78,7 @@ function MyOrders() {
                       <td>Loading</td>
                     </tr>
                   ) : (
-                    orders.map((details: any) => (
+                    orders.map((details: OrderDetailsType) => (
                       <tr key={details.order_id}>
                         <td className={styles.trackBtnContainer}>
                           <button
@@ -93,7 +95,7 @@ function MyOrders() {
                         <td>{details.full_name}</td>
                         <td>
                           {details.item_metadata
-                            .map((item: any) => `${item.itemInfo.productName}`)
+                            .map((item: Item) => `${item.itemInfo.productName}`)
                             .join(", ")}
                         </td>
                         <td>{details.total_price}$</td>

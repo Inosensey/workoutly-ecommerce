@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
+import { Order } from "../../../TypeScript/ReusableTypes";
 import styles from "../../../../styles/UserPanel/OrderDetails.module.css";
-import { supabase } from "../../../Services/Supabase/supabaseClient";
 
-function Orders({ order }: any) {
-  const [currentStep, setCurrentStep] = useState(1);
+interface Props {
+  order: Order[];
+}
+
+function Orders({ order }: Props) {
+  const [currentStep, setCurrentStep] = useState<number>(1);
   const date = new Date(
     order.length !== 0 ? order[0].purchased_at : Date.now()
   );
@@ -20,7 +24,7 @@ function Orders({ order }: any) {
             </div>
             <div className={styles.dateContainer}>
               <h4>Purchase Date:</h4>
-              <p>{order[0].purchased_at}</p>
+              <p>{order[0].purchased_at.toString()}</p>
             </div>
             <div className={styles.dateContainer}>
               <h4>Expected arrival:</h4>

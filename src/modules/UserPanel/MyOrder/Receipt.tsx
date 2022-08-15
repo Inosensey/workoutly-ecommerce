@@ -1,10 +1,13 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../Redux/store";
-import styles from "../../../../styles/UserPanel/ReceiptDetails.module.css";
 import { useEffect, useState } from "react";
+import { Item, Order } from "../../../TypeScript/ReusableTypes";
+import styles from "../../../../styles/UserPanel/ReceiptDetails.module.css";
 
-function Receipt({ order }: any) {
-  const [originalPrice, setOriginalPrice] = useState(0);
+interface Props {
+  order: Order[];
+}
+
+function Receipt({ order }: Props) {
+  const [originalPrice, setOriginalPrice] = useState<number>(0);
 
   useEffect(() => {
     getPrices();
@@ -13,7 +16,7 @@ function Receipt({ order }: any) {
   const getPrices = () => {
     let totalItemPrice = 0;
     if (order.length === 0) return;
-    order[0].item_metadata.map((item: any) => {
+    order[0].item_metadata.map((item: Item) => {
       totalItemPrice += item.Quantity * item.itemInfo.productPrice;
       return totalItemPrice;
     });
@@ -32,7 +35,7 @@ function Receipt({ order }: any) {
           <div className={styles.paymentSummaryContainer}>
             <h4>Payment Summary</h4>
             <div className={styles.itemContainer}>
-              {order[0].item_metadata.map((item: any) => (
+              {order[0].item_metadata.map((item: Item) => (
                 <div className={styles.item} key={item.itemInfo.id}>
                   <p>
                     {item.itemInfo.productName} (Qty: {item.Quantity})

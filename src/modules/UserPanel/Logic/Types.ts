@@ -20,7 +20,24 @@ interface AddressFormInfoInterface {
     FormName: string,
     FormAction: string
 }
+interface OrderDetailsInterface {
+    order_id: string,
+    id: string,
+    track_id: string,
+    full_name: string,
+    item_metadata: any,
+    total_price: number,
+    status: string,
+    purchased_at: Date,
+    address: {
+        region: string,
+        province: string,
+        city: string,
+        street: string,
+    }
+}
 
 export type ProfileDetailsType = ProfileDetailsInterface
 export type AddressDetailsType = AddressDetailsInterface
 export type AddressFormInfoType = AddressFormInfoInterface
+export type OrderDetailsType = OrderDetailsInterface
