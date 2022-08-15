@@ -8,6 +8,12 @@ import FeaturedItems from "../modules/Home/FeaturedItems";
 import Blog from "../modules/Home/Blog";
 import LimitedItem from "../modules/Home/LimitedItem";
 import Footer from "../modules/Home/Footer/Footer";
+import { CollectionBannersType } from "../TypeScript/ReusableTypes";
+import {
+  CategoriesType,
+  ItemsType,
+  LimitedItemType,
+} from "../modules/Home/Logic/Types";
 
 // GraphCms
 const graphcms = new GraphQLClient(
@@ -44,7 +50,12 @@ const QUERY = gql`
       id
       productName
       productPrice
+      productQuantity
       coverPhotoTitle
+      rating
+      description {
+        text
+      }
       coverPhoto {
         url
       }
@@ -65,7 +76,14 @@ export const getStaticProps = async () => {
   };
 };
 
-const Home: NextPage = ({
+interface Props {
+  collectionBanners: CollectionBannersType[];
+  categories: CategoriesType[];
+  items: ItemsType[];
+  limitedItems: LimitedItemType[];
+}
+
+const Home: NextPage<Props> = ({
   collectionBanners,
   categories,
   items,

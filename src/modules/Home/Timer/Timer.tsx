@@ -4,10 +4,10 @@ import TimeBox from "./TimeBox";
 import styles from "../../../../styles/Home/Timer.module.css";
 
 function Timer() {
-  const [days, setDays] = useState(0);
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
+  const [days, setDays] = useState<number>(0);
+  const [hours, setHours] = useState<number>(0);
+  const [minutes, setMinutes] = useState<number>(0);
+  const [seconds, setSeconds] = useState<number>(0);
 
   useEffect(() => {
     const targetTime = new Date("12/31/2022 23:59:59");

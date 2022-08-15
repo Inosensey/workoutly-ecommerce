@@ -2,12 +2,17 @@ import { useAnimation, motion } from "framer-motion";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../Redux/Reducers/Cart";
-import styles from "../../../styles/Home/LimitedItem.module.css";
 import Timer from "./Timer/Timer";
+import { LimitedItemType } from "./Logic/Types";
+import styles from "../../../styles/Home/LimitedItem.module.css";
 
-function LimitedItem({ LimitedItems }: any) {
+interface Props {
+  LimitedItems: LimitedItemType[];
+}
+
+function LimitedItem({ LimitedItems }: Props) {
   const dispatch = useDispatch();
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState<number>(0);
 
   // Framer Motion
   const SliderControl = useAnimation();
@@ -24,13 +29,13 @@ function LimitedItem({ LimitedItems }: any) {
   };
 
   const SlideVariant = {
-    Next: (currentSlide: any) => ({
+    Next: (currentSlide: number) => ({
       x: `${currentSlide - 100}%`,
       transition: {
         type: "tween",
       },
     }),
-    Prev: (currentSlide: any) => ({
+    Prev: (currentSlide: number) => ({
       x: `${currentSlide + 100}%`,
       transition: {
         type: "tween",
@@ -58,7 +63,7 @@ function LimitedItem({ LimitedItems }: any) {
           }
         ></i>
       </div>
-      {LimitedItems.map((item: any) => (
+      {LimitedItems.map((item: LimitedItemType) => (
         <motion.div
           animate={SliderControl}
           variants={SlideVariant}

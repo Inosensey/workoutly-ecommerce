@@ -23,6 +23,12 @@ interface ItemInfoInterface {
         slug: string
     }
 }
+interface CollectionBannersInterface {
+    collectionCoverPhoto: {url: string},
+    collectionName: string,
+    id: string,
+    slug: string
+}
 interface OrderInterface {
     order_id: string,
     id: string,
@@ -56,6 +62,8 @@ interface ProfileInterface {
     }
 }
 
+
+export type CollectionBannersType = CollectionBannersInterface;
 export type Product = ProductInterface;
 export type Item = ItemInfoInterface;
 export type Order = OrderInterface;

@@ -6,10 +6,8 @@ import React from "react";
 import Nav from "../../common/Nav";
 import Hero from "../../modules/Collection/Hero";
 import Items from "../../modules/Collection/Items";
-import {
-  CollectionBannersType,
-  ItemsType,
-} from "../../modules/Collection/Logic/Types";
+import { ItemsType } from "../../modules/Collection/Logic/Types";
+import { CollectionBannersType } from "../../TypeScript/ReusableTypes";
 
 //Graphcms
 const QUERY = gql`

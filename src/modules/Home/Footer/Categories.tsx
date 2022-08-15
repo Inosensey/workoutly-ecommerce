@@ -1,11 +1,16 @@
 import styles from "../../../../styles/Home/Footer.module.css";
+import { CategoriesType } from "../Logic/Types";
 
-function Categories({ CategoryList }: any) {
+interface Props {
+  CategoryList: CategoriesType[];
+}
+
+function Categories({ CategoryList }: Props) {
   return (
     <div className={styles.categoriesContainer}>
       <h3>Categories</h3>
       <div className={styles.categoryNames}>
-        {CategoryList.map((category: any) => (
+        {CategoryList.map((category: CategoriesType) => (
           <p key={category.categoryName}>{category.categoryName}</p>
         ))}
       </div>

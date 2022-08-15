@@ -1,8 +1,3 @@
-interface CollectionBannersInterface {
-    collectionCoverPhoto: {url: string},
-    collectionName: string,
-    id: string
-}
 interface ItemsInterface {
     id: string;
     productName: string;
@@ -14,5 +9,4 @@ interface ItemsInterface {
     };
 }
 
-export type CollectionBannersType = CollectionBannersInterface;
 export type ItemsType = ItemsInterface;

@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
-import styles from "../../../styles/Home/Hero.module.css";
 import Link from "next/link";
+import { CollectionBannersType } from "../../TypeScript/ReusableTypes";
+import styles from "../../../styles/Home/Hero.module.css";
 
-function Hero({ CollectionBanners }: any) {
-  const [currentSlide, setCurrentSlide] = useState(0);
+interface Props {
+  CollectionBanners: CollectionBannersType[];
+}
+
+function Hero({ CollectionBanners }: Props) {
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   // Framer Motion
   const SliderControl = useAnimation();
@@ -128,7 +133,7 @@ function Hero({ CollectionBanners }: any) {
         ></i>
       </div>
       <div className={styles.bannersContainer}>
-        {CollectionBanners.map((collection: any) => (
+        {CollectionBanners.map((collection: CollectionBannersType) => (
           <motion.div
             key={collection.id}
             layoutId={collection.id}

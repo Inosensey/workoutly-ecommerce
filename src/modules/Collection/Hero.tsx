@@ -1,5 +1,5 @@
 import styles from "../../../styles/Collection/Hero.module.css";
-import { CollectionBannersType } from "./Logic/Types";
+import { CollectionBannersType } from "../../TypeScript/ReusableTypes";
 
 interface Props {
   CollectionBanner: CollectionBannersType[];
