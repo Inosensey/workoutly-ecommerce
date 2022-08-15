@@ -10,6 +10,7 @@ import { RootState } from "../../../Redux/store";
 import getProfile from "../../../Services/Supabase/getProfile";
 import { supabase } from "../../../Services/Supabase/supabaseClient";
 import updatePersonalDetails from "../../../Services/Supabase/updatePersonalDetails";
+import { ProfileDetailsType } from "../Logic/Types";
 import styles from "../../../../styles/UserPanel/ProfileForm.module.css";
 
 const DefaultDetails = {
@@ -21,26 +22,32 @@ const DefaultDetails = {
   gender: "",
 };
 
+interface Test {
+  Data: {
+    personal_details: ProfileDetailsType;
+  };
+}
+
 function ProfileForm() {
   const dispatch = useDispatch();
   const inputRef = useRef<HTMLDivElement>(null);
   const Session: any =
     useSelector((state: RootState) => state.AuthReducer.Session) || {};
-  const [details, setDetails] = useState(DefaultDetails);
-  const [isEditing, setIsEditing] = useState(false);
+  const [details, setDetails] = useState<ProfileDetailsType>(DefaultDetails);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   useEffect(() => {
     getProfileHandler();
   }, []);
   const getProfileHandler = async () => {
-    const response: any = await getProfile();
-    if (response.Data === null || response.Data.length === 0) return;
+    const response = await getProfile();
+    if (response!.Data === null || response!.Data.length === 0) return;
     setDetails({
       ...details,
-      firstName: response.Data[0].personal_details.first_name || "",
-      middleName: response.Data[0].personal_details.middle_name || "",
-      lastName: response.Data[0].personal_details.last_name || "",
-      birthDate: response.Data[0].personal_details.birth_date || "",
-      gender: response.Data[0].personal_details.gender || "",
+      firstName: response!.Data[0].personal_details.first_name || "",
+      middleName: response!.Data[0].personal_details.middle_name || "",
+      lastName: response!.Data[0].personal_details.last_name || "",
+      birthDate: response!.Data[0].personal_details.birth_date || "",
+      gender: response!.Data[0].personal_details.gender || "",
     });
   };
   const updatePersonalDetailsHandler = async () => {

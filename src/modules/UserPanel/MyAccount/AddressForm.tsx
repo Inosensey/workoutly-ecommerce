@@ -10,6 +10,7 @@ import {
 import updateAddress from "../../../Services/Supabase/updateAddress";
 import styles from "../../../../styles/UserPanel/AddressForm.module.css";
 import { showNotifPopUp } from "../../../Redux/Reducers/PopUpNotif";
+import { AddressDetailsType } from "../Logic/Types";
 
 // Framer Motion Variants
 const DropIn = {
@@ -33,6 +34,16 @@ const DropIn = {
   },
 };
 
+interface Props {
+  getAddress: any;
+  setToggleForm: any;
+  addressDetails: AddressDetailsType;
+  setAddressDetails: any;
+  DefaultAddressDetails: AddressDetailsType;
+  FormName: string;
+  FormAction: string;
+}
+
 function AddressForm({
   getAddress,
   setToggleForm,
@@ -41,7 +52,7 @@ function AddressForm({
   DefaultAddressDetails,
   FormName,
   FormAction,
-}: any) {
+}: Props) {
   const dispatch = useDispatch();
   const Session: any =
     useSelector((state: RootState) => state.AuthReducer.Session) || {};
@@ -118,11 +129,11 @@ function AddressForm({
                 Name="fullName"
                 Type="text"
                 Label="Full name"
-                inputValue={addressDetails.fullName}
+                inputValue={addressDetails.full_name}
                 setInputValue={(e: any) =>
                   setAddressDetails({
                     ...addressDetails,
-                    fullName: e.target.value,
+                    full_name: e.target.value,
                   })
                 }
                 enableValidation={false}
@@ -136,11 +147,11 @@ function AddressForm({
                 Name="phoneNumber"
                 Type="text"
                 Label="Phone number"
-                inputValue={addressDetails.phoneNumber}
+                inputValue={addressDetails.phone_number}
                 setInputValue={(e: any) =>
                   setAddressDetails({
                     ...addressDetails,
-                    phoneNumber: e.target.value,
+                    phone_number: e.target.value,
                   })
                 }
                 enableValidation={false}
@@ -223,11 +234,11 @@ function AddressForm({
                 Name="postalCode"
                 Type="text"
                 Label="Postal Code"
-                inputValue={addressDetails.postalCode}
+                inputValue={addressDetails.postal_code}
                 setInputValue={(e: any) =>
                   setAddressDetails({
                     ...addressDetails,
-                    postalCode: e.target.value,
+                    postal_code: e.target.value,
                   })
                 }
                 enableValidation={false}

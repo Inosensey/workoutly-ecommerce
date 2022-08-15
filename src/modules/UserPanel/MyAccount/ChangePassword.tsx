@@ -32,6 +32,9 @@ function ChangePassword() {
                 oldPassword: e.target.value,
               })
             }
+            enableValidation={false}
+            Notification={""}
+            Valid={null}
             Disabled={true}
           />
         </div>
@@ -47,6 +50,9 @@ function ChangePassword() {
                 newPassword: e.target.value,
               })
             }
+            enableValidation={false}
+            Notification={""}
+            Valid={null}
             Disabled={true}
           />
         </div>
@@ -62,6 +68,9 @@ function ChangePassword() {
                 confirmPassword: e.target.value,
               })
             }
+            enableValidation={false}
+            Notification={""}
+            Valid={null}
             Disabled={true}
           />
         </div>

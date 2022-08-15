@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import styles from "../../../../styles/UserPanel/Address.module.css";
 import {
   showLoadingPopUp,
   hideLoadingPopUp,
@@ -12,17 +11,19 @@ import {
   getAddresses,
   getSpecificAddress,
 } from "../../../Services/Supabase/getAddresses";
+import { AddressDetailsType, AddressFormInfoType } from "../Logic/Types";
 import AddressForm from "./AddressForm";
+import styles from "../../../../styles/UserPanel/Address.module.css";
 
 const DefaultAddressDetails = {
-  addressId: 0,
-  fullName: "",
-  phoneNumber: "",
+  address_id: 0,
+  full_name: "",
+  phone_number: "",
   region: "",
   province: "",
   city: "",
   street: "",
-  postalCode: "",
+  postal_code: "",
 };
 const DefaultFormInfo = {
   FormName: "",
@@ -31,11 +32,14 @@ const DefaultFormInfo = {
 
 function Address() {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  const [formInfo, setFormInfo] = useState(DefaultFormInfo);
-  const [toggleForm, setToggleForm] = useState(false);
-  const [addresses, setAddresses] = useState([]);
-  const [addressDetails, setAddressDetails] = useState(DefaultAddressDetails);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [formInfo, setFormInfo] =
+    useState<AddressFormInfoType>(DefaultFormInfo);
+  const [toggleForm, setToggleForm] = useState<boolean>(false);
+  const [addresses, setAddresses] = useState<AddressDetailsType[]>([]);
+  const [addressDetails, setAddressDetails] = useState<AddressDetailsType>(
+    DefaultAddressDetails
+  );
 
   useEffect(() => {
     getAddressHandler();
@@ -58,14 +62,14 @@ function Address() {
     const response: any = (await getSpecificAddress(id)) || {};
     setAddressDetails({
       ...addressDetails,
-      addressId: response.data[0].address_id,
-      fullName: response.data[0].full_name,
-      phoneNumber: response.data[0].phone_number,
+      address_id: response.data[0].address_id,
+      full_name: response.data[0].full_name,
+      phone_number: response.data[0].phone_number,
       region: response.data[0].region,
       province: response.data[0].province,
       city: response.data[0].city,
       street: response.data[0].street,
-      postalCode: response.data[0].postal_code,
+      postal_code: response.data[0].postal_code,
     });
     dispatch(hideLoadingPopUp());
     setFormInfo({ ...formInfo, FormName: "Edit Address", FormAction: "Edit" });
@@ -143,7 +147,7 @@ function Address() {
           </div>
         ) : (
           <div className={styles.addressList}>
-            {addresses.map((info: any) => (
+            {addresses.map((info: AddressDetailsType) => (
               <div className={styles.address} key={info.address_id}>
                 <div className={styles.addressInfoContainer}>
                   <div className={styles.addressInfo}>

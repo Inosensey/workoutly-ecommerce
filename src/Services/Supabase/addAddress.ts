@@ -1,28 +1,21 @@
+import { AddressDetailsType } from "../../modules/UserPanel/Logic/Types";
 import { supabase } from "./supabaseClient";
 
-type AddressType = {
-  fullName: string;
-  phoneNumber: string;
-  region: string;
-  province: string;
-  city: string;
-  street: string;
-  postalCode: string;
-};
 
-const addAddress = async (addressDetails: AddressType, id: string) => {
+
+const addAddress = async (addressDetails: AddressDetailsType, id: string) => {
   try {
     const { data, error } = await supabase.from("address").insert(
       [
         {
           id: id,
-          full_name: addressDetails.fullName,
-          phone_number: addressDetails.phoneNumber,
+          full_name: addressDetails.full_name,
+          phone_number: addressDetails.phone_number,
           region: addressDetails.region,
           province: addressDetails.province,
           city: addressDetails.city,
           street: addressDetails.street,
-          postal_code: addressDetails.postalCode,
+          postal_code: addressDetails.postal_code,
         },
       ],
       { returning: "minimal" }
