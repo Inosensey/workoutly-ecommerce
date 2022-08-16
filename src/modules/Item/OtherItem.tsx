@@ -1,24 +1,22 @@
 import Link from "next/link";
 import styles from "../../../styles/Item/OtherItem.module.css";
 
-interface Props {
-  items: {
-    id: string;
-    productName: string;
-    productPrice: number;
-    slug: string;
-    productPhoto: {
-      url: string;
-    };
+interface Items {
+  id: string;
+  productName: string;
+  productPrice: number;
+  slug: string;
+  productPhoto: {
+    url: string;
   };
 }
 
-function OtherItem({ items }: any) {
+const OtherItem: React.FC<Items[]> = (props: Items[]) => {
   return (
     <section className={styles.container}>
       <h3>Items you may like</h3>
       <div className={styles.items}>
-        {items.map((item: any) => (
+        {props.map((item: Items) => (
           <Link href={`${item.slug}`} key={item.id}>
             <div className={styles.item}>
               <div className={styles.productPhotoContainer}>
@@ -36,6 +34,6 @@ function OtherItem({ items }: any) {
       </div>
     </section>
   );
-}
+};
 
 export default OtherItem;

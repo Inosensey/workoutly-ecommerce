@@ -11,7 +11,7 @@ function Blog() {
       <div className={styles.blogCardContainer}>
         <BlogCard
           ImgSrc="/img/important-to-start.jpg"
-          ImgAlt="BegginerImg"
+          ImgAlt="BeginnerImg"
           BlogTitle="How important for your health to start exercising"
           PosterName="Philip Mathew"
           BlogDate="May 4, 2022"

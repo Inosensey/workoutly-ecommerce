@@ -63,15 +63,17 @@ interface Params {
 }
 interface Props {
   item: Product;
-  items: {
-    id: string;
-    productName: string;
-    productPrice: number;
-    slug: string;
-    productPhoto: {
-      url: string;
-    };
-  };
+  items: [
+    {
+      id: string;
+      productName: string;
+      productPrice: number;
+      slug: string;
+      productPhoto: {
+        url: string;
+      };
+    }
+  ];
 }
 
 export const getStaticPaths = async () => {
@@ -118,7 +120,7 @@ const ItemPage: NextPage<Props> = ({ item, items }) => {
           </div>
           <ItemCard {...item} />
           <ReviewComments {...item} />
-          <OtherItem items={items} />
+          <OtherItem {...items} />
         </section>
       </main>
     </div>

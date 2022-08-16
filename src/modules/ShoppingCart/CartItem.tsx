@@ -5,10 +5,11 @@ import {
 } from "../../Redux/Reducers/Cart";
 import { RootState } from "../../Redux/store";
 import styles from "../../../styles/ShoppingCart/ShoppingCart.module.css";
+import { Item } from "../../TypeScript/ReusableTypes";
 
 function CartItem() {
   const dispatch = useDispatch();
-  const cartItems = useSelector(
+  const cartItems: Item[] = useSelector(
     (state: RootState) => state.cartReducer.cartItem
   );
   console.log(cartItems);
@@ -30,7 +31,7 @@ function CartItem() {
           <h3>Shopping Cart is Empty</h3>
         </div>
       ) : (
-        cartItems.map((item: any) => (
+        cartItems.map((item: Item) => (
           <div className={styles.itemContainer} key={Math.random() * 1000}>
             <div className={styles.itemPhotoContainer}>
               <img src={`${item.itemInfo.productPhoto.url}`} alt="" />
@@ -45,7 +46,7 @@ function CartItem() {
                       onClick={() =>
                         dispatch(
                           adjustItemQuantity({
-                            itemInfo: item.itemInfo,
+                            itemInfo: item,
                             ActionType: "Decrement",
                           })
                         )
@@ -57,7 +58,7 @@ function CartItem() {
                       onClick={() =>
                         dispatch(
                           adjustItemQuantity({
-                            itemInfo: item.itemInfo,
+                            itemInfo: item,
                             ActionType: "Increment",
                           })
                         )
