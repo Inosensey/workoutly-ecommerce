@@ -13,7 +13,6 @@ function Categories({ Categories }: Props) {
 
   useEffect(() => {
     CarouselWidthHandler();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const CarouselWidthHandler = () => {

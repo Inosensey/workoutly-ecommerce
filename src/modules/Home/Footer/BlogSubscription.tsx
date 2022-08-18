@@ -6,7 +6,7 @@ function BlogSubscription() {
       <h3>Blog</h3>
       <div className={styles.blogInputControlContainer}>
         <input type="text" name="subscribe" placeholder="Email@example.com" />
-        <button>SUBSCRIBE</button>
+        <button>Subscribe</button>
       </div>
     </div>
   );

@@ -133,8 +133,8 @@
 
 @media screen and (max-width: 768px) {
   .buttons {
-    width: 20%;
-    justify-content: center;
+    width: 10%;
+    justify-content: space-between;
     align-items: center;
   }
 }
@@ -151,27 +151,29 @@
     font-size: 1.2rem;
   }
   .buttons {
-    width: 25%;
+    width: 12%;
   }
-  .buttons button {
-    padding: 0.7rem;
-    width: 80%;
+  .buttons i {
+    font-size: 1.4rem;
   }
 }
 @media screen and (max-width: 570px) {
   .SiteNameContainer {
-    width: 25%;
-  }
-  .buttons {
-    width: 28%;
+    width: 27%;
   }
 }
 @media screen and (max-width: 470px) {
+  .nav {
+    padding: 0 1rem;
+  }
   .SiteNameContainer {
-    width: 30%;
+    width: 32%;
   }
   .buttons {
-    width: 32%;
+    width: 13%;
+  }
+  .buttons i {
+    font-size: 1.3rem;
   }
 }
 @media screen and (max-width: 400px) {
@@ -182,6 +184,11 @@
     width: 35%;
   }
   .buttons {
-    width: 38%;
+    width: 20%;
+  }
+}
+@media screen and (max-width: 320px) {
+  .SiteNameContainer {
+    width: 40%;
   }
 }

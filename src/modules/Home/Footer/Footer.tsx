@@ -16,9 +16,11 @@ function Footer({ CategoryList }: Props) {
     <footer className={styles.container}>
       <div className={styles.footerContentContainer}>
         <SocialMediaLinks />
-        <Categories CategoryList={CategoryList} />
-        <Links />
-        <Help />
+        <div className={styles.otherLinks}>
+          <Categories CategoryList={CategoryList} />
+          <Links />
+          <Help />
+        </div>
         <BlogSubscription />
       </div>
       <Copyright />

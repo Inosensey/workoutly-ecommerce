@@ -77,22 +77,25 @@ function LimitedItem({ LimitedItems }: Props) {
             <h2>{item.coverPhotoTitle}</h2>
           </div>
           <div className={styles.itemInfoContainer}>
-            <div className={styles.productImageContainer}>
-              <img src={item.productPhoto.url} />
+            <div className={styles.info}>
+              <div className={styles.productImageContainer}>
+                <img src={item.productPhoto.url} />
+              </div>
+              <div className={styles.productInfoContainer}>
+                <p>{item.productName}</p>
+                <p>{item.productPrice}$</p>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() =>
+                    dispatch(addItemToCart({ itemInfo: item, Quantity: 1 }))
+                  }
+                >
+                  Add to Cart
+                </motion.button>
+              </div>
             </div>
-            <div className={styles.productInfoContainer}>
-              <p>{item.productName}</p>
-              <p>{item.productPrice}$</p>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() =>
-                  dispatch(addItemToCart({ itemInfo: item, Quantity: 1 }))
-                }
-              >
-                Add to Cart
-              </motion.button>
-            </div>
+
             <Timer />
           </div>
         </motion.div>

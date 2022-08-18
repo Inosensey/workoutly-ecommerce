@@ -90,7 +90,7 @@ export const getStaticProps = async ({ params }: Params) => {
   const slug = params.item;
   const ItemList = await GraphCmsApi.request(ITEMLIST);
   const itemCount = ItemList.items.length / 2;
-  const { item, items } = await GraphCmsApi.request(QUERY, {
+  const { item, items }: Props = await GraphCmsApi.request(QUERY, {
     slug: slug,
     itemLimit: itemCount,
   });
@@ -120,7 +120,7 @@ const ItemPage: NextPage<Props> = ({ item, items }) => {
           </div>
           <ItemCard {...item} />
           <ReviewComments {...item} />
-          <OtherItem {...items} />
+          <OtherItem items={items} />
         </section>
       </main>
     </div>

@@ -37,8 +37,8 @@ function Layout({ children }: any) {
     // and a POST request will be made to the /api/auth route
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        // console.log(event);
-        // console.log(session);
+        console.log(event);
+        console.log(session);
       }
     );
 

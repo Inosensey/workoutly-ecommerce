@@ -11,12 +11,12 @@ interface Items {
   };
 }
 
-const OtherItem: React.FC<Items[]> = (props: Items[]) => {
+const OtherItem = (props: { items: Items[] }) => {
   return (
     <section className={styles.container}>
       <h3>Items you may like</h3>
       <div className={styles.items}>
-        {props.map((item: Items) => (
+        {props.items.map((item: Items) => (
           <Link href={`${item.slug}`} key={item.id}>
             <div className={styles.item}>
               <div className={styles.productPhotoContainer}>

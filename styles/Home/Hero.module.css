@@ -72,3 +72,60 @@
   cursor: pointer;
   z-index: 2;
 }
+
+@media screen and (max-width: 768px) {
+  .bannerInfoContainer {
+    background-position: 40%;
+  }
+  .bannerInfoContainer button {
+    width: 20%;
+  }
+}
+@media screen and (max-width: 570px) {
+  .bannerInfoContainer p {
+    font-size: 1.5rem;
+  }
+
+  .bannerInfoContainer h1 {
+    font-size: 3.2rem;
+  }
+
+  .bannerInfoContainer button {
+    width: 25%;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .bannerInfoContainer p {
+    font-size: 1.2rem;
+  }
+
+  .bannerInfoContainer h1 {
+    font-size: 2.8rem;
+  }
+
+  .bannerInfoContainer button {
+    width: 30%;
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  .bannerInfoContainer p {
+    font-size: 1.1rem;
+  }
+
+  .bannerInfoContainer h1 {
+    font-size: 2.5rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .bannerInfoContainer h1 {
+    font-size: 2.1rem;
+  }
+
+  .bannerInfoContainer button {
+    font-size: 1rem;
+    width: 35%;
+  }
+}

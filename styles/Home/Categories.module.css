@@ -26,6 +26,7 @@
 
 .category {
   background-size: cover;
+  background-position: 40%;
   min-width: 30%;
   height: 300px;
   position: relative;
@@ -83,4 +84,72 @@
 
 .category:hover > .categoryOverlay {
   opacity: 1;
+}
+
+@media screen and (max-width: 870px) {
+  .categoryInfo {
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 0 0 0 0.5rem;
+  }
+
+  .categoryInfo p {
+    font-size: 1rem;
+  }
+
+  .categoryInfo button {
+    padding: 0.2rem;
+    width: 30%;
+    font-weight: 100;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .category {
+    min-width: 37%;
+    height: 250px;
+  }
+
+  .categoryInfo p {
+    font-size: 1rem;
+  }
+
+  .categoryInfo button {
+    width: 22%;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .category {
+    min-width: 40%;
+  }
+
+  .categoryInfo p {
+    font-size: 0.9rem;
+  }
+
+  .categoryInfo button {
+    font-size: 0.9rem;
+    width: 22%;
+  }
+}
+@media screen and (max-width: 570px) {
+  .category {
+    min-width: 48%;
+  }
+}
+@media screen and (max-width: 470px) {
+  .category {
+    min-width: 60%;
+    height: 225px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .innerCarousel {
+    gap: 0.8rem;
+  }
+  .category {
+    min-width: 90%;
+  }
 }
