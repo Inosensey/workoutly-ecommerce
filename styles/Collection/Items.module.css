@@ -56,3 +56,44 @@
   cursor: pointer;
   font-size: 1rem;
 }
+
+@media screen and (max-width: 1075px) {
+  .items {
+    width: 27%;
+  }
+}
+@media screen and (max-width: 870px) {
+  .items {
+    width: 30%;
+    height: 350px;
+  }
+
+  .productInfoContainer {
+    height: 44%;
+  }
+
+  .productInfoContainer button {
+    width: 40%;
+    padding: 0.3rem;
+  }
+}
+@media screen and (max-width: 760px) {
+  .items {
+    width: 40%;
+  }
+}
+@media screen and (max-width: 570px) {
+  .itemsContainer {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .items {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 420px) {
+  .items {
+    width: 98%;
+  }
+}

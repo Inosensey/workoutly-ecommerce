@@ -107,6 +107,7 @@
   gap: 0.5rem;
   border-radius: 5px;
   cursor: pointer;
+  text-align: center;
 }
 .errorMessage {
   font-family: "League Spartan";
