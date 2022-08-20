@@ -65,3 +65,27 @@
   background: #ff7777;
   border: none;
 }
+
+@media screen and (max-width: 870px) {
+  .popUpContainer {
+    width: 45%;
+  }
+}
+@media screen and (max-width: 680px) {
+  .popUpContainer {
+    width: 55%;
+  }
+  .buttonContainer button {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 570px) {
+  .popUpContainer {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 460px) {
+  .popUpContainer {
+    width: 95%;
+  }
+}

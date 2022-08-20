@@ -179,11 +179,11 @@ function Comments({
           <div
             style={{
               display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              padding: "1rem 1rem 1rem 0.6rem",
               color: "#ff7777",
               width: "100%",
               height: "76%",
+              fontSize: "0.9rem",
             }}
           >
             <h2>No reviews yet</h2>

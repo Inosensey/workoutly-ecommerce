@@ -16,18 +16,23 @@ const ItemLogic = (
                 getReviews(item_id),
                 getProfile()
             ])
+            checkIfAUserIsLoggedIn(profile?.Data, item_id);
             setState.setOrder(order!.data);
             setState.setReviews(reviews!.data);
-            setState.setUserDetails(profile!.Data);
-            setState.setReviewDetails({
-            ...state.reviewDetails,
-            id: profile!.Data![0].id,
-            item_id: item_id,
-            username: profile!.Data![0].username,
-            });
             getRating(reviews?.data!);
             CountStars(reviews?.data!);
             setState.setIsLoading(false);
+        }
+        const checkIfAUserIsLoggedIn = (profile:any, item_id:string) => {
+          if(profile.length !== 0) {  
+            setState.setUserDetails(profile);
+            setState.setReviewDetails({
+            ...state.reviewDetails,
+            id: profile[0].id,
+            item_id: item_id,
+            username: profile[0].username,
+            });
+          }
         }
         const getRating = (reviews: Review[]) => {
             let rating:number = 0;

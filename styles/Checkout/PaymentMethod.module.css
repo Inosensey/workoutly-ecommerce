@@ -93,7 +93,7 @@
   line-height: 1.2rem;
 }
 .checkoutBtnContainer {
-  width: 35%;
+  width: max-content;
   margin: 0 auto;
 }
 .checkoutBtnContainer button {

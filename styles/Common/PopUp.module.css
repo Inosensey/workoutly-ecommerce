@@ -49,6 +49,7 @@
   color: #ffffff;
 }
 .message p {
+  text-align: center;
   padding: 0 1rem;
 }
 .btnContainer {
@@ -61,10 +62,40 @@
 .btnContainer button {
   font-family: "League Spartan";
   border: none;
-  width: 45%;
+  width: max-content;
   padding: 0.3rem;
   background: #ff7777;
   color: #ffffff;
   font-size: 1.1rem;
   cursor: pointer;
+}
+
+@media screen and (max-width: 820px) {
+  .content {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 620px) {
+  .content {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 560px) {
+  .content {
+    width: 70%;
+    height: 28%;
+  }
+  .message {
+    font-size: 1rem;
+  }
+  .btnContainer button {
+    font-size: 1rem;
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .content {
+    width: 95%;
+  }
 }

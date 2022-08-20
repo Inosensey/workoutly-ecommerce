@@ -1,6 +1,6 @@
 .container {
   width: 75%;
-  height: 800px;
+  max-height: 800px;
   margin: 2rem auto;
   background-color: #1e292b;
 }
@@ -10,12 +10,13 @@
   height: 25%;
   color: #ccc;
   display: flex;
+  gap: 1rem;
 }
 
 .ratings {
   color: #ccc;
   width: max-content;
-  width: 22%;
+  width: 30%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -33,6 +34,15 @@
 .ratings span {
   color: #ccc;
   font-size: 1.3rem;
+}
+
+.starsCounterContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 60%;
+  height: 100%;
+  padding: 1rem 0 0 0;
 }
 
 .starsOuter {
@@ -62,15 +72,6 @@
   color: #ff7777;
 }
 
-.starsCounterContainer {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 70%;
-  height: 100%;
-  padding: 1rem 0 0 0;
-}
-
 .stars,
 .countRatings {
   display: flex;
@@ -97,7 +98,7 @@
 }
 
 .comments {
-  padding: 0 2rem;
+  padding: 0 0 0 1.4rem;
   margin: 0.5rem 0 0 0;
   width: 100%;
   height: 100%;
@@ -189,4 +190,40 @@
 .personalCommentContainer {
   padding: 0.2rem 0.5rem 0.7rem 0.5rem;
   background-color: #343634;
+}
+
+@media screen and (max-width: 670px) {
+  .ratings {
+    width: 40%;
+  }
+  .starsCounterContainer {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 470px) {
+  .container {
+    width: 95%;
+  }
+  .ratingContainer {
+    gap: 0rem;
+    flex-direction: column;
+  }
+  .ratings {
+    width: 100%;
+    gap: 1rem;
+  }
+  .starsCounterContainer {
+    padding: 1rem 0 1rem 2rem;
+    width: 100%;
+  }
+  .ratings h3 {
+    font-size: 2rem;
+  }
+  .ratings span {
+    font-size: 1rem;
+  }
+  .starsOuter,
+  .starsInner {
+    font-size: 1.1rem;
+  }
 }

@@ -121,10 +121,6 @@
 }
 
 @media screen and (max-width: 860px) {
-  .SiteNameContainer {
-    width: 20%;
-  }
-
   .SiteNameContainer h2 {
     font-size: 1.2rem;
   }
@@ -135,8 +131,11 @@
 }
 
 @media screen and (max-width: 768px) {
+  .SiteNameContainer {
+    width: 18%;
+  }
   .buttons {
-    width: 10%;
+    width: 15%;
     justify-content: space-between;
     align-items: center;
   }
@@ -161,13 +160,23 @@
   }
 }
 @media screen and (max-width: 570px) {
+  .nav {
+    padding: 0 3.5rem 0 3rem;
+  }
   .SiteNameContainer {
     width: 27%;
+  }
+  .myAccountDropdown {
+    width: 170px;
+    font-size: 0.8rem;
+  }
+  .dropdownContainer i {
+    font-size: 0.8rem;
   }
 }
 @media screen and (max-width: 470px) {
   .nav {
-    padding: 0 1rem;
+    padding: 0 3.5rem 0 1rem;
   }
   .SiteNameContainer {
     width: 32%;
@@ -190,8 +199,8 @@
     width: 20%;
   }
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 340px) {
   .SiteNameContainer {
-    width: 40%;
+    width: 45%;
   }
 }

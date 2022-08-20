@@ -5,6 +5,7 @@ interface Props {
   item_id: string;
   review: string;
   rating: number;
+  username: string,
 }
 
 const addReview = async (reviewDetails: Props) => {
@@ -16,6 +17,7 @@ const addReview = async (reviewDetails: Props) => {
           item_id: reviewDetails.item_id,
           review: reviewDetails.review,
           rating: reviewDetails.rating,
+          username: reviewDetails.username
         },
       ],
       { returning: "minimal" }

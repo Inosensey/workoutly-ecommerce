@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../Redux/Reducers/Cart";
 import { motion } from "framer-motion";
+import { Product } from "../../TypeScript/ReusableTypes";
 import styles from "../../../styles/Item/Item.module.css";
-import { Item, Product } from "../../TypeScript/ReusableTypes";
 
 const ItemCard: React.FC<Product> = (props: Product) => {
   const dispatch = useDispatch();
