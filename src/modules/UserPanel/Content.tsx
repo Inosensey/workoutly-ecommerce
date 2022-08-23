@@ -5,13 +5,13 @@ import MyAccountContents from "./MyAccountContents";
 import MyOrdersContents from "./MyOrdersContents";
 import MyReviewsContents from "./MyReviewsContents";
 
-function Content() {
+function Content(props: { setShowSidebar: any }) {
   const Link = useSelector(
     (state: RootState) => state.SidebarLinksReducer.CurrentLink
   );
   return (
     <div style={{ width: "100%", height: "100vh" }}>
-      <Header CurrentLink={Link} />
+      <Header setShowSidebar={props.setShowSidebar} CurrentLink={Link} />
       {Link === "My Account" && <MyAccountContents />}
       {Link === "My Orders" && <MyOrdersContents />}
       {Link === "My Reviews" && <MyReviewsContents />}

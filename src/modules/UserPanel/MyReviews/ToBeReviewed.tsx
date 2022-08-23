@@ -17,8 +17,9 @@ function ToBeReviewed({ Items }: Props) {
             justifyContent: "center",
             alignItems: "center",
             fontFamily: "League Spartan",
-            fontSize: "1.5rem",
+            fontSize: "1.2rem",
             color: "#ff7777",
+            textAlign: "center",
           }}
         >
           <p>All of your orders has been reviewed</p>

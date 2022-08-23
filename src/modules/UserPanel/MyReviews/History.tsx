@@ -18,8 +18,9 @@ function History({ Items }: Props) {
             justifyContent: "center",
             alignItems: "center",
             fontFamily: "League Spartan",
-            fontSize: "1.5rem",
+            fontSize: "1.2rem",
             color: "#ff7777",
+            textAlign: "center",
           }}
         >
           <p>You don't have any order that has been reviewed</p>
@@ -38,7 +39,7 @@ function History({ Items }: Props) {
                 </p>
                 <p>Price: {details.itemInfo.productPrice}$</p>
                 <Link href={`Item/${details.itemInfo.slug}`}>
-                  <h3 className={styles.itemReviewBtn}>Write a review</h3>
+                  <h3 className={styles.itemReviewBtn}>View review</h3>
                 </Link>
               </div>
             </div>

@@ -1,15 +1,34 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AccessForbidden from "../modules/403/AccessForbidden";
 import Content from "../modules/UserPanel/Content";
 import Sidebar from "../modules/UserPanel/Sidebar";
 import { RootState } from "../Redux/store";
-import { supabase } from "../Services/Supabase/supabaseClient";
 
 export const UserPanel = () => {
   const Session: any =
     useSelector((state: RootState) => state.AuthReducer.Session) || {};
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [showSidebar, setShowSidebar] = useState<boolean>(true);
+  const handleResize = () => {
+    let mobile = false;
+    if (window.innerWidth <= 769 && mobile === false) {
+      mobile = true;
+    }
+    if (window.innerWidth > 769 && mobile === true) {
+      mobile = false;
+    }
+    setShowSidebar(mobile ? false : true);
+    setIsMobile(mobile);
+    return mobile;
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div>
       <Head>
@@ -20,8 +39,12 @@ export const UserPanel = () => {
       <main style={{ display: "flex", width: "100%", height: "100vh" }}>
         {Session.Auth !== undefined ? (
           <>
-            <Sidebar />
-            <Content />
+            <Sidebar
+              isMobile={isMobile}
+              showSidebar={showSidebar}
+              setShowSidebar={setShowSidebar}
+            />
+            <Content setShowSidebar={setShowSidebar} />
           </>
         ) : (
           <AccessForbidden />

@@ -54,3 +54,45 @@
   border: 1px solid #ff7777;
   background: none;
 }
+
+@media screen and (max-width: 768px) {
+  .headerContainer {
+    font-size: 1.1rem;
+  }
+  .inputContainer label {
+    font-size: 1rem;
+  }
+  .inputContainer input {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 568px) {
+  .headerContainer {
+    padding: 0.6rem;
+    font-size: 1rem;
+  }
+  .cancel,
+  .save,
+  .edit {
+    width: 25%;
+  }
+}
+@media screen and (max-width: 468px) {
+  .inputContainer {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 368px) {
+  .headerContainer {
+    padding: 0.7rem;
+    font-size: 1rem;
+  }
+  .inputContainer {
+    width: 90%;
+  }
+  .cancel,
+  .save,
+  .edit {
+    width: 30%;
+  }
+}

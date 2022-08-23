@@ -60,6 +60,13 @@ function TrackDetails({ trackNumber, setToggleTrackDetails }: Props) {
   if (order.length === 0) return <div></div>;
   return (
     <div className={styles.overlay}>
+      <i
+        className={`${"fa-solid fa-circle-xmark"} ${styles.xmarkBtn}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          setToggleTrackDetails(false);
+        }}
+      ></i>
       <motion.div
         className={styles.container}
         variants={DropIn}
@@ -67,13 +74,6 @@ function TrackDetails({ trackNumber, setToggleTrackDetails }: Props) {
         animate="visible"
         exit="exit"
       >
-        <i
-          className={`${"fa-solid fa-circle-xmark"} ${styles.xmarkBtn}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            setToggleTrackDetails(false);
-          }}
-        ></i>
         <div className={styles.receiptContainer}>
           <Receipt order={order} />
         </div>

@@ -49,3 +49,28 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@media screen and (max-width: 859px) {
+  .itemInfoContainer {
+    width: 85%;
+  }
+}
+@media screen and (max-width: 620px) {
+  .itemInfoContainer {
+    width: 95%;
+  }
+}
+@media screen and (max-width: 479px) {
+  .itemInfo {
+    width: 70%;
+    font-size: 0.9rem;
+  }
+  .itemImage {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 320px) {
+  .itemInfo {
+    font-size: 0.8rem;
+  }
+}

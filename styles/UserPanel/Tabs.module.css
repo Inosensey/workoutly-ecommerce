@@ -22,3 +22,42 @@
 .tabs li:hover {
   border-bottom: 1px solid #ff7777;
 }
+
+@media screen and (max-width: 1075px) {
+  .tabs li {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 853px) {
+  .tabs li {
+    width: 32%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .tabs {
+    gap: 1rem;
+  }
+  .tabs li {
+    font-size: 1rem;
+    width: max-content;
+  }
+}
+@media screen and (max-width: 468px) {
+  .tabs {
+    gap: 0.7rem;
+  }
+  .tabs li {
+    font-size: 0.9rem;
+    padding: 1rem 0.5rem;
+  }
+}
+@media screen and (max-width: 368px) {
+  .tabs {
+    gap: 0.4rem;
+  }
+  .tabs li {
+    font-size: 0.8rem;
+    padding: 1rem 0.5rem;
+    width: max-content;
+  }
+}

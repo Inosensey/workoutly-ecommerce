@@ -88,3 +88,77 @@
   border: 1px solid #ff7777;
   background: none;
 }
+
+@media screen and (max-width: 1075px) {
+  .headerContainer button {
+    width: 25%;
+  }
+  .address {
+    width: 90%;
+  }
+  .addressInfoContainer {
+    width: 75%;
+  }
+  .addressActions {
+    width: 25%;
+  }
+}
+@media screen and (max-width: 883px) {
+  .headerContainer {
+    font-size: 1.2rem;
+  }
+  .headerContainer button {
+    width: 30%;
+  }
+  .address {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .addressInfoContainer {
+    width: 100%;
+    gap: 1rem;
+  }
+  .addressInfo {
+    font-size: 0.9rem;
+  }
+  .addressActions {
+    width: 35%;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 579px) {
+  .headerContainer {
+    font-size: 1rem;
+  }
+  .headerContainer button {
+    font-size: 0.8rem;
+    width: 40%;
+  }
+  .address {
+    width: 95%;
+  }
+  .addressActions {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 420px) {
+  .headerContainer button {
+    width: 50%;
+  }
+  .address {
+    width: 100%;
+    padding: 0.7rem;
+  }
+  .addressInfo {
+    font-size: 0.8rem;
+  }
+  .addressActions {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 320px) {
+  .headerContainer button {
+    width: 55%;
+  }
+}

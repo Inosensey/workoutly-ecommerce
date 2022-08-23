@@ -193,14 +193,19 @@
     width: 60%;
   }
   .SiteNameContainer {
-    width: 35%;
+    width: 40%;
   }
   .buttons {
     width: 20%;
   }
 }
-@media screen and (max-width: 340px) {
+@media screen and (max-width: 360px) {
   .SiteNameContainer {
-    width: 45%;
+    width: 42%;
+  }
+}
+@media screen and (max-width: 310px) {
+  .SiteNameContainer {
+    width: 50%;
   }
 }

@@ -2,10 +2,31 @@
   height: 10%;
   background-color: #1e292b;
   box-shadow: 0 2px 10px 1px #666666b3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
 }
 
 .container h2 {
   color: #ccc;
   font-family: "League Spartan";
-  padding: 1.6rem 0 0 2rem;
+}
+
+.burger {
+  display: none;
+  width: 25px;
+  gap: 0.2rem;
+}
+.lines {
+  border: 2px solid #ccc;
+}
+
+@media screen and (max-width: 769px) {
+  .burger {
+    width: 25px;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+  }
 }

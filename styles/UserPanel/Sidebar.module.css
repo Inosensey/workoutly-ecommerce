@@ -4,6 +4,17 @@
   background-color: #1e292b;
   position: relative;
   border-right: 2px solid #1e292b;
+  z-index: 5;
+}
+.overlay {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  display: none;
 }
 
 .headerContainer {
@@ -59,4 +70,38 @@
 .logoutContainer p:hover {
   text-decoration: underline;
   color: #ff7777;
+}
+
+@media screen and (max-width: 1075px) {
+  .container {
+    width: 23%;
+  }
+}
+@media screen and (max-width: 853px) {
+  .container {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 769px) {
+  .container {
+    width: 40%;
+    position: absolute;
+  }
+  .headerContainer {
+    gap: 0.2rem;
+  }
+  .logoContainer {
+    width: 20%;
+    height: 32px;
+  }
+}
+@media screen and (max-width: 468px) {
+  .container {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 368px) {
+  .container {
+    width: 63%;
+  }
 }

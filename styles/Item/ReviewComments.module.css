@@ -141,11 +141,12 @@
 .btnContainer {
   display: flex;
   justify-content: space-between;
-  width: 15%;
+  width: 10%;
   margin: 0.5rem 0 0 0;
+  gap: 1rem;
 }
 .btnContainer button {
-  width: 47%;
+  width: 100%;
   padding: 0.2rem;
   cursor: pointer;
 }
@@ -182,22 +183,39 @@
   min-height: 76%;
   padding: 0.5rem;
 }
+.personalCommentContainer {
+  width: 95%;
+  padding: 0.2rem 0.5rem 0.7rem 0.5rem;
+  background-color: #343634;
+}
 .personalCommentContainer h2 {
   color: #ff7777;
   font-weight: 500;
   font-size: 1.5rem;
 }
-.personalCommentContainer {
-  padding: 0.2rem 0.5rem 0.7rem 0.5rem;
-  background-color: #343634;
-}
 
+@media screen and (max-width: 720px) {
+  .inputRating select {
+    width: 8%;
+  }
+}
 @media screen and (max-width: 670px) {
   .ratings {
     width: 40%;
   }
   .starsCounterContainer {
     width: 50%;
+  }
+  .btnContainer {
+    width: 25%;
+  }
+}
+@media screen and (max-width: 570px) {
+  .btnContainer {
+    width: 15%;
+  }
+  .inputRating select {
+    width: 10%;
   }
 }
 @media screen and (max-width: 470px) {
@@ -225,5 +243,17 @@
   .starsOuter,
   .starsInner {
     font-size: 1.1rem;
+  }
+  .inputRating select {
+    width: 10%;
+  }
+  .btnContainer {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .inputRating select {
+    width: 14%;
   }
 }

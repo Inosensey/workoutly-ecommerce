@@ -7,7 +7,6 @@ interface Props {
 }
 
 function Tabs({ current, tabList, setCurrentTab }: Props) {
-  console.log(current);
   return (
     <div className={styles.tabContainer}>
       <ul className={styles.tabs}>
