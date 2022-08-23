@@ -50,3 +50,59 @@
   font-size: 1rem;
   border-radius: 25px;
 }
+
+@media screen and (max-width: 879px) {
+  .content {
+    width: 75%;
+  }
+  .message h2 {
+    font-size: 2rem;
+  }
+  .message p {
+    font-size: 1.1rem;
+  }
+}
+@media screen and (max-width: 769px) {
+  .content {
+    width: 85%;
+  }
+  .message h2 {
+    font-size: 1.8rem;
+  }
+  .message p {
+    font-size: 1rem;
+  }
+  .message button {
+    width: 45%;
+  }
+}
+@media screen and (max-width: 524px) {
+  .content {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .imgContainer {
+    width: 60%;
+    height: 50%;
+  }
+  .message {
+    width: 90%;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .message p {
+    text-align: center;
+  }
+  .message button {
+    padding: 0.4rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .message h2 {
+    font-size: 1.5rem;
+  }
+  .message p {
+    font-size: 0.9rem;
+  }
+}
