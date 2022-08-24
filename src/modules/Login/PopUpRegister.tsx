@@ -37,6 +37,7 @@ const DropIn = {
 };
 
 const DefaultUserDetails = {
+  username: "",
   email: "",
   password: "",
 };
@@ -57,11 +58,16 @@ const DefaultValidation = {
     Valid: false,
   },
 };
+const DefaultErrorValues = {
+  isError: false,
+  Message: "",
+};
 
 function PopUpRegister({ setToggleForm }: any) {
   const dispatch = useDispatch();
   const [userDetails, setUserDetails] = useState(DefaultUserDetails);
   const [validationDetails, setValidationDetails] = useState(DefaultValidation);
+  const [errorValues, setErrorValues] = useState(DefaultErrorValues);
 
   const inputValidation = (Name: string, Value: string) => {
     const response: any = useInputValidation(Name, Value);
@@ -74,20 +80,56 @@ function PopUpRegister({ setToggleForm }: any) {
     });
   };
 
-  const addUserHandler = async (email: string, password: string) => {
-    const response = await addUser(email, password);
-    console.log(response);
+  const addUserHandler = async (
+    username: string,
+    email: string,
+    password: string
+  ) => {
+    dispatch(
+      showLoadingPopUp({
+        ActionName: "Signing Up",
+        LoadingMessage: "Please wait while we check and store your information",
+        isLoading: true,
+      })
+    );
+    const response = await addUser(username, email, password);
+    dispatch(hideLoadingPopUp());
     setUserDetails(DefaultUserDetails);
+    CheckResponse(response);
+  };
+  const CheckResponse = (response: any) => {
+    if (response.User !== null) {
+      dispatch(
+        showNotifPopUp({
+          NotifType: "Register",
+          NotifName: "Notification",
+          NotifMessage: "Registered Successfully. You can now Login.",
+          NotifAction: null,
+          show: true,
+        })
+      );
+    }
+    if (response.Error !== null) {
+      setErrorValues({
+        isError: true,
+        Message: `${response?.Error.message}/Email already exist`,
+      });
+    }
   };
 
   useEffect(() => {
     if (
+      validationDetails.Username.Valid === true &&
       validationDetails.Email.Valid === true &&
       validationDetails.Password.Valid === true
     ) {
       setValidationDetails({ ...validationDetails, Form: { Valid: true } });
     }
-  }, [validationDetails]);
+  }, [
+    validationDetails.Username.Valid,
+    validationDetails.Email.Valid,
+    validationDetails.Password.Valid,
+  ]);
 
   return (
     <motion.div
@@ -105,6 +147,22 @@ function PopUpRegister({ setToggleForm }: any) {
       </div>
       <h3>Fill up the form to Register</h3>
       <form className={styles.formControl}>
+        <div className={styles.inputContainer}>
+          <Input
+            Type="text"
+            Name="username"
+            Label="Username"
+            inputValue={userDetails.username}
+            setInputValue={(e: any) => {
+              setUserDetails({ ...userDetails, username: e.target.value });
+              inputValidation("Username", e.target.value);
+            }}
+            enableValidation={true}
+            Notification={validationDetails.Username.Notification}
+            Valid={validationDetails.Username.Valid}
+            Disabled={false}
+          />
+        </div>
         <div className={styles.inputContainer}>
           <Input
             Type="text"
@@ -137,28 +195,18 @@ function PopUpRegister({ setToggleForm }: any) {
             Disabled={false}
           />
         </div>
+        {errorValues.isError && (
+          <p className={styles.errorMessage}>{errorValues.Message}</p>
+        )}
         <button
-          onClick={async (e) => {
+          onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            dispatch(
-              showLoadingPopUp({
-                ActionName: "Signing Up",
-                LoadingMessage:
-                  "Please wait while we check and store your information",
-                isLoading: true,
-              })
-            );
-            await addUserHandler(userDetails.email, userDetails.password);
-            dispatch(hideLoadingPopUp());
-            dispatch(
-              showNotifPopUp({
-                NotifType: "Register",
-                NotifName: "Notification",
-                NotifMessage: "Registered Successfully. You can now Login.",
-                NotifAction: null,
-                show: true,
-              })
+
+            addUserHandler(
+              userDetails.username,
+              userDetails.email,
+              userDetails.password
             );
           }}
           style={{

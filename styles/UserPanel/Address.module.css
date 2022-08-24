@@ -127,6 +127,11 @@
     margin: 0 auto;
   }
 }
+@media screen and (max-width: 769px) {
+  .address {
+    min-height: 70%;
+  }
+}
 @media screen and (max-width: 579px) {
   .headerContainer {
     font-size: 1rem;

@@ -3,6 +3,7 @@
   height: 90%;
   background-color: #fff;
   position: relative;
+  overflow: auto;
 }
 
 .closePopUp {

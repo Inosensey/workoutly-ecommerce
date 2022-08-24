@@ -1,16 +1,21 @@
 import { supabase } from "./supabaseClient";
 
-const addUser = async (email: string, password: string) => {
+const addUser = async (username:string, email: string, password: string) => {
+    let addPersonalDetailsResponse
   try {
     let { user, error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
-    const response = {
-      User: user,
-      Error: error,
-    };
-    return response;
+    await supabase.from("profiles").update({
+      "username": username
+    }).eq("id", user?.id);
+      const response = {
+        User: user,
+        Error: error,
+      };
+      return response;
+
   } catch (error) {
     console.log({ Error: error });
   }

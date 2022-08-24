@@ -2,6 +2,7 @@
   width: 30%;
   height: 90%;
   background-color: #fff;
+  overflow: auto;
 }
 
 .registerContainer h3 {
@@ -68,6 +69,14 @@
   color: #f2f2f2;
   cursor: pointer;
   padding: 0.4rem;
+}
+.errorMessage {
+  font-family: "League Spartan";
+  padding: 0.4rem;
+  border: 2px solid #ff3333;
+  background-color: #ffcccc;
+  color: #ff3333;
+  font-size: 0.9rem;
 }
 
 .loginContainer {
