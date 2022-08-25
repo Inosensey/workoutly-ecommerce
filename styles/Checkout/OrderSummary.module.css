@@ -40,9 +40,10 @@
   align-items: center;
   background-color: #1e292b;
 }
-.itemPhotoContainer img {
-  width: 70%;
-  height: 80%;
+.itemPhoto {
+  width: 80%;
+  height: 90%;
+  position: relative;
 }
 .itemInfoContainer {
   width: 60%;
@@ -72,4 +73,10 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+@media screen and (max-width: 570px) {
+  .item {
+    width: 90%;
+  }
 }

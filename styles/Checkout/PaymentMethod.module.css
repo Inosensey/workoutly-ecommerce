@@ -106,3 +106,29 @@
   font-size: 1.1rem;
   cursor: pointer;
 }
+
+@media screen and (max-width: 570px) {
+  .header {
+    font-size: 1.5rem;
+  }
+  .addressContainer h2 {
+    font-size: 1rem;
+  }
+  .addressList {
+    width: 45%;
+  }
+  .addressList p {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+  .addNewAddressBtnContainer {
+    width: 45%;
+  }
+  .addNewAddressBtnContainer button {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.3rem;
+  }
+  .addressList li {
+    font-size: 0.9rem;
+  }
+}

@@ -18,7 +18,6 @@ function Sidebar(props: {
   showSidebar: boolean;
   setShowSidebar: any;
 }) {
-  console.log(props);
   const dispatch = useDispatch();
 
   const logout = async () => {

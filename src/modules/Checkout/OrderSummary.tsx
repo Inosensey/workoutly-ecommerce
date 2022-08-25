@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import Image from "next/image";
 import { RootState } from "../../Redux/store";
 import { Item } from "../../TypeScript/ReusableTypes";
 import styles from "../../../styles/Checkout/OrderSummary.module.css";
@@ -8,7 +9,6 @@ function OrderSummary() {
   const cartItems = useSelector(
     (state: RootState) => state.cartReducer.cartItem
   );
-  console.log(cartItems);
   const originalPrice = Number(cartPrice.totalPrice) + Number(2.99);
   const totalPrice = 0.5 * (Number(cartPrice.totalPrice) + 2.99);
   return (
@@ -18,7 +18,14 @@ function OrderSummary() {
         {cartItems.map((item: Item) => (
           <div className={styles.item} key={Math.random() * 1000}>
             <div className={styles.itemPhotoContainer}>
-              <img src={`${item.itemInfo.productPhoto.url}`} alt="" />
+              <div className={styles.itemPhoto}>
+                <Image
+                  src={`${item.itemInfo.productPhoto.url}`}
+                  alt={item.itemInfo.productName}
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
             </div>
             <div className={styles.itemInfoContainer}>
               <p>{item.itemInfo.productName}</p>

@@ -72,7 +72,7 @@
 @media screen and (max-width: 570px) {
   .checkoutContainer {
     width: 65%;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: center;
     border-radius: 0;
   }
