@@ -6,6 +6,7 @@ import {
 import { RootState } from "../../Redux/store";
 import styles from "../../../styles/ShoppingCart/ShoppingCart.module.css";
 import { Item } from "../../TypeScript/ReusableTypes";
+import Image from "next/image";
 
 function CartItem() {
   const dispatch = useDispatch();
@@ -33,7 +34,14 @@ function CartItem() {
         cartItems.map((item: Item) => (
           <div className={styles.itemContainer} key={Math.random() * 1000}>
             <div className={styles.itemPhotoContainer}>
-              <img src={`${item.itemInfo.productPhoto.url}`} alt="" />
+              <div className={styles.itemPhoto}>
+                <Image
+                  src={`${item.itemInfo.productPhoto.url}`}
+                  alt={item.itemInfo.productName}
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
             </div>
             <div className={styles.itemInfoContainer}>
               <p>{item.itemInfo.productName}</p>

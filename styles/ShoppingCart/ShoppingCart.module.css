@@ -66,9 +66,10 @@
   align-items: center;
   background-color: #1e292b;
 }
-.itemPhotoContainer img {
-  width: 70%;
-  height: 70%;
+.itemPhoto {
+  position: relative;
+  width: 80%;
+  height: 80%;
 }
 .itemInfoContainer {
   width: 60%;
@@ -165,7 +166,7 @@
     width: 45%;
   }
 }
-@media screen and (max-width: 762px) {
+@media screen and (max-width: 769px) {
   .cartItems {
     height: 63%;
     gap: 1rem;

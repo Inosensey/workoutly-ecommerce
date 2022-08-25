@@ -5,6 +5,7 @@ import { addItemToCart } from "../../Redux/Reducers/Cart";
 import Timer from "./Timer/Timer";
 import { LimitedItemType } from "./Logic/Types";
 import styles from "../../../styles/Home/LimitedItem.module.css";
+import Image from "next/image";
 
 interface Props {
   LimitedItems: LimitedItemType[];
@@ -73,13 +74,27 @@ function LimitedItem({ LimitedItems }: Props) {
           className={styles.itemContainer}
         >
           <div className={styles.itemCoverPhotoContainer}>
-            <img src={item.coverPhoto.url} alt="" />
+            <div className={styles.itemCoverPhoto}>
+              <Image
+                src={item.coverPhoto.url}
+                alt="Cover-photo"
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
             <h2>{item.coverPhotoTitle}</h2>
           </div>
           <div className={styles.itemInfoContainer}>
             <div className={styles.info}>
               <div className={styles.productImageContainer}>
-                <img src={item.productPhoto.url} />
+                <div className={styles.productImage}>
+                  <Image
+                    src={item.productPhoto.url}
+                    alt={item.productName}
+                    layout="fill"
+                    objectFit="contain"
+                  />
+                </div>
               </div>
               <div className={styles.productInfoContainer}>
                 <p>{item.productName}</p>

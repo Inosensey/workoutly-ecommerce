@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ItemsType } from "./Logic/Types";
 import styles from "../../../styles/Collection/Items.module.css";
+import Image from "next/image";
 
 interface Props {
   Items: ItemsType[];
@@ -13,7 +14,14 @@ function Items({ Items }: Props) {
         {Items.map((item: ItemsType) => (
           <div className={styles.items} key={item.id}>
             <div className={styles.productPhotoContainer}>
-              <img src={item.productPhoto.url} />
+              <div className={styles.productPhoto}>
+                <Image
+                  src={item.productPhoto.url}
+                  alt={item.productName}
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
             </div>
             <div className={styles.productInfoContainer}>
               <p>Name: {item.productName}</p>

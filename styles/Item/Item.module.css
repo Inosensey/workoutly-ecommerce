@@ -17,17 +17,18 @@
 }
 
 .productPhotoContainer {
-  width: 25%;
-  height: 100%;
   background-color: #1e292b;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 25%;
+  height: 100%;
 }
 
-.productPhotoContainer img {
+.productPhoto {
+  position: relative;
   width: 90%;
-  height: 80%;
+  height: 90%;
 }
 
 .productInfoContainer {
@@ -90,14 +91,11 @@
 }
 
 @media screen and (max-width: 860px) {
-  .productPhotoContainer img {
-    height: 50%;
-  }
   .productInfoContainer button {
     width: 25%;
   }
 }
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 769px) {
   .itemContainer {
     width: 95%;
     height: 570px;
@@ -134,7 +132,7 @@
   .productPhotoContainer {
     width: 95%;
   }
-  .productPhotoContainer img {
+  .productPhoto {
     height: 80%;
   }
   .productInfoContainer button {

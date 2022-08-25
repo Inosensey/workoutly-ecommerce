@@ -76,7 +76,12 @@
   font-size: 0.9rem;
 }
 
-@media screen and (max-width: 860px) {
+@media screen and (max-width: 890px) {
+  .blogCard {
+    width: 32%;
+  }
+}
+@media screen and (max-width: 769px) {
   .container {
     height: 1450px;
     margin: 4rem 0 0 0;

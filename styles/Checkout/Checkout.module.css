@@ -64,7 +64,7 @@
     width: 80%;
   }
 }
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 769px) {
   .checkoutContainer {
     width: 95%;
   }

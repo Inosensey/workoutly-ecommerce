@@ -18,7 +18,7 @@
   font-family: "League Spartan";
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 769px) {
   .container {
     width: 100%;
   }

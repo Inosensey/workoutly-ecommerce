@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import styles from "../../../styles/Item/OtherItem.module.css";
 
@@ -20,7 +21,14 @@ const OtherItem = (props: { items: Items[] }) => {
           <Link href={`${item.slug}`} key={item.id}>
             <div className={styles.item}>
               <div className={styles.productPhotoContainer}>
-                <img src={item.productPhoto.url} alt="" />
+                <div className={styles.productPhoto}>
+                  <Image
+                    src={item.productPhoto.url}
+                    alt={item.productName}
+                    layout="fill"
+                    objectFit="contain"
+                  />
+                </div>
               </div>
               <div className={styles.productInfo}>
                 <p className={styles.productName}>

@@ -47,21 +47,22 @@
   width: 49%;
   height: 100%;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
-  position: relative;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
 
-.itemCoverPhotoContainer img {
+.itemCoverPhoto {
   width: 100%;
   height: 100%;
+  position: relative;
   object-fit: cover;
   transition: transform 0.3s ease-in-out;
 }
 
-.itemCoverPhotoContainer:hover > img {
+.itemCoverPhoto:hover {
   transform: scale(1.2);
 }
 
@@ -121,17 +122,21 @@
 
 .productImageContainer {
   width: 60%;
-  height: 50%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
-.productImageContainer img {
+.productImage {
   width: 100%;
   height: 100%;
+  position: relative;
   transition: transform 0.3s ease-in-out;
 }
 
-.productImageContainer img:hover {
+.productImage:hover {
   transform: scale(1.1);
 }
 

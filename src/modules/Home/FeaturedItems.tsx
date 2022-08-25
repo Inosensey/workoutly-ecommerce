@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import styles from "../../../styles/Home/Featured.module.css";
 import { ItemsType } from "./Logic/Types";
@@ -19,7 +20,14 @@ export default function FeaturedItems({ FeaturedItems }: Props) {
                   <button>View</button>
                 </Link>
               </div>
-              <img src={item.productPhoto.url} alt="" />
+              <div className={styles.productPhoto}>
+                <Image
+                  src={item.productPhoto.url}
+                  alt={item.productName}
+                  objectFit="contain"
+                  layout="fill"
+                />
+              </div>
             </div>
             <div className={styles.productInfoContainer}>
               <p>{item.productPrice}$</p>
