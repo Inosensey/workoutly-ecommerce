@@ -18,7 +18,8 @@ interface AddressDetailsInterface {
 }
 interface AddressFormInfoInterface {
     FormName: string,
-    FormAction: string
+    FormAction: string,
+    id: number
 }
 interface OrderDetailsInterface {
     order_id: string,

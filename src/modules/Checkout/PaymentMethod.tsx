@@ -1,27 +1,35 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import {
   hideLoadingPopUp,
   showLoadingPopUp,
 } from "../../Redux/Reducers/PopUpLoading";
 import { RootState } from "../../Redux/store";
-import addOrder from "../../Services/Supabase/addOrder";
-import {
-  getAddresses,
-  getSpecificAddress,
-} from "../../Services/Supabase/getAddresses";
-import { supabase } from "../../Services/Supabase/supabaseClient";
-import AddressForm from "../UserPanel/MyAccount/AddressForm";
-import styles from "../../../styles/Checkout/PaymentMethod.module.css";
 import { closePopUpCheckOut } from "../../Redux/Reducers/PopUpCheckOut";
 import { closeCart, removeAllItemFromCart } from "../../Redux/Reducers/Cart";
 import { showNotifPopUp } from "../../Redux/Reducers/PopUpNotif";
+
+// Supabase
+import addOrder from "../../Services/Supabase/addOrder";
+import { getSpecificAddress } from "../../Services/Supabase/getAddresses";
+import { supabase } from "../../Services/Supabase/supabaseClient";
+
+//Typescripts
 import {
   AddressDetailsType,
   AddressFormInfoType,
 } from "../UserPanel/Logic/Types";
 import { Item } from "../../TypeScript/ReusableTypes";
+
+// Components
+import AddressForm from "../UserPanel/MyAccount/AddressForm";
+import Logic from "./Logic/Logic";
+
+// Styles
+import { AnimatePresence, motion } from "framer-motion";
+import styles from "../../../styles/Checkout/PaymentMethod.module.css";
 
 //Framer motion
 const UlVariant = {
@@ -32,21 +40,12 @@ const UlVariant = {
     display: "block",
   },
 };
-
-const DefaultAddressDetails = {
-  address_id: 0,
-  full_name: "",
-  phone_number: "",
-  region: "",
-  province: "",
-  city: "",
-  street: "",
-  postal_code: "",
-};
 const DefaultFormInfo = {
   FormName: "",
   FormAction: "",
+  id: 0,
 };
+// Default state values
 const DefaultOrderDetails = {
   id: "",
   fullName: "",
@@ -70,6 +69,19 @@ const DefaultOrderDetails = {
   address_id: 0,
   status: "",
 };
+const DefaultSelectedAddressInfo = {
+  Name: "",
+  Details: {
+    address_id: 0,
+    full_name: "",
+    phone_number: "",
+    region: "",
+    province: "",
+    city: "",
+    street: "",
+    postal_code: "",
+  },
+};
 
 interface OrderDetails {
   id: string;
@@ -79,41 +91,42 @@ interface OrderDetails {
   address_id: number;
   status: string;
 }
+interface SelectedAddressInfo {
+  Name: string;
+  Details: AddressDetailsType;
+}
 
 function PaymentMethod() {
+  const { getAddressHandler } = Logic();
   const dispatch = useDispatch();
-  const [toggleAddressList, setToggleAddressList] = useState<boolean>(false);
-  const [addressList, setAddressList] = useState<AddressDetailsType[]>([]);
-  const [formInfo, setFormInfo] =
-    useState<AddressFormInfoType>(DefaultFormInfo);
-  const [toggleForm, setToggleForm] = useState<boolean>(false);
-  const [addressDetails, setAddressDetails] = useState<AddressDetailsType>(
-    DefaultAddressDetails
-  );
-  const [selectedAddress, setSelectedAddress] = useState<string>("");
-  const [selectedAddressDetails, setSelectedAddressDetails] =
-    useState<AddressDetailsType>(DefaultAddressDetails);
-  const [orderDetails, setOrderDetails] =
-    useState<OrderDetails>(DefaultOrderDetails);
+  const session: any = supabase.auth.session();
+
+  // UseSelector
   const cartPrice = useSelector((state: RootState) => state.cartReducer.price);
   const cartItems: Item[] = useSelector(
     (state: RootState) => state.cartReducer.cartItem
   );
   const totalPrice = 0.5 * (Number(cartPrice.totalPrice) + 2.99);
-  const session: any = supabase.auth.session();
+
+  // UseStates
+  const [toggleAddressList, setToggleAddressList] = useState<boolean>(false);
+  const [addressList, setAddressList] = useState<AddressDetailsType[]>([]);
+  const [selectedAddressDetails, setSelectedAddressDetails] =
+    useState<SelectedAddressInfo>(DefaultSelectedAddressInfo);
+  const [orderDetails, setOrderDetails] =
+    useState<OrderDetails>(DefaultOrderDetails);
+  const [formInfo, setFormInfo] =
+    useState<AddressFormInfoType>(DefaultFormInfo);
+  const [toggleForm, setToggleForm] = useState<boolean>(false);
+
   useEffect(() => {
-    getAddressHandler();
+    getAddressHandler(setAddressList);
     setOrderDetails({
       ...orderDetails,
       item: cartItems,
       total_price: totalPrice,
     });
   }, []);
-
-  const getAddressHandler = async () => {
-    const response: any = await getAddresses();
-    setAddressList(response?.data);
-  };
 
   const getSpecificAddressHandler = async (id: number) => {
     dispatch(
@@ -124,17 +137,20 @@ function PaymentMethod() {
       })
     );
     const response: any = (await getSpecificAddress(id)) || {};
-    setSelectedAddressDetails({
-      ...selectedAddressDetails,
-      address_id: response.data[0].address_id,
-      full_name: response.data[0].full_name,
-      phone_number: response.data[0].phone_number,
-      region: response.data[0].region,
-      province: response.data[0].province,
-      city: response.data[0].city,
-      street: response.data[0].street,
-      postal_code: response.data[0].postal_code,
-    });
+    setSelectedAddressDetails((prev) => ({
+      Name: response.data[0].province,
+      Details: {
+        ...prev.Details,
+        address_id: response.data[0].address_id,
+        full_name: response.data[0].full_name,
+        phone_number: response.data[0].phone_number,
+        region: response.data[0].region,
+        province: response.data[0].province,
+        city: response.data[0].city,
+        street: response.data[0].street,
+        postal_code: response.data[0].postal_code,
+      },
+    }));
     setOrderDetails({
       ...orderDetails,
       id: session.user.id,
@@ -171,9 +187,7 @@ function PaymentMethod() {
     }
   };
   const ClearShoppingCart = () => {
-    setAddressDetails(DefaultAddressDetails);
-    setSelectedAddressDetails(DefaultAddressDetails);
-    setSelectedAddress("");
+    setSelectedAddressDetails(DefaultSelectedAddressInfo);
     dispatch(closePopUpCheckOut());
     dispatch(removeAllItemFromCart());
     dispatch(closeCart());
@@ -197,7 +211,9 @@ function PaymentMethod() {
           <div className={styles.addressListContainer}>
             <div className={styles.addressList}>
               <p onClick={() => setToggleAddressList((prev) => !prev)}>
-                {selectedAddress === "" ? "Select Address" : selectedAddress}{" "}
+                {selectedAddressDetails.Name === ""
+                  ? "Select Address"
+                  : selectedAddressDetails.Name}{" "}
                 <i className="fa-solid fa-circle-chevron-down"></i>
               </p>
               <motion.ul
@@ -214,7 +230,6 @@ function PaymentMethod() {
                       className={styles.addresses}
                       onClick={(e) => {
                         e.stopPropagation();
-                        setSelectedAddress(info.province);
                         getSpecificAddressHandler(info.address_id);
                         setToggleAddressList(false);
                       }}
@@ -245,27 +260,27 @@ function PaymentMethod() {
             <div className={styles.addressInfo}>
               <label>Full Name:</label>
               <p>
-                {selectedAddressDetails.address_id === 0
+                {selectedAddressDetails.Details.address_id === 0
                   ? "No address selected"
-                  : selectedAddressDetails.full_name}
+                  : selectedAddressDetails.Details.full_name}
               </p>
             </div>
             <div className={styles.addressInfo}>
               <label>Phone:</label>
               <p>
-                {selectedAddressDetails.address_id === 0
+                {selectedAddressDetails.Details.address_id === 0
                   ? "No address selected"
-                  : selectedAddressDetails.phone_number}
+                  : selectedAddressDetails.Details.phone_number}
               </p>
             </div>
             <div className={styles.addressInfo}>
               <label>Address:</label>
               <p>
-                {selectedAddressDetails.address_id === 0
+                {selectedAddressDetails.Details.address_id === 0
                   ? "No address selected"
-                  : `${selectedAddressDetails.region}, ${selectedAddressDetails.province}, 
-                  ${selectedAddressDetails.city}, ${selectedAddressDetails.street}
-                      , ${selectedAddressDetails.postal_code}`}
+                  : `${selectedAddressDetails.Details.region}, ${selectedAddressDetails.Details.province}, 
+                  ${selectedAddressDetails.Details.city}, ${selectedAddressDetails.Details.street}
+                      , ${selectedAddressDetails.Details.postal_code}`}
               </p>
             </div>
           </div>
@@ -287,9 +302,7 @@ function PaymentMethod() {
             FormAction={formInfo.FormAction}
             FormName={formInfo.FormName}
             setToggleForm={setToggleForm}
-            addressDetails={addressDetails}
-            setAddressDetails={setAddressDetails}
-            DefaultAddressDetails={DefaultAddressDetails}
+            id={formInfo.id}
           />
         )}
       </AnimatePresence>

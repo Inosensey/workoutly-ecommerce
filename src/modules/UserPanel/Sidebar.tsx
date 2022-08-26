@@ -56,7 +56,7 @@ function Sidebar(props: {
       },
     },
     hide: (isMobile: boolean) => ({
-      x: isMobile ? "-100%" : 0,
+      x: isMobile ? "-100%" : "0",
       transition: {
         type: "tween",
       },
@@ -91,7 +91,7 @@ function Sidebar(props: {
       <motion.div
         className={styles.container}
         variants={SidebarVariants}
-        initial="hide"
+        // initial="hide"
         animate={SidebarAction}
         custom={props.isMobile}
       >

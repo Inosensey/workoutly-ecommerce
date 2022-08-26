@@ -11,6 +11,8 @@ import updateAddress from "../../../Services/Supabase/updateAddress";
 import styles from "../../../../styles/UserPanel/AddressForm.module.css";
 import { showNotifPopUp } from "../../../Redux/Reducers/PopUpNotif";
 import { AddressDetailsType } from "../Logic/Types";
+import { useEffect, useState } from "react";
+import { getSpecificAddress } from "../../../Services/Supabase/getAddresses";
 
 // Framer Motion Variants
 const DropIn = {
@@ -37,25 +39,64 @@ const DropIn = {
 interface Props {
   getAddress: any;
   setToggleForm: any;
-  addressDetails: AddressDetailsType;
-  setAddressDetails: any;
-  DefaultAddressDetails: AddressDetailsType;
   FormName: string;
   FormAction: string;
+  id: number;
 }
+
+const DefaultAddressDetails = {
+  address_id: 0,
+  full_name: "",
+  phone_number: "",
+  region: "",
+  province: "",
+  city: "",
+  street: "",
+  postal_code: "",
+};
 
 function AddressForm({
   getAddress,
   setToggleForm,
-  addressDetails,
-  setAddressDetails,
-  DefaultAddressDetails,
   FormName,
   FormAction,
+  id,
 }: Props) {
   const dispatch = useDispatch();
   const Session: any =
     useSelector((state: RootState) => state.AuthReducer.Session) || {};
+  const [addressDetails, setAddressDetails] = useState<AddressDetailsType>(
+    DefaultAddressDetails
+  );
+
+  useEffect(() => {
+    if (FormAction === "Edit") {
+      getSpecificAddressHandler(id);
+    }
+  }, []);
+
+  const getSpecificAddressHandler = async (id: number) => {
+    dispatch(
+      showLoadingPopUp({
+        ActionName: "Getting address",
+        LoadingMessage: "Please wait while we fetch your address",
+        isLoading: true,
+      })
+    );
+    const response: any = (await getSpecificAddress(id)) || {};
+    setAddressDetails({
+      ...addressDetails,
+      address_id: response.data[0].address_id,
+      full_name: response.data[0].full_name,
+      phone_number: response.data[0].phone_number,
+      region: response.data[0].region,
+      province: response.data[0].province,
+      city: response.data[0].city,
+      street: response.data[0].street,
+      postal_code: response.data[0].postal_code,
+    });
+    dispatch(hideLoadingPopUp());
+  };
 
   const addAddressHandler = async () => {
     dispatch(

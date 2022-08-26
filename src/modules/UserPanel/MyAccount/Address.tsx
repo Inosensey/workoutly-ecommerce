@@ -15,19 +15,10 @@ import { AddressDetailsType, AddressFormInfoType } from "../Logic/Types";
 import AddressForm from "./AddressForm";
 import styles from "../../../../styles/UserPanel/Address.module.css";
 
-const DefaultAddressDetails = {
-  address_id: 0,
-  full_name: "",
-  phone_number: "",
-  region: "",
-  province: "",
-  city: "",
-  street: "",
-  postal_code: "",
-};
 const DefaultFormInfo = {
   FormName: "",
   FormAction: "",
+  id: 0,
 };
 
 function Address() {
@@ -37,9 +28,6 @@ function Address() {
     useState<AddressFormInfoType>(DefaultFormInfo);
   const [toggleForm, setToggleForm] = useState<boolean>(false);
   const [addresses, setAddresses] = useState<AddressDetailsType[]>([]);
-  const [addressDetails, setAddressDetails] = useState<AddressDetailsType>(
-    DefaultAddressDetails
-  );
 
   useEffect(() => {
     getAddressHandler();
@@ -50,30 +38,6 @@ function Address() {
     const response: any = (await getAddresses()) || {};
     setLoading(false);
     setAddresses(response?.data);
-  };
-  const getSpecificAddressHandler = async (id: number) => {
-    dispatch(
-      showLoadingPopUp({
-        ActionName: "Getting address",
-        LoadingMessage: "Please wait while we fetch your address",
-        isLoading: true,
-      })
-    );
-    const response: any = (await getSpecificAddress(id)) || {};
-    setAddressDetails({
-      ...addressDetails,
-      address_id: response.data[0].address_id,
-      full_name: response.data[0].full_name,
-      phone_number: response.data[0].phone_number,
-      region: response.data[0].region,
-      province: response.data[0].province,
-      city: response.data[0].city,
-      street: response.data[0].street,
-      postal_code: response.data[0].postal_code,
-    });
-    dispatch(hideLoadingPopUp());
-    setFormInfo({ ...formInfo, FormName: "Edit Address", FormAction: "Edit" });
-    setToggleForm(true);
   };
   const deleteAddressHandler = async (addressId: number) => {
     dispatch(
@@ -178,7 +142,13 @@ function Address() {
                   <button
                     className={styles.edit}
                     onClick={() => {
-                      getSpecificAddressHandler(info.address_id);
+                      setFormInfo({
+                        ...formInfo,
+                        FormName: "Edit Address",
+                        FormAction: "Edit",
+                        id: info.address_id,
+                      });
+                      setToggleForm(true);
                     }}
                   >
                     Edit
@@ -200,9 +170,7 @@ function Address() {
             FormAction={formInfo.FormAction}
             FormName={formInfo.FormName}
             setToggleForm={setToggleForm}
-            addressDetails={addressDetails}
-            setAddressDetails={setAddressDetails}
-            DefaultAddressDetails={DefaultAddressDetails}
+            id={formInfo.id}
           />
         )}
       </AnimatePresence>

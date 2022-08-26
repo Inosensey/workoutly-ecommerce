@@ -86,6 +86,7 @@
   .container {
     width: 40%;
     position: absolute;
+    transform: translateX(-100%);
   }
   .headerContainer {
     gap: 0.2rem;
