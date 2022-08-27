@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "../../../../styles/UserPanel/ChangePassword.module.css";
 import Input from "../../../common/input/Input";
+import { supabase } from "../../../Services/Supabase/supabaseClient";
 
 const DefaultPasswordDetails = {
   oldPassword: "",
@@ -8,13 +9,39 @@ const DefaultPasswordDetails = {
   confirmPassword: "",
 };
 
+interface PasswordDetailsInterface {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 function ChangePassword() {
-  const [passwordDetails, setPasswordDetails] = useState(
-    DefaultPasswordDetails
-  );
+  const [passwordDetails, setPasswordDetails] =
+    useState<PasswordDetailsInterface>(DefaultPasswordDetails);
+  const session = supabase.auth.session();
+  console.log(session);
+
+  const ResetPasswordHandler = async () => {
+    try {
+      const { data, error } = await supabase.auth.api.resetPasswordForEmail(
+        "dingcong.bae@gmail.com"
+      );
+      console.log(data);
+      console.log(error);
+    } catch (error) {
+      console.log({ Error: error });
+    }
+  };
 
   return (
     <div className={styles.container}>
+      <button
+        onClick={() => {
+          ResetPasswordHandler();
+        }}
+      >
+        reset
+      </button>
       <div className={styles.headerContainer}>
         <h3>Change Password</h3>
         <p>Manage your password to secure your account</p>
@@ -24,7 +51,7 @@ function ChangePassword() {
           <Input
             Name="oldPassword"
             Type="text"
-            Label="Password"
+            Label="Old Password"
             inputValue={passwordDetails.oldPassword}
             setInputValue={(e: any) =>
               setPasswordDetails({
@@ -35,7 +62,7 @@ function ChangePassword() {
             enableValidation={false}
             Notification={""}
             Valid={null}
-            Disabled={true}
+            Disabled={false}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -53,12 +80,12 @@ function ChangePassword() {
             enableValidation={false}
             Notification={""}
             Valid={null}
-            Disabled={true}
+            Disabled={false}
           />
         </div>
         <div className={styles.inputContainer}>
           <Input
-            Name="confirmPassowrd"
+            Name="confirmPassword"
             Type="text"
             Label="Confirm new Password"
             inputValue={passwordDetails.confirmPassword}
@@ -71,7 +98,7 @@ function ChangePassword() {
             enableValidation={false}
             Notification={""}
             Valid={null}
-            Disabled={true}
+            Disabled={false}
           />
         </div>
         <button>Save</button>

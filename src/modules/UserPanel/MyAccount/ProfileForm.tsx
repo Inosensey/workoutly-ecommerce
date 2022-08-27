@@ -73,7 +73,7 @@ function ProfileForm() {
         <h3>My Profile</h3>
         <p>Manage and secure your account</p>
       </div>
-      <form className={styles.formControl}>
+      <form className={styles.formControl} autoComplete="off">
         <div className={styles.inputContainer} ref={inputRef}>
           <Input
             Name="firstName"

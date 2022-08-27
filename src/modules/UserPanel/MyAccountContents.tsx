@@ -7,7 +7,7 @@ import styles from "../../../styles/UserPanel/MyAccount.module.css";
 
 function MyAccountContents() {
   const [currentTab, setCurrentTab] = useState("My Profile");
-  const [tabLists] = useState(["My Profile", "Address", "Change password"]);
+  const [tabLists] = useState(["My Profile", "Address"]);
   return (
     <div className={styles.content}>
       <Tabs
@@ -18,7 +18,7 @@ function MyAccountContents() {
       <div className={styles.contentContainer}>
         {currentTab === "My Profile" && <ProfileForm />}
         {currentTab === "Address" && <Address />}
-        {currentTab === "Change password" && <ChangePassword />}
+        {/* {currentTab === "Change password" && <ChangePassword />} */}
       </div>
     </div>
   );

@@ -106,7 +106,7 @@ function PopUpLogin({ setToggleForm }: any) {
         </div>
         <h2>Workoutly</h2>
       </div>
-      <form className={styles.formControl}>
+      <form className={styles.formControl} autoComplete="off">
         <div className={styles.inputContainer}>
           <Input
             Type="email"

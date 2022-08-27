@@ -146,7 +146,7 @@ function PopUpRegister({ setToggleForm }: any) {
         <h2>Workoutly</h2>
       </div>
       <h3>Fill up the form to Register</h3>
-      <form className={styles.formControl}>
+      <form className={styles.formControl} autoComplete="off">
         <div className={styles.inputContainer}>
           <Input
             Type="text"
