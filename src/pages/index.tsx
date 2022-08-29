@@ -33,6 +33,7 @@ const QUERY = gql`
     categories {
       id
       categoryName
+      slug
       categoryCoverPhoto {
         url
       }

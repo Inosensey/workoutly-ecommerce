@@ -29,6 +29,14 @@ interface CollectionBannersInterface {
     id: string,
     slug: string
 }
+interface CategoryInterface {
+    id: string;
+    categoryName: string;
+    slug: string;
+    categoryCoverPhoto: {
+      url: string;
+    };
+  }
 interface OrderInterface {
     order_id: string,
     id: string,
@@ -62,7 +70,7 @@ interface ProfileInterface {
     }
 }
 
-
+export type CategoryType = CategoryInterface;
 export type CollectionBannersType = CollectionBannersInterface;
 export type Product = ProductInterface;
 export type Item = ItemInfoInterface;

@@ -1,6 +1,7 @@
 interface CategoriesInterface {
     id: string,
     categoryName: string,
+    slug: string,
     categoryCoverPhoto: {
       url: string
     }

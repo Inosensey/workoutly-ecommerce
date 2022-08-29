@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CategoriesType } from "./Logic/Types";
 import styles from "../../../styles/Home/Categories.module.css";
+import Link from "next/link";
 
 interface Props {
   Categories: CategoriesType[];
@@ -40,7 +41,10 @@ function Categories({ Categories }: Props) {
             >
               <div className={styles.categoryOverlay}>
                 <div className={styles.categoryInfo}>
-                  <button>View</button>
+                  <Link href={`Category/${info.slug}`}>
+                    <button>View</button>
+                  </Link>
+
                   <p>{info.categoryName} Category</p>
                 </div>
               </div>
