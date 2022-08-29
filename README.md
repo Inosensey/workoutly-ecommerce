@@ -16,6 +16,10 @@ A fully functional E-commerce site for a made up fitness organization called Wor
 - User Panel
 - Tracking of orders
 
+### Live Demo
+
+[Workoutly E-commerce](https://workoutly-ecommerce.vercel.app/)
+
 ### Future projects
 
 1. Exercise Tracker
