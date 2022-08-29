@@ -1,6 +1,6 @@
   <p align="center"><img src="https://github.com/Inosensey/workoutly-ecommerce/blob/main/public/img/Logo.png" alt="Workoutly Logo" /></p>
   <h1 align="center">Workoutly E-commerce<br> 
-  <p align="center">Live Demo<br> <p>https://workoutly-ecommerce.vercel.app/</p></p>
+  <h3 align="center">Live Demo<br> <p>https://workoutly-ecommerce.vercel.app/</p></h3>
 
 ## Description
 
