@@ -6,13 +6,13 @@
 
 A fully functional E-commerce site for a made up fitness organization called Workoutly. It mainly sales weights and other fitness related tools. And it is only available for the members of the organization.
 
-## Technology Used
+## Technologies Used
 
 - Next.js
+- TypeScript
 - Framer motion
 - GraphCms/Hygraph
 - Supabase
--
 
 ## Features
 
