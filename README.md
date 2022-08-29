@@ -1,5 +1,9 @@
 <p align="center"><img src="https://github.com/Inosensey/workoutly-ecommerce/blob/main/public/img/Logo.png" alt="Workoutly Logo" /></p>
-<h1 align="center">Workoutly E-commerce Site </h1>
+<h1 align="center">Workoutly E-commerce </h1>
+<p align="center">
+    <h3>Live Demo</h3>
+    [Workoutly E-commerce](https://workoutly-ecommerce.vercel.app/)
+</p>
 
 ## Description
 
@@ -22,10 +26,6 @@ A fully functional E-commerce site for a made up fitness organization called Wor
 - User reviews
 - User Panel
 - Tracking of orders
-
-### Live Demo
-
-[Workoutly E-commerce](https://workoutly-ecommerce.vercel.app/)
 
 ### Future projects
 
