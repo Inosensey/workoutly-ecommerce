@@ -1,7 +1,7 @@
-<p align="center"><img src="https://github.com/Inosensey/workoutly-ecommerce/blob/main/public/img/Logo.png" alt="Workoutly Logo" /></p>
-<h1 align="center">Workoutly E-commerce </h1>
-<h3 align="center">Live Demo</h3>
-<p align="center">https://workoutly-ecommerce.vercel.app/</p>
+    <p align="center"><img src="https://github.com/Inosensey/workoutly-ecommerce/blob/main/public/img/Logo.png" alt="Workoutly Logo" /></p>
+    <h1 align="center">Workoutly E-commerce </h1>
+    <h3 align="center">Live Demo</h3>
+    <p align="center">https://workoutly-ecommerce.vercel.app/</p>
 
 ## Description
 
