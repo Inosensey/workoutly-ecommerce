@@ -15,7 +15,6 @@ function Hero({ category }: Props) {
     >
       <div className={styles.bannerInfoContainer}>
         <h1>{category[0].categoryName}</h1>
-        <h2>New Arrivals</h2>
       </div>
     </section>
   );
