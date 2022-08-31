@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "../../../styles/Home/Blog.module.css";
 
 interface Props {
@@ -7,9 +8,17 @@ interface Props {
   BlogTitle: string;
   BlogDate: string;
   PosterName: string;
+  LinkUrl: string;
 }
 
-function BlogCards({ ImgSrc, ImgAlt, BlogTitle, BlogDate, PosterName }: Props) {
+function BlogCards({
+  ImgSrc,
+  ImgAlt,
+  BlogTitle,
+  BlogDate,
+  PosterName,
+  LinkUrl,
+}: Props) {
   return (
     <>
       <div className={styles.blogCard}>
@@ -17,7 +26,13 @@ function BlogCards({ ImgSrc, ImgAlt, BlogTitle, BlogDate, PosterName }: Props) {
           <Image src={ImgSrc} alt={ImgAlt} layout="fill" objectFit="cover" />
         </div>
         <div className={styles.blogInfo}>
-          <h3>{BlogTitle}</h3>
+          <h3
+            onClick={() => {
+              document.location.href = LinkUrl;
+            }}
+          >
+            {BlogTitle}
+          </h3>
           <div className={styles.blogName}>
             <h4>{PosterName}</h4>
             <p>{BlogDate}</p>
