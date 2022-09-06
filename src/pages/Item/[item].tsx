@@ -47,7 +47,7 @@ const ITEMLIST = gql`
 `;
 const SLUGLIST = gql`
   {
-    items {
+    items(first: 500) {
       slug
     }
   }

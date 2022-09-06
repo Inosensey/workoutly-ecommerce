@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Link from "next/link";
 import { gql } from "graphql-request";
 import { GraphCmsApi } from "../../Services/GraphcmsApi";
 import Head from "next/head";
@@ -8,6 +9,8 @@ import Hero from "../../modules/Collection/Hero";
 import Items from "../../modules/Collection/Items";
 import { ItemsType } from "../../modules/Collection/Logic/Types";
 import { CollectionBannersType } from "../../TypeScript/ReusableTypes";
+
+import styles from "../../../styles/Collection/Hero.module.css";
 
 //Graphcms
 const QUERY = gql`
@@ -86,7 +89,12 @@ const CollectionPage: NextPage<Props> = ({ collectionBanners, items }) => {
         ></meta>
         <link rel="icon" href="/Logo.ico" />
       </Head>
-      <main>
+      <main style={{ position: "relative" }}>
+        <div className={styles.backArrow}>
+          <Link href="/">
+            <i className="fa-solid fa-circle-chevron-left"></i>
+          </Link>
+        </div>
         <Nav />
         <Hero CollectionBanner={collectionBanners} />
         <Items Items={items} />

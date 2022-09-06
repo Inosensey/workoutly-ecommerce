@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Link from "next/link";
 import { gql } from "graphql-request";
 import { GraphCmsApi } from "../../Services/GraphcmsApi";
 import Head from "next/head";
@@ -8,6 +9,8 @@ import Hero from "../../modules/Category/Hero";
 import Items from "../../modules/Category/Items";
 import { ItemsType } from "../../modules/Category/Logic/Types";
 import { CategoryType } from "../../TypeScript/ReusableTypes";
+
+import styles from "../../../styles/Categories/Hero.module.css";
 
 //Graphcms
 const QUERY = gql`
@@ -92,7 +95,12 @@ const CategoriesPage: NextPage<Props> = ({ categories, items }) => {
         ></meta>
         <link rel="icon" href="/Logo.ico" />
       </Head>
-      <main>
+      <main style={{ position: "relative" }}>
+        <div className={styles.backArrow}>
+          <Link href="/">
+            <i className="fa-solid fa-circle-chevron-left"></i>
+          </Link>
+        </div>
         <Nav />
         <Hero category={categories} />
         <Items Items={items} />
