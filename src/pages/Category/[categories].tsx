@@ -10,7 +10,7 @@ import Items from "../../modules/Category/Items";
 import { ItemsType } from "../../modules/Category/Logic/Types";
 import { CategoryType } from "../../TypeScript/ReusableTypes";
 
-import styles from "../../../styles/Categories/Hero.module.css";
+import styles from "../../../styles/Category/Hero.module.css";
 
 //Graphcms
 const QUERY = gql`
